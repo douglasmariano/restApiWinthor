@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class TabPedido {
 	
 	private long NUMPED;
-	private long CODUSUR;
+	private Long CODUSUR;
 	private long CODCCLI;
 	private String STATUS;
 	private BigDecimal VLTOTAL;
@@ -41,7 +41,7 @@ public class TabPedido {
 
     }
 	
-	public TabPedido( long NUMPED, long CODUSUR, long CODCCLI, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,
+	public TabPedido( long NUMPED, Long CODUSUR, long CODCCLI, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,
 			LocalDate DATACHEGADACLI,Long CODFUNCSEP,LocalDate DATAINICIOSEP,LocalDate DATAFIMSEP,long CODFILIAL,Long CODFUNCBALCAO,
 			LocalDate DATAINICIOBALCAO,LocalDate DATAFIMBALCAO,String PAINEL,String ORIGINAL,LocalDate DATAPACOTE,String FINALIZADO, 
 			Long QTITEM, String ESTOQUE, String RETIRA, Long CODFUNCPACOTE,String RETIRANTE ) {
@@ -82,11 +82,11 @@ public class TabPedido {
 		NUMPED = nUMPED;
 	}
     @Column(name = "CODUSUR")
-	public long getCODUSUR() {
+	public Long getCODUSUR() {
 		return CODUSUR;
 	}
   
-	public void setCODUSUR(long cODUSUR) {
+	public void setCODUSUR(Long cODUSUR) {
 		CODUSUR = cODUSUR;
 	}
     @Column(name = "CODCCLI")
@@ -126,6 +126,28 @@ public class TabPedido {
 		return DATAPEDIDO;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (NUMPED ^ (NUMPED >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TabPedido other = (TabPedido) obj;
+		if (NUMPED != other.NUMPED)
+			return false;
+		return true;
+	}
+
 	public void setDATAPEDIDO(LocalDate dATAPEDIDO) {
 		DATAPEDIDO = dATAPEDIDO;
 	}
