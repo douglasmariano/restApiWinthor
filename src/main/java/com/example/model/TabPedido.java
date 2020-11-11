@@ -6,52 +6,102 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tab_pedidoc")
 public class TabPedido {
-	
+	@Id
+    @Column(name = "NUMPED")
 	private long NUMPED;
-	private Long CODUSUR;
-	private long CODCCLI;
+	
+	
+	@Column(name = "STATUS")
 	private String STATUS;
+	
+	@Column(name = "VLTOTAL")
 	private BigDecimal VLTOTAL;
+	
+	@Column(name = "POSICAO")
 	private String POSICAO;
+	
+	@Column(name = "DATAPEDIDO")
 	private LocalDate DATAPEDIDO;
+	
+	@Column(name = "DATACHEGADACLI")
 	private LocalDate DATACHEGADACLI;
+	
+	@Column(name = "CODFUNCSEP")
 	private Long CODFUNCSEP;
+	
+	@Column(name = "DATAINICIOSEP")
 	private LocalDate DATAINICIOSEP;
+
+	@Column(name = "DATAFIMSEP")
 	private LocalDate DATAFIMSEP;
+	
+	@Column(name = "CODFILIAL")
 	private long CODFILIAL;
+	
+	@Column(name = "CODFUNCBALCAO")
 	private Long CODFUNCBALCAO;
+	
+	@Column(name = "DATAINICIOBALCAO")
 	private LocalDate DATAINICIOBALCAO;
+	
+	@Column(name = "DATAFIMBALCAO")
 	private LocalDate DATAFIMBALCAO;
+	
+	@Column(name = "PAINEL")
 	private String PAINEL;
+	
+	@Column(name = "ORIGINAL")
 	private String ORIGINAL;
+	
+	@Column(name = "DATAPACOTE")
 	private LocalDate DATAPACOTE;
+	
+	@Column(name = "FINALIZADO")
 	private String FINALIZADO;
+	
+	@Column(name = "QTITEM")
 	private Long QTITEM;
+	
+	@Column(name = "ESTOQUE")
 	private String ESTOQUE;
+	
+	@Column(name = "RETIRA")
 	private String RETIRA;
+	
+	@Column(name = "CODFUNCPACOTE")
 	private Long CODFUNCPACOTE;
+	
+	@Column(name = "RETIRANTE")
 	private String RETIRANTE;
+	
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "codusur")
+	private Vendedor vendedor;
+	
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "codccli")
+	private Cliente cliente;
 	
 	public TabPedido() {
 
     }
 	
-	public TabPedido( long NUMPED, Long CODUSUR, long CODCCLI, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,
+	public TabPedido( long NUMPED, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,
 			LocalDate DATACHEGADACLI,Long CODFUNCSEP,LocalDate DATAINICIOSEP,LocalDate DATAFIMSEP,long CODFILIAL,Long CODFUNCBALCAO,
 			LocalDate DATAINICIOBALCAO,LocalDate DATAFIMBALCAO,String PAINEL,String ORIGINAL,LocalDate DATAPACOTE,String FINALIZADO, 
-			Long QTITEM, String ESTOQUE, String RETIRA, Long CODFUNCPACOTE,String RETIRANTE ) {
+			Long QTITEM, String ESTOQUE, String RETIRA, Long CODFUNCPACOTE,String RETIRANTE, Vendedor vendedor, Cliente cliente ) {
 				this.NUMPED = NUMPED;
-				this.CODCCLI = CODCCLI;
 				this.CODFILIAL = CODFILIAL;
 				this.CODFUNCBALCAO = CODFUNCBALCAO;
 				this.CODFUNCPACOTE = CODFUNCPACOTE;
 				this.CODFUNCSEP = CODFUNCSEP;
-				this.CODUSUR = CODUSUR;
 				this.DATACHEGADACLI = DATACHEGADACLI;
 				this.DATAFIMBALCAO = DATAFIMBALCAO;
 				this.DATAFIMSEP = DATAFIMSEP;
@@ -69,62 +119,11 @@ public class TabPedido {
 				this.RETIRA = RETIRA;
 				this.RETIRANTE =RETIRANTE;
 				this.STATUS = STATUS;
-				this.VLTOTAL = VLTOTAL;		
+				this.VLTOTAL = VLTOTAL;
+				this.vendedor = vendedor;
+				this.cliente = cliente;
 	}
 	
-	@Id
-    @Column(name = "NUMPED")
-	public long getNUMPED() {
-		return NUMPED;
-	}
-
-	public void setNUMPED(long nUMPED) {
-		NUMPED = nUMPED;
-	}
-    @Column(name = "CODUSUR")
-	public Long getCODUSUR() {
-		return CODUSUR;
-	}
-  
-	public void setCODUSUR(Long cODUSUR) {
-		CODUSUR = cODUSUR;
-	}
-    @Column(name = "CODCCLI")
-	public long getCODCCLI() {
-		return CODCCLI;
-	}
- 
-	public void setCODCCLI(long cODCCLI) {
-		CODCCLI = cODCCLI;
-	}
-    @Column(name = "STATUS")
-	public String getSTATUS() {
-		return STATUS;
-	}
-	
-	public void setSTATUS(String sTATUS) {
-		STATUS = sTATUS;
-	}
-	@Column(name = "VLTOTAL")
-	public BigDecimal getVLTOTAL() {
-		return VLTOTAL;
-	}
-	
-	public void setVLTOTAL(BigDecimal vLTOTAL) {
-		VLTOTAL = vLTOTAL;
-	}
-	@Column(name = "POSICAO")
-	public String getPOSICAO() {
-		return POSICAO;
-	}
-	
-	public void setPOSICAO(String pOSICAO) {
-		POSICAO = pOSICAO;
-	}
-	@Column(name = "DATAPEDIDO")
-	public LocalDate getDATAPEDIDO() {
-		return DATAPEDIDO;
-	}
 	
 	@Override
 	public int hashCode() {
@@ -147,11 +146,51 @@ public class TabPedido {
 			return false;
 		return true;
 	}
+	
+	
+	public long getNUMPED() {
+		return NUMPED;
+	}
+
+	public void setNUMPED(long nUMPED) {
+		NUMPED = nUMPED;
+	}
+    	    
+    
+	public String getSTATUS() {
+		return STATUS;
+	}
+	
+	public void setSTATUS(String sTATUS) {
+		STATUS = sTATUS;
+	}
+	
+	public BigDecimal getVLTOTAL() {
+		return VLTOTAL;
+	}
+	
+	public void setVLTOTAL(BigDecimal vLTOTAL) {
+		VLTOTAL = vLTOTAL;
+	}
+
+	public String getPOSICAO() {
+		return POSICAO;
+	}
+	
+	public void setPOSICAO(String pOSICAO) {
+		POSICAO = pOSICAO;
+	}
+
+	public LocalDate getDATAPEDIDO() {
+		return DATAPEDIDO;
+	}
+	
+	
 
 	public void setDATAPEDIDO(LocalDate dATAPEDIDO) {
 		DATAPEDIDO = dATAPEDIDO;
 	}
-	@Column(name = "DATACHEGADACLI")
+
 	public LocalDate getDATACHEGADACLI() {
 		return DATACHEGADACLI;
 	}
@@ -159,7 +198,7 @@ public class TabPedido {
 	public void setDATACHEGADACLI(LocalDate dATACHEGADACLI) {
 		DATACHEGADACLI = dATACHEGADACLI;
 	}
-	@Column(name = "CODFUNCSEP")
+
 	public Long getCODFUNCSEP() {
 		return CODFUNCSEP;
 	}
@@ -167,7 +206,7 @@ public class TabPedido {
 	public void setCODFUNCSEP(Long cODFUNCSEP) {
 		CODFUNCSEP = cODFUNCSEP;
 	}
-	@Column(name = "DATAINICIOSEP")
+	
 	public LocalDate getDATAINICIOSEP() {
 		return DATAINICIOSEP;
 	}
@@ -175,7 +214,7 @@ public class TabPedido {
 	public void setDATAINICIOSEP(LocalDate dATAINICIOSEP) {
 		DATAINICIOSEP = dATAINICIOSEP;
 	}
-	@Column(name = "DATAFIMSEP")
+
 	public LocalDate getDATAFIMSEP() {
 		return DATAFIMSEP;
 	}
@@ -183,7 +222,7 @@ public class TabPedido {
 	public void setDATAFIMSEP(LocalDate dATAFIMSEP) {
 		DATAFIMSEP = dATAFIMSEP;
 	}
-	@Column(name = "CODFILIAL")
+
 	public long getCODFILIAL() {
 		return CODFILIAL;
 	}
@@ -191,7 +230,7 @@ public class TabPedido {
 	public void setCODFILIAL(long cODFILIAL) {
 		CODFILIAL = cODFILIAL;
 	}
-	@Column(name = "CODFUNCBALCAO")
+
 	public Long getCODFUNCBALCAO() {
 		return CODFUNCBALCAO;
 	}
@@ -200,7 +239,7 @@ public class TabPedido {
 		CODFUNCBALCAO = cODFUNCBALCAO;
 	}
 	
-	@Column(name = "DATAINICIOBALCAO")
+
 	public LocalDate getDATAINICIOBALCAO() {
 		return DATAINICIOBALCAO;
 	}
@@ -208,7 +247,7 @@ public class TabPedido {
 	public void setDATAINICIOBALCAO(LocalDate dATAINICIOBALCAO) {
 		DATAINICIOBALCAO = dATAINICIOBALCAO;
 	}
-	@Column(name = "DATAFIMBALCAO")
+
 	public LocalDate getDATAFIMBALCAO() {
 		return DATAFIMBALCAO;
 	}
@@ -216,7 +255,7 @@ public class TabPedido {
 	public void setDATAFIMBALCAO(LocalDate dATAFIMBALCAO) {
 		DATAFIMBALCAO = dATAFIMBALCAO;
 	}
-	@Column(name = "PAINEL")
+
 	public String getPAINEL() {
 		return PAINEL;
 	}
@@ -224,7 +263,7 @@ public class TabPedido {
 	public void setPAINEL(String pAINEL) {
 		PAINEL = pAINEL;
 	}
-	@Column(name = "ORIGINAL")
+
 	public String getORIGINAL() {
 		return ORIGINAL;
 	}
@@ -232,7 +271,7 @@ public class TabPedido {
 	public void setORIGINAL(String oRIGINAL) {
 		ORIGINAL = oRIGINAL;
 	}
-	@Column(name = "DATAPACOTE")
+
 	public LocalDate getDATAPACOTE() {
 		return DATAPACOTE;
 	}
@@ -240,7 +279,7 @@ public class TabPedido {
 	public void setDATAPACOTE(LocalDate dATAPACOTE) {
 		DATAPACOTE = dATAPACOTE;
 	}
-	@Column(name = "FINALIZADO")
+
 	public String getFINALIZADO() {
 		return FINALIZADO;
 	}
@@ -248,7 +287,7 @@ public class TabPedido {
 	public void setFINALIZADO(String fINALIZADO) {
 		FINALIZADO = fINALIZADO;
 	}
-	@Column(name = "QTITEM")
+
 	public Long getQTITEM() {
 		return QTITEM;
 	}
@@ -256,7 +295,7 @@ public class TabPedido {
 	public void setQTITEM(Long qTITEM) {
 		QTITEM = qTITEM;
 	}
-	@Column(name = "ESTOQUE")
+
 	public String getESTOQUE() {
 		return ESTOQUE;
 	}
@@ -264,7 +303,7 @@ public class TabPedido {
 	public void setESTOQUE(String eSTOQUE) {
 		ESTOQUE = eSTOQUE;
 	}
-	@Column(name = "RETIRA")
+
 	public String getRETIRA() {
 		return RETIRA;
 	}
@@ -272,7 +311,7 @@ public class TabPedido {
 	public void setRETIRA(String rETIRA) {
 		RETIRA = rETIRA;
 	}
-	@Column(name = "CODFUNCPACOTE")
+
 	public Long getCODFUNCPACOTE() {
 		return CODFUNCPACOTE;
 	}
@@ -280,7 +319,7 @@ public class TabPedido {
 	public void setCODFUNCPACOTE(Long cODFUNCPACOTE) {
 		CODFUNCPACOTE = cODFUNCPACOTE;
 	}
-	@Column(name = "RETIRANTE")
+
 	public String getRETIRANTE() {
 		return RETIRANTE;
 	}
@@ -288,6 +327,23 @@ public class TabPedido {
 	public void setRETIRANTE(String rETIRANTE) {
 		RETIRANTE = rETIRANTE;
 	}
+
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
 	
 
 }
