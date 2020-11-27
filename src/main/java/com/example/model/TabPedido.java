@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class TabPedido {
 	@Id
     @Column(name = "NUMPED")
-	private long NUMPED;
+	private Integer NUMPED;
 	
 	
 	@Column(name = "STATUS")
@@ -33,6 +33,9 @@ public class TabPedido {
 	@Column(name = "DATACHEGADACLI")
 	private LocalDate DATACHEGADACLI;
 	
+	@Column(name = "DATAEMISSAOMAPA")
+	private LocalDate DATAEMISSAOMAPA;
+	
 	@Column(name = "CODFUNCSEP")
 	private Long CODFUNCSEP;
 	
@@ -41,6 +44,25 @@ public class TabPedido {
 
 	@Column(name = "DATAFIMSEP")
 	private LocalDate DATAFIMSEP;
+	
+	@Column(name = "AGUARDSEP")
+	private LocalDate AGUARDSEP;
+	
+	@Column(name = "DATAATUAL")
+	private LocalDate DATAATUAL;
+	
+	@Column(name = "EMSEPARACAO")
+	private LocalDate EMSEPARACAO;
+	
+	@Column(name = "EMCONFERENCIA")
+	private LocalDate EMCONFERENCIA;
+	
+	@Column(name = "TEMPODECOR")
+	private LocalDate TEMPODECOR;
+	
+	
+	@Column(name = "ORDEM")
+	private Long ORDEM;
 	
 	@Column(name = "CODFILIAL")
 	private long CODFILIAL;
@@ -75,6 +97,8 @@ public class TabPedido {
 	@Column(name = "RETIRA")
 	private String RETIRA;
 	
+	
+	
 	@Column(name = "CODFUNCPACOTE")
 	private Long CODFUNCPACOTE;
 	
@@ -93,8 +117,8 @@ public class TabPedido {
 
     }
 	
-	public TabPedido( long NUMPED, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,
-			LocalDate DATACHEGADACLI,Long CODFUNCSEP,LocalDate DATAINICIOSEP,LocalDate DATAFIMSEP,long CODFILIAL,Long CODFUNCBALCAO,
+	public TabPedido( Integer NUMPED, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,LocalDate AGUARDSEP,LocalDate DATAATUAL,LocalDate EMSEPARACAO,
+			LocalDate TEMPODECOR,LocalDate EMCONFERENCIA, Long ORDEM, LocalDate DATACHEGADACLI, LocalDate DATAEMISSAOMAPA,Long CODFUNCSEP,LocalDate DATAINICIOSEP,LocalDate DATAFIMSEP,long CODFILIAL,Long CODFUNCBALCAO,
 			LocalDate DATAINICIOBALCAO,LocalDate DATAFIMBALCAO,String PAINEL,String ORIGINAL,LocalDate DATAPACOTE,String FINALIZADO, 
 			Long QTITEM, String ESTOQUE, String RETIRA, Long CODFUNCPACOTE,String RETIRANTE, Vendedor vendedor, Cliente cliente ) {
 				this.NUMPED = NUMPED;
@@ -103,6 +127,7 @@ public class TabPedido {
 				this.CODFUNCPACOTE = CODFUNCPACOTE;
 				this.CODFUNCSEP = CODFUNCSEP;
 				this.DATACHEGADACLI = DATACHEGADACLI;
+				this.DATAEMISSAOMAPA = DATAEMISSAOMAPA;
 				this.DATAFIMBALCAO = DATAFIMBALCAO;
 				this.DATAFIMSEP = DATAFIMSEP;
 				this.DATAINICIOBALCAO = DATAINICIOBALCAO;
@@ -122,6 +147,12 @@ public class TabPedido {
 				this.VLTOTAL = VLTOTAL;
 				this.vendedor = vendedor;
 				this.cliente = cliente;
+				this.AGUARDSEP = AGUARDSEP;
+				this.DATAATUAL = DATAATUAL;
+				this.EMSEPARACAO=EMSEPARACAO;
+				this.EMCONFERENCIA =EMCONFERENCIA;
+				this.TEMPODECOR =TEMPODECOR;
+				this.ORDEM = ORDEM;
 	}
 	
 	
@@ -152,7 +183,7 @@ public class TabPedido {
 		return NUMPED;
 	}
 
-	public void setNUMPED(long nUMPED) {
+	public void setNUMPED(Integer nUMPED) {
 		NUMPED = nUMPED;
 	}
     	    
@@ -342,6 +373,62 @@ public class TabPedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public LocalDate getDATAEMISSAOMAPA() {
+		return DATAEMISSAOMAPA;
+	}
+
+	public void setDATAEMISSAOMAPA(LocalDate dATAEMISSAOMAPA) {
+		DATAEMISSAOMAPA = dATAEMISSAOMAPA;
+	}
+
+	public LocalDate getAGUARDSEP() {
+		return AGUARDSEP;
+	}
+
+	public void setAGUARDSEP(LocalDate aGUARDSEP) {
+		AGUARDSEP = aGUARDSEP;
+	}
+
+	public LocalDate getDATAATUAL() {
+		return DATAATUAL;
+	}
+
+	public void setDATAATUAL(LocalDate dATAATUAL) {
+		DATAATUAL = dATAATUAL;
+	}
+
+	public LocalDate getEMSEPARACAO() {
+		return EMSEPARACAO;
+	}
+
+	public void setEMSEPARACAO(LocalDate eMSEPARACAO) {
+		EMSEPARACAO = eMSEPARACAO;
+	}
+
+	public LocalDate getEMCONFERENCIA() {
+		return EMCONFERENCIA;
+	}
+
+	public void setEMCONFERENCIA(LocalDate eMCONFERENCIA) {
+		EMCONFERENCIA = eMCONFERENCIA;
+	}
+
+	public LocalDate getTEMPODECOR() {
+		return TEMPODECOR;
+	}
+
+	public void setTEMPODECOR(LocalDate tEMPODECOR) {
+		TEMPODECOR = tEMPODECOR;
+	}
+
+	public Long getORDEM() {
+		return ORDEM;
+	}
+
+	public void setORDEM(Long oRDEM) {
+		ORDEM = oRDEM;
 	}
 	
 	
