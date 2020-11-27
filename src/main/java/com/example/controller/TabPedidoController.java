@@ -29,8 +29,10 @@ public class TabPedidoController {
 	private TabPedidoRepository tabPedidoRepository;
 
 	@GetMapping("/tabpedidos")
-	public List<TabPedido> getAllTabPedidos(TabPedidosFilter tabPedidosFilter) {
-		return tabPedidoRepository.filtrar(tabPedidosFilter);
+	public ResponseEntity<List<TabPedido>> getAllTabPedidos(TabPedidosFilter tabPedidosFilter) {
+		List<TabPedido> resultado = tabPedidoRepository.findAll();
+		return ResponseEntity.ok().body(resultado);
+		
 	}
 
 	@GetMapping("/tabpedidos/{NUMPED}")
@@ -40,6 +42,12 @@ public class TabPedidoController {
 				.orElseThrow(() -> new ResourceNotFoundException("TabPedido not found for this id :: " + NUMPED));
 		return ResponseEntity.ok().body(tabpedido);
 	}
+	//@GetMapping("/tabpedidos/{NUMPED}")
+	//public ResponseEntity<List<TabPedido>> getTabPedidoById(@PathVariable(value = "NUMPED") Long NUMPED)
+	//		throws ResourceNotFoundException {
+	//	List<TabPedido> resultado = tabPedidoRepository.findAll();
+	//	return ResponseEntity.ok().body(resultado);
+	//}
 	
 	@PostMapping("/tabpedidos")
 	public TabPedido createTabPedido(@Valid @RequestBody TabPedido tabPedido) {
