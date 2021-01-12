@@ -1,5 +1,6 @@
 package com.example.model;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tab_pedidoc")
-public class TabPedido {
+public class Pedido {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "NUMPED")
 	private BigDecimal NUMPED;
@@ -33,7 +34,8 @@ public class TabPedido {
 	private LocalDate DATAPEDIDO;
 	
 	@Column(name = "DATACHEGADACLI")
-	private LocalDate DATACHEGADACLI;
+	private LocalDate DATACHEGADACLI;	
+
 	
 	@Column(name = "CODFUNCSEP")
 	private Long CODFUNCSEP;
@@ -43,7 +45,7 @@ public class TabPedido {
 
 	@Column(name = "DATAFIMSEP")
 	private LocalDate DATAFIMSEP;
-	
+		
 	@Column(name = "CODFILIAL")
 	private long CODFILIAL;
 	
@@ -77,6 +79,8 @@ public class TabPedido {
 	@Column(name = "RETIRA")
 	private String RETIRA;
 	
+	
+	
 	@Column(name = "CODFUNCPACOTE")
 	private Long CODFUNCPACOTE;
 	
@@ -91,11 +95,11 @@ public class TabPedido {
 	@JoinColumn(name = "codccli")
 	private Cliente cliente;
 	
-	public TabPedido() {
+	public Pedido() {
 
     }
 	
-	public TabPedido( BigDecimal NUMPED, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,LocalDate AGUARDSEP,LocalDate DATAATUAL,LocalDate EMSEPARACAO,
+	public Pedido( BigDecimal NUMPED, String STATUS, BigDecimal VLTOTAL, String POSICAO, LocalDate DATAPEDIDO,LocalDate AGUARDSEP,LocalDate DATAATUAL,LocalDate EMSEPARACAO,
 			LocalDate TEMPODECOR,LocalDate EMCONFERENCIA, Long ORDEM, LocalDate DATACHEGADACLI, LocalDate DATAEMISSAOMAPA,Long CODFUNCSEP,LocalDate DATAINICIOSEP,LocalDate DATAFIMSEP,long CODFILIAL,Long CODFUNCBALCAO,
 			LocalDate DATAINICIOBALCAO,LocalDate DATAFIMBALCAO,String PAINEL,String ORIGINAL,LocalDate DATAPACOTE,String FINALIZADO, 
 			Long QTITEM, String ESTOQUE, String RETIRA, Long CODFUNCPACOTE,String RETIRANTE, Vendedor vendedor, Cliente cliente ) {
@@ -104,7 +108,7 @@ public class TabPedido {
 				this.CODFUNCBALCAO = CODFUNCBALCAO;
 				this.CODFUNCPACOTE = CODFUNCPACOTE;
 				this.CODFUNCSEP = CODFUNCSEP;
-				this.DATACHEGADACLI = DATACHEGADACLI;				
+				this.DATACHEGADACLI = DATACHEGADACLI;
 				this.DATAFIMBALCAO = DATAFIMBALCAO;
 				this.DATAFIMSEP = DATAFIMSEP;
 				this.DATAINICIOBALCAO = DATAINICIOBALCAO;
@@ -125,8 +129,9 @@ public class TabPedido {
 				this.vendedor = vendedor;
 				this.cliente = cliente;
 				
-				
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -136,10 +141,19 @@ public class TabPedido {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TabPedido other = (TabPedido) obj;
+		Pedido other = (Pedido) obj;
 		if (NUMPED != other.NUMPED)
 			return false;
 		return true;
+	}
+	
+	
+	public BigDecimal getNUMPED() {
+		return NUMPED;
+	}
+
+	public void setNUMPED(BigDecimal nUMPED) {
+		NUMPED = nUMPED;
 	}
     	    
     
@@ -330,16 +344,9 @@ public class TabPedido {
 		this.cliente = cliente;
 	}
 
-	
-	
 
-	public BigDecimal getNUMPED() {
-		return NUMPED;
-	}
 
-	public void setNUMPED(BigDecimal nUMPED) {
-		NUMPED = nUMPED;
-	}
+
 	
 	
 

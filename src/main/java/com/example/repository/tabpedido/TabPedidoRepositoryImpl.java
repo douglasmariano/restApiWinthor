@@ -33,7 +33,8 @@ public class TabPedidoRepositoryImpl implements TabPedidoRepositoryQuery{
 		
 		TypedQuery<TabPedido> query = manager.createQuery(criteria);
 		return query.getResultList();
-	}
+	}	
+
 
 	private Predicate[] criarRestricoes(TabPedidosFilter tabPedidosFilter, CriteriaBuilder builder,
 			Root<TabPedido> root) {
