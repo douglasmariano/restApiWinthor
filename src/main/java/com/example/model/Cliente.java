@@ -2,6 +2,8 @@ package com.example.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,8 +12,9 @@ import javax.persistence.Table;
 public class Cliente {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "codcli")
-	private long codigoCliente;
+	private Long codigoCliente;
 	
 	
 	@Column(name = "cliente")
@@ -50,11 +53,11 @@ public class Cliente {
 		return true;
 	}
 
-	public long getCodigoCliente() {
+	public Long getCodigoCliente() {
 		return codigoCliente;
 	}
 
-	public void setCodigoCliente(long codigoCliente) {
+	public void setCodigoCliente(Long codigoCliente) {
 		this.codigoCliente = codigoCliente;
 	}
 

@@ -1,7 +1,7 @@
 package com.example.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +26,7 @@ public class TabPedido {
 	
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "codccli")
-	private Cliente cliente;
-	
+	private Cliente cliente;	
 
 	@Column(name = "status" ) 
 	private String status; 
@@ -39,19 +38,19 @@ public class TabPedido {
 	private String posicao; 
 
 	@Column(name = "datapedido" ) 
-	private LocalDate datapedido; 
+	private Date datapedido; 
 
 	@Column(name = "datachegadacli" ) 
-	private LocalDate datachegadacli; 
+	private Date datachegadacli; 
 
 	@Column(name = "codfuncsep" ) 
 	private Long codfuncsep; 
 
 	@Column(name = "datainiciosep" ) 
-	private LocalDate datainiciosep; 
+	private Date datainiciosep; 
 
 	@Column(name = "datafimsep" ) 
-	private LocalDate datafimsep; 
+	private Date datafimsep; 
 
 	@Column(name = "codfilial" ) 
 	private Long codfilial; 
@@ -60,10 +59,10 @@ public class TabPedido {
 	private Long codfuncbalcao; 
 
 	@Column(name = "datainiciobalcao" ) 
-	private LocalDate datainiciobalcao; 
+	private Date datainiciobalcao; 
 
 	@Column(name = "datafimbalcao" ) 
-	private LocalDate datafimbalcao; 
+	private Date datafimbalcao; 
 
 	@Column(name = "painel" ) 
 	private String painel; 
@@ -72,7 +71,7 @@ public class TabPedido {
 	private String original; 
 
 	@Column(name = "datapacote" ) 
-	private LocalDate datapacote; 
+	private Date datapacote; 
 
 	@Column(name = "finalizado" ) 
 	private String finalizado; 
@@ -99,9 +98,9 @@ public class TabPedido {
 
 
 	public TabPedido(BigDecimal numped, Vendedor vendedor, Cliente cliente, String status, BigDecimal vltotal,
-			String posicao, LocalDate datapedido, LocalDate datachegadacli, Long codfuncsep, LocalDate datainiciosep,
-			LocalDate datafimsep, Long codfilial, Long codfuncbalcao, LocalDate datainiciobalcao,
-			LocalDate datafimbalcao, String painel, String original, LocalDate datapacote, String finalizado,
+			String posicao, Date datapedido, Date datachegadacli, Long codfuncsep, Date datainiciosep,
+			Date datafimsep, Long codfilial, Long codfuncbalcao, Date datainiciobalcao,
+			Date datafimbalcao, String painel, String original, Date datapacote, String finalizado,
 			Long qtitem, String estoque, String retira, Long codfuncpacote, String retirante) {
 		super();
 		this.numped = numped;
@@ -191,22 +190,22 @@ public class TabPedido {
 	}
 
 
-	public LocalDate getDatapedido() {
+	public Date getDatapedido() {
 		return datapedido;
 	}
 
 
-	public void setDatapedido(LocalDate datapedido) {
+	public void setDatapedido(Date datapedido) {
 		this.datapedido = datapedido;
 	}
 
 
-	public LocalDate getDatachegadacli() {
+	public Date getDatachegadacli() {
 		return datachegadacli;
 	}
 
 
-	public void setDatachegadacli(LocalDate datachegadacli) {
+	public void setDatachegadacli(Date datachegadacli) {
 		this.datachegadacli = datachegadacli;
 	}
 
@@ -221,22 +220,22 @@ public class TabPedido {
 	}
 
 
-	public LocalDate getDatainiciosep() {
+	public Date getDatainiciosep() {
 		return datainiciosep;
 	}
 
 
-	public void setDatainiciosep(LocalDate datainiciosep) {
+	public void setDatainiciosep(Date datainiciosep) {
 		this.datainiciosep = datainiciosep;
 	}
 
 
-	public LocalDate getDatafimsep() {
+	public Date getDatafimsep() {
 		return datafimsep;
 	}
 
 
-	public void setDatafimsep(LocalDate datafimsep) {
+	public void setDatafimsep(Date datafimsep) {
 		this.datafimsep = datafimsep;
 	}
 
@@ -261,22 +260,22 @@ public class TabPedido {
 	}
 
 
-	public LocalDate getDatainiciobalcao() {
+	public Date getDatainiciobalcao() {
 		return datainiciobalcao;
 	}
 
 
-	public void setDatainiciobalcao(LocalDate datainiciobalcao) {
+	public void setDatainiciobalcao(Date datainiciobalcao) {
 		this.datainiciobalcao = datainiciobalcao;
 	}
 
 
-	public LocalDate getDatafimbalcao() {
+	public Date getDatafimbalcao() {
 		return datafimbalcao;
 	}
 
 
-	public void setDatafimbalcao(LocalDate datafimbalcao) {
+	public void setDatafimbalcao(Date datafimbalcao) {
 		this.datafimbalcao = datafimbalcao;
 	}
 
@@ -301,12 +300,12 @@ public class TabPedido {
 	}
 
 
-	public LocalDate getDatapacote() {
+	public Date getDatapacote() {
 		return datapacote;
 	}
 
 
-	public void setDatapacote(LocalDate datapacote) {
+	public void setDatapacote(Date datapacote) {
 		this.datapacote = datapacote;
 	}
 
