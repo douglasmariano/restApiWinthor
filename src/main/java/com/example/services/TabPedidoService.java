@@ -199,8 +199,8 @@ public class TabPedidoService {
 	
 
 	public List<PedidoPayload> findById(BigDecimal nUMPED){
-	    List<Object[]> results = entityManager.createNativeQuery(getConsulta(" and REL.numped = :numped "))
-    		.setParameter("numped", nUMPED)
+	    List<Object[]> results = entityManager.createNativeQuery(getConsulta(" and REL.numped like :numped "))
+    		.setParameter("numped", "%"+nUMPED+"%")
 	    		.getResultList();
 	    
 	    return getDadosDoResultSet(results);
