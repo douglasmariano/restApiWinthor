@@ -28,6 +28,7 @@ public class TabPedidoService {
 		   	       "       REL.nome, " + 
 		   	       "       REL.CLIENTE, " + 
 		   	       "       REL.DATAPEDIDO, " + 
+		   	       "       REL.DATADIGITACAO, " +
 		   	       "       REL.DATAEMISSAOMAPA,	 " + 
 		   	       "       REL.DATAINICIOSEP, " + 
 		   	       "       REL.DATAFIMSEP, " + 
@@ -77,6 +78,7 @@ public class TabPedidoService {
 		   	       "               End) CLIENTE, " + 
 		   	       "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAPEDIDO, " + 
 		   	       "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAEMISSAOMAPA, " + 
+		   	       "               P.DATAPEDIDO as DATADIGITACAO, " +
 		   	       "               P.DATACHEGADACLI, " + 
 		   	       "               P.DATAINICIOSEP DATAINICIOSEP, " + 
 		   	       "               P.CODFUNCSEP, " + 
@@ -101,12 +103,12 @@ public class TabPedidoService {
 		   	       "               ,PCUSUARI    V " + 
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 90 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2')																					"+ 
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
 		   	       "           and P.PAINEL     = 'S' 																								"+ 
-		   	       "           and P.STATUS    In ('R','B','L','E','F','V','H','X','T')  											"+ 
+		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T')  											"+ 
 		   	       "         Union All " + 
 		   	       "         select P.NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
@@ -117,7 +119,8 @@ public class TabPedidoService {
 		   	       "                           Else C.CLIENTE " + 
 		   	       "               End) CLIENTE, " + 
 		   	       "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAPEDIDO, " + 
-		   	       "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAEMISSAOMAPA, " + 
+		   	       "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAEMISSAOMAPA, " +
+		   	       "               P.DATAPEDIDO as DATADIGITACAO, " +
 		   	       "               P.DATACHEGADACLI, " + 
 		   	       "               P.DATAINICIOSEP DATAINICIOSEP, " + 
 		   	       "               P.CODFUNCSEP, " + 
@@ -142,13 +145,13 @@ public class TabPedidoService {
 		   	       "               ,PCUSUARI    V " + 
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 90 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2') " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
 		   	       "           and P.PAINEL     = 'N' " +
-		   	       "           and P.STATUS    In ('R','B','L','E','F','V','H','X','T') ) REL " +
-		   	       " Where (REL.STATUS not in ('L','E') or (REL.STATUS in ('L','E') and (REL.DATACHEGADACLI is not null))) " + 
+		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T') ) REL " +
+		   	       " Where REL.DATACHEGADACLI is null " + 
 		   	       andWhere +
 		   	       " order by ORDEM ,REL.TEMPODECOR DESC ";
 	}
@@ -165,6 +168,7 @@ public class TabPedidoService {
 	    		pedido.setNOME((String) objects[i++]);
 	    		pedido.setCLIENTE((String) objects[i++]);
 	    		pedido.setDATAPEDIDO(getLocalDateTime(objects[i++]));
+	    		pedido.setDATADIGITACAO(getLocalDateTime(objects[i++]));
 	    		pedido.setDATAEMISSAOMAPA(getLocalDateTime(objects[i++]));
 	    		pedido.setDATAINICIOSEP(getLocalDateTime(objects[i++]));
 	    		pedido.setDATAFIMSEP(getLocalDateTime(objects[i++]));
