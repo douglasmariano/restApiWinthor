@@ -11,6 +11,7 @@ public class PedidoPayload {
 	
 	
 	private Date DATAPEDIDO;
+	private Date DATADIGITACAO;
 	
 	
 	private Date DATAEMISSAOMAPA;
@@ -57,6 +58,13 @@ public class PedidoPayload {
 	}
 	public void setDATAPEDIDO(Date dATAPEDIDO) {
 		DATAPEDIDO = dATAPEDIDO;
+	}
+	
+	public Date getDATADIGITACAO() {
+		return DATADIGITACAO;
+	}
+	public void setDATADIGITACAO(Date dATADIGITACAO) {
+		DATADIGITACAO = dATADIGITACAO;
 	}
 	public Date getDATAEMISSAOMAPA() {
 		return DATAEMISSAOMAPA;
