@@ -51,5 +51,5 @@
     		</dependency>
     	</dependencies>
     </dependencyManagement>
-    <groupId>com.example.algamoney</groupId>
+    <groupId>com.ajel</groupId>
 </project>	

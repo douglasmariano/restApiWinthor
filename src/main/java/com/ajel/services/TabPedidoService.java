@@ -111,7 +111,7 @@ public class TabPedidoService {
 		   	       "               ,PCUSUARI    V " + 
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 11 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2')																					"+ 
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
@@ -153,7 +153,7 @@ public class TabPedidoService {
 		   	       "               ,PCUSUARI    V " + 
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 11 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2') " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
