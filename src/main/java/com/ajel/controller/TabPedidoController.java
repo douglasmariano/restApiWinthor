@@ -29,7 +29,7 @@ import com.ajel.repository.TabPedidoRepository;
 import com.ajel.repository.filter.TabPedidosFilter;
 import com.ajel.services.TabPedidoService;
 
-@CrossOrigin(origins = "http://192.168.200.17:4200")
+@CrossOrigin(origins = "http://192.168.200.55:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class TabPedidoController {
@@ -61,6 +61,13 @@ public class TabPedidoController {
 	@GetMapping("/tabpedidos")
 	public ResponseEntity<List<PedidoPayload>> getAllTabPedidos() {
 		List<PedidoPayload> resultado = tabPedidoService.findAll();
+		return ResponseEntity.ok().body(resultado);
+
+	}
+	
+	@GetMapping("/tabpedidosPainel")
+	public ResponseEntity<List<PedidoPayload>> getAllTabPedidosPainel() {
+		List<PedidoPayload> resultado = tabPedidoService.findAllPainel();
 		return ResponseEntity.ok().body(resultado);
 
 	}
