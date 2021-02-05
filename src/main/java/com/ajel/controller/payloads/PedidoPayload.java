@@ -8,6 +8,7 @@ public class PedidoPayload {
 	private BigDecimal NUMPED;
 	private String NOME;
 	private String CLIENTE;
+	private String OBS;
 	
 	
 	private Date DATAPEDIDO;
@@ -52,6 +53,12 @@ public class PedidoPayload {
 	}
 	public void setCLIENTE(String cLIENTE) {
 		CLIENTE = cLIENTE;
+	}	
+	public String getOBS() {
+		return OBS;
+	}
+	public void setOBS(String oBS) {
+		OBS = oBS;
 	}
 	public Date getDATAPEDIDO() {
 		return DATAPEDIDO;
