@@ -7,26 +7,16 @@ public class PedidoPayload {
 	
 	private BigDecimal NUMPED;
 	private String NOME;
-	private String CLIENTE;
-	private String OBS;
-	
-	
+	private String CLIENTE;	
 	private Date DATAPEDIDO;
-	private Date DATADIGITACAO;
-	
-	
-	private Date DATAEMISSAOMAPA;
-	
-	private Date DATAINICIOSEP;
-	
-	private Date DATAFIMSEP;
-	
+	private Date DATADIGITACAO;	
+	private Date DATAEMISSAOMAPA;	
+	private Date DATAINICIOSEP;	
+	private Date DATAFIMSEP;	
 	private Date DATACHEGADACLI;
-	private BigDecimal CODFUNCSEP;
-	
+	private BigDecimal CODFUNCSEP;	
 	private Date DATAFIMBALCAO;
-	private BigDecimal CODFUNCBALCAO;
-	
+	private BigDecimal CODFUNCBALCAO;	
 	private Date DATAATUAL;
 	private String AGUARDSEP;
 	private String EMSEPARACAO;
@@ -54,12 +44,6 @@ public class PedidoPayload {
 	public void setCLIENTE(String cLIENTE) {
 		CLIENTE = cLIENTE;
 	}	
-	public String getOBS() {
-		return OBS;
-	}
-	public void setOBS(String oBS) {
-		OBS = oBS;
-	}
 	public Date getDATAPEDIDO() {
 		return DATAPEDIDO;
 	}

@@ -35,8 +35,7 @@ public class TabPedidoService {
 		   	       "       REL.DATACHEGADACLI, " + 
 		   	       "       REL.CODFUNCSEP, " + 
 		   	       "       REL.DATAFIMBALCAO, " + 
-		   	       "       REL.CODFUNCBALCAO, " +
-		   	       "       REL.OBS, " +
+		   	       "       REL.CODFUNCBALCAO, " +		   	       
 		   	       "       sysdate DATAATUAL, " + 
 		   	       "       lpad(Trunc(mod(REL.AGUARDSEP*24, 60)),2,0) || ':' || " + 
 		   	       "       lpad(Trunc(mod(REL.AGUARDSEP*24*60, 60)),2,0) || ':' || " + 
@@ -93,8 +92,7 @@ public class TabPedidoService {
 		   	       "               P.CODFUNCSEP, " + 
 		   	       "               P.DATAFIMSEP DATAFIMSEP, " + 
 		   	       "               P.DATAFIMBALCAO DATAFIMBALCAO, " + 
-		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " + 
-		   	       "               F.OBS, " + 
+		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " + 		   	       
 		   	       "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "                     else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "               end AGUARDSEP, " + 
@@ -110,12 +108,10 @@ public class TabPedidoService {
 		   	       "               P.PAINEL " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
-		   	       "               ,PCUSUARI    V " + 
-		   	       "               ,pcpedc		F " + 
+		   	       "               ,PCUSUARI    V " + 		   	       
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           AND p.NUMPED 	= F.numped " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 10 " + 
 		   	       "           and P.CODFILIAL in ('1','2')																					"+ 
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
@@ -139,7 +135,6 @@ public class TabPedidoService {
 		   	       "               P.DATAFIMSEP DATAFIMSEP, " + 
 		   	       "               P.DATAFIMBALCAO DATAFIMBALCAO, " + 
 		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " +
-		   	       "               F.OBS, " + 
 		   	       "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "                     else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "               end AGUARDSEP, " + 
@@ -155,12 +150,10 @@ public class TabPedidoService {
 		   	       "               P.PAINEL " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
-		   	       "               ,PCUSUARI    V " + 
-		   	       "               ,pcpedc		F " + 
+		   	       "               ,PCUSUARI    V " + 		   	       
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
-		   	       "           And P.CODUSUR    = V.CODUSUR " +
-		   	       "           AND p.NUMPED 	= F.numped " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
+		   	       "           And P.CODUSUR    = V.CODUSUR " +		   	      
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 10 " + 
 		   	       "           and P.CODFILIAL in ('1','2') " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
@@ -314,7 +307,6 @@ public class TabPedidoService {
 	    		pedido.setNUMPED((BigDecimal) objects[i++]);
 	    		pedido.setNOME((String) objects[i++]);
 	    		pedido.setCLIENTE((String) objects[i++]);
-	    		pedido.setOBS((String) objects[i++]);
 	    		pedido.setDATAPEDIDO(getLocalDateTime(objects[i++]));
 	    		pedido.setDATADIGITACAO(getLocalDateTime(objects[i++]));
 	    		pedido.setDATAEMISSAOMAPA(getLocalDateTime(objects[i++]));
