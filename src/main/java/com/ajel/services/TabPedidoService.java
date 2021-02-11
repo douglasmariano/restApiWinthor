@@ -37,6 +37,7 @@ public class TabPedidoService {
 		   	       "       REL.DATAFIMBALCAO, " + 
 		   	       "       REL.CODFUNCBALCAO, " +		   	       
 		   	       "       sysdate DATAATUAL, " + 
+		   	       "	   REL.OBS, "	+
 		   	       "       lpad(Trunc(mod(REL.AGUARDSEP*24, 60)),2,0) || ':' || " + 
 		   	       "       lpad(Trunc(mod(REL.AGUARDSEP*24*60, 60)),2,0) || ':' || " + 
 		   	       "       lpad(Trunc(mod(REL.AGUARDSEP*24*60*60, 60)),2,0) AGUARDSEP, " + 
@@ -76,7 +77,7 @@ public class TabPedidoService {
 		   	       "             when REL.STATUS = 'V' then 0 " + 
 		   	       "       end ORDEM, " + 
 		   	       "       REL.PAINEL " + 
-		   	       "   from (select P.NUMPED, " + 
+		   	       "   from (select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
 		   	       "               (select U.NOME from PCUSUARI U where U.CODUSUR = P.CODUSUR) nome, " + 
@@ -92,7 +93,8 @@ public class TabPedidoService {
 		   	       "               P.CODFUNCSEP, " + 
 		   	       "               P.DATAFIMSEP DATAFIMSEP, " + 
 		   	       "               P.DATAFIMBALCAO DATAFIMBALCAO, " + 
-		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " + 		   	       
+		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " + 	
+		   	       "               NVL(F.OBS,'') OBS, " +
 		   	       "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "                     else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "               end AGUARDSEP, " + 
@@ -108,17 +110,19 @@ public class TabPedidoService {
 		   	       "               P.PAINEL " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
-		   	       "               ,PCUSUARI    V " + 		   	       
+		   	       "               ,PCUSUARI    V " +
+		   	       "			   ,PCPEDC    	F " +
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 10 " + 
+		   	       "           And P.NUMPED    = F.NUMPED " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2')																					"+ 
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
 		   	       "           and P.PAINEL     = 'S' 																								"+ 
 		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T')  											"+ 
 		   	       "         Union All " + 
-		   	       "         select P.NUMPED, " + 
+		   	       "         select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
 		   	       " (select U.NOME from PCUSUARI U where U.CODUSUR = P.CODUSUR) nome, " + 
@@ -135,6 +139,7 @@ public class TabPedidoService {
 		   	       "               P.DATAFIMSEP DATAFIMSEP, " + 
 		   	       "               P.DATAFIMBALCAO DATAFIMBALCAO, " + 
 		   	       "               P.CODFUNCBALCAO CODFUNCBALCAO, " +
+		   	       "               NVL(F.OBS,'') OBS, " +
 		   	       "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "                     else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " + 
 		   	       "               end AGUARDSEP, " + 
@@ -150,10 +155,12 @@ public class TabPedidoService {
 		   	       "               P.PAINEL " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
-		   	       "               ,PCUSUARI    V " + 		   	       
+		   	       "               ,PCUSUARI    V " + 
+		   	       "			   ,PCPEDC    	F " +
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
-		   	       "           And P.CODUSUR    = V.CODUSUR " +		   	      
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 10 " + 
+		   	       "           And P.CODUSUR    = V.CODUSUR " +	
+		   	       "           And P.NUMPED    = F.NUMPED " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
 		   	       "           and P.CODFILIAL in ('1','2') " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
@@ -317,6 +324,7 @@ public class TabPedidoService {
 	    		pedido.setDATAFIMBALCAO(getLocalDateTime(objects[i++]));
 	    		pedido.setCODFUNCBALCAO((BigDecimal) objects[i++]);
 	    		pedido.setDATAATUAL(getLocalDateTime(objects[i++]));
+	    		pedido.setOBS((String) objects[i++]);
 	    		pedido.setAGUARDSEP((String) objects[i++]);
 	    		pedido.setEMSEPARACAO((String) objects[i++]);
 	    		pedido.setEMCONFERENCIA((String) objects[i++]);
@@ -324,6 +332,7 @@ public class TabPedidoService {
 	    		pedido.setPOSICAO((String) objects[i++]);
 	    		pedido.setORDEM((BigDecimal) objects[i++]);
 	    		pedido.setPAINEL((String) objects[i++]);
+	    		
 	    		
 	    		if(pedidofilter.getNumped() == null) {
 	    			pedidoResult.add(pedido);
@@ -348,8 +357,8 @@ public class TabPedidoService {
 	
 
 	public List<PedidoPayload> findById(BigDecimal nUMPED){
-	    List<Object[]> results = entityManager.createNativeQuery(getClienteChegou(" and REL.numped like :numped "))
-    		.setParameter("numped", "%"+nUMPED+"%")
+	    List<Object[]> results = entityManager.createNativeQuery(getClienteChegou(" and REL.NUMPED like :numped "))
+    		.setParameter("NUMPED", "%"+nUMPED+"%")
 	    		.getResultList();
 	    
 	    return getDadosDoResultSet(results);

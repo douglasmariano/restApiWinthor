@@ -25,6 +25,7 @@ public class PedidoPayload {
 	private String POSICAO;
 	private BigDecimal ORDEM;
 	private String PAINEL;
+	private String OBS;
 	
 	public BigDecimal getNUMPED() {
 		return NUMPED;
@@ -147,6 +148,12 @@ public class PedidoPayload {
 	public void setPAINEL(String pAINEL) {
 		PAINEL = pAINEL;
 	}
-
+	public String getOBS() {
+		return OBS;
+	}
+	public void setOBS(String oBS) {
+		OBS = oBS;
+	}
+	
 	
 }
