@@ -115,7 +115,7 @@ public class TabPedidoService {
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
 		   	       "           And P.NUMPED    = F.NUMPED " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30 " + 
 		   	       "           and P.CODFILIAL in ('1','2')																					"+ 
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
@@ -160,7 +160,7 @@ public class TabPedidoService {
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " +	
 		   	       "           And P.NUMPED    = F.NUMPED " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " + 
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30 " + 
 		   	       "           and P.CODFILIAL in ('1','2') " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
@@ -184,7 +184,8 @@ public class TabPedidoService {
 				"       REL.CODFUNCSEP," +                                                                                                                                              
 				"       REL.DATAFIMBALCAO," +                                                                                                                                         
 				"       REL.CODFUNCBALCAO," +                                                                                                                                             
-				"       sysdate DATAATUAL," +                                                                                                                                           
+				"       sysdate DATAATUAL," +
+				"       REL.OBS," +
 				"       lpad(Trunc(mod(REL.AGUARDSEP*24, 60)),2,0) || ':' ||" +                                                                                                       
 				"       lpad(Trunc(mod(REL.AGUARDSEP*24*60, 60)),2,0) || ':' ||" +                                                                                                    
 				"       lpad(Trunc(mod(REL.AGUARDSEP*24*60*60, 60)),2,0) AGUARDSEP," +                                                                                                  
@@ -232,7 +233,8 @@ public class TabPedidoService {
 				"               P.CODFUNCSEP," +                                                                                                                                        
 				"               P.DATAFIMSEP DATAFIMSEP," +                                                                                                                             
 				"               P.DATAFIMBALCAO DATAFIMBALCAO," +                                                                                                                     
-				"               P.CODFUNCBALCAO CODFUNCBALCAO," +                                                                                                                         
+				"               P.CODFUNCBALCAO CODFUNCBALCAO," +
+				"               NVL(F.OBS,'') OBS, " +
 				"               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                
 				"                    else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                                     
 				"               end AGUARDSEP," +                                                                                                                                       
@@ -248,10 +250,12 @@ public class TabPedidoService {
 				"               P.PAINEL" +                                                                                                                                             
 				"          from TAB_PEDIDOC P" +                                                                                                                                        
 				"              ,PCCLIENT    C" +                                                                                                                                        
-				"              ,PCUSUARI    V" +                                                                                                                                        
+				"              ,PCUSUARI    V" +  
+				 "			   ,PCPEDC    	F " +
 				"         where P.CODCCLI    = C.CODCLI" +                                                                                                                              
-				"           And P.CODUSUR    = V.CODUSUR" +                                                                                                                             
-				"           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 1" +                                                                                      
+				"           And P.CODUSUR    = V.CODUSUR" + 
+				"           And P.NUMPED    = F.NUMPED " + 
+				"           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30" +                                                                                      
 				"           and P.CODFILIAL in ('1','2')" + 
 				"           And NVL(P.RETIRA,'N') <> 'G'" +                                                                                                                         
 				"           and P.POSICAO   <> 'C'" +                                                                                                                                 
@@ -274,7 +278,8 @@ public class TabPedidoService {
 				"               P.CODFUNCSEP," +                                                                                                                                        
 				"               P.DATAFIMSEP DATAFIMSEP," +                                                                                                                             
 				"               P.DATAFIMBALCAO DATAFIMBALCAO," +                                                                                                                     
-				"               P.CODFUNCBALCAO CODFUNCBALCAO," +                                                                                                                         
+				"               P.CODFUNCBALCAO CODFUNCBALCAO," +  
+				"               NVL(F.OBS,'') OBS, " +
 				"               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                
 				"                    else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                                     
 				"               end AGUARDSEP," +                                                                                                                                       
@@ -290,10 +295,12 @@ public class TabPedidoService {
 				"               P.PAINEL" +                                                                                                                                             
 				"          from TAB_PEDIDOC P" +                                                                                                                                        
 				"              ,PCCLIENT    C" +                                                                                                                                        
-				"              ,PCUSUARI    V" +                                                                                                                                        
+				"              ,PCUSUARI    V" + 
+				 "			   ,PCPEDC    	F " +
 				"         where P.CODCCLI    = C.CODCLI" +                                                                                                                              
-				"           And P.CODUSUR    = V.CODUSUR" +                                                                                                                             
-				"           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 1" +                                                                                      
+				"           And P.CODUSUR    = V.CODUSUR" + 
+				"           And P.NUMPED    = F.NUMPED " + 
+				"           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30" +                                                                                      
 				"           and P.CODFILIAL in ('1','2')" +                                                                                                                     
 				"           and P.POSICAO   <> 'C'" + 
 				"           And NVL(P.RETIRA,'N') <> 'G'" +  
