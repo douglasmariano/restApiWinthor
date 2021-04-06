@@ -35,6 +35,7 @@ public class TabPedidosFilter {
 		return numped;
 	}
 	public void setNumped(BigDecimal numped) {
+		
 		this.numped = numped;
 	}
 	public LocalDate getDataPedidoDe() {
