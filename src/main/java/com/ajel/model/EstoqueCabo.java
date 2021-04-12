@@ -17,7 +17,7 @@ public class EstoqueCabo {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CODENDCABO")
     @SequenceGenerator(name="SEQ_CODENDCABO", sequenceName="SEQ_CODENDCABO",allocationSize=1)
     @Column(name = "codendcabo" ) 
-    private Long codendcabo;
+    private Long codendcabo;  
     
     @Column(name = "codprod" ) 
     private Long codprod;

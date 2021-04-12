@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
@@ -33,15 +34,17 @@ public class EstoqueCaboController {
 	@GetMapping("/estoquecabos")
 	public List<EstoqueCabo> getAllEstoqueCabos() {
 		return estoqueCaboRepository.findAll();
+		
 	}
 
-	@GetMapping("/estoquecabos/{codendcabo}")
-	public ResponseEntity<EstoqueCabo> getEstoqueCaboById(@PathVariable(value = "codendcabo") Long codendcabo)
+	@GetMapping("/estoquecabos/{codprod}")
+	public ResponseEntity<EstoqueCabo> getEstoqueCaboById(@RequestParam(required=false ,value = "codprod") Long codprod)
 			throws ResourceNotFoundException {
-		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
-				.orElseThrow(() -> new ResourceNotFoundException("vendedor not found for this id :: " + codendcabo));
+		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
+				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
 		return ResponseEntity.ok().body(estoqueCabo);
 	}
+		
 	
 	@PostMapping("/estoquecabos")
 	public EstoqueCabo createTabPedido(@Valid @RequestBody EstoqueCabo estoqueCabo) {
