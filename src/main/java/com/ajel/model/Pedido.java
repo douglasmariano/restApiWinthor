@@ -35,7 +35,6 @@ public class Pedido {
 	
 	@Column(name = "DATACHEGADACLI")
 	private LocalDate DATACHEGADACLI;	
-
 	
 	@Column(name = "CODFUNCSEP")
 	private Long CODFUNCSEP;
@@ -78,9 +77,7 @@ public class Pedido {
 	
 	@Column(name = "RETIRA")
 	private String RETIRA;
-	
-	
-	
+		
 	@Column(name = "CODFUNCPACOTE")
 	private Long CODFUNCPACOTE;
 	

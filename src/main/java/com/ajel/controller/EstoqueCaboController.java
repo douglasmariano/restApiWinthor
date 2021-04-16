@@ -38,7 +38,7 @@ public class EstoqueCaboController {
 	}
 
 	@GetMapping("/estoquecabos/{codprod}")
-	public ResponseEntity<EstoqueCabo> getEstoqueCaboById(@RequestParam(required=false ,value = "codprod") Long codprod)
+	public ResponseEntity<EstoqueCabo> getEstoqueById(@RequestParam(required=false ,value = "codprod") Long codprod)
 			throws ResourceNotFoundException {
 		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
@@ -55,8 +55,37 @@ public class EstoqueCaboController {
 	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo,			  
 			@Valid @RequestBody EstoqueCabo estoqueCaboDetails) throws ResourceNotFoundException{
 	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codendcabo));
-	        estoqueCabo.setCodendcabo(estoqueCaboDetails.getCodendcabo());	      
-			
+	        estoqueCabo.setCodprod(estoqueCaboDetails.getCodprod());
+	        estoqueCabo.setQt(estoqueCaboDetails.getQt());
+	        estoqueCabo.setQtreserv(estoqueCaboDetails.getQtreserv());
+	        estoqueCabo.setDtultmovsai(estoqueCaboDetails.getDtultmovsai());
+	        estoqueCabo.setDtultmovent(estoqueCaboDetails.getDtultmovent());
+	        estoqueCabo.setDtvalidade(estoqueCaboDetails.getDtvalidade());
+	        estoqueCabo.setTipoender(estoqueCaboDetails.getTipoender());
+	        estoqueCabo.setStatus(estoqueCaboDetails.getStatus());
+	        estoqueCabo.setNumbonus(estoqueCaboDetails.getNumbonus());
+	        estoqueCabo.setCodfuncrm(estoqueCaboDetails.getCodfuncrm());
+	        estoqueCabo.setDatabloqueio(estoqueCaboDetails.getDatabloqueio());
+	        estoqueCabo.setDatadesbloqueio(estoqueCaboDetails.getDatadesbloqueio());
+	        estoqueCabo.setCodfuncdesbloqueio(estoqueCaboDetails.getCodfuncdesbloqueio());
+	        estoqueCabo.setDatafabricacao(estoqueCaboDetails.getDatafabricacao());
+	        estoqueCabo.setNumlote(estoqueCaboDetails.getNumlote());
+	        estoqueCabo.setQtbloqueada(estoqueCaboDetails.getQtbloqueada());
+	        estoqueCabo.setNumlotefab(estoqueCaboDetails.getNumlotefab());
+	        estoqueCabo.setNumlotefornec(estoqueCaboDetails.getNumlotefornec());
+	        estoqueCabo.setFabricante(estoqueCaboDetails.getFabricante());
+	        estoqueCabo.setObs1(estoqueCaboDetails.getObs1());
+	        estoqueCabo.setObs2(estoqueCaboDetails.getObs2());
+	        estoqueCabo.setEmbalagem(estoqueCaboDetails.getEmbalagem());
+	        estoqueCabo.setUmidade(estoqueCaboDetails.getUmidade());
+	        estoqueCabo.setNumtransent(estoqueCaboDetails.getNumtransent());
+	        estoqueCabo.setIdentificacao(estoqueCaboDetails.getIdentificacao());
+	        estoqueCabo.setCodequipe(estoqueCaboDetails.getCodequipe());
+	        estoqueCabo.setNumero(estoqueCaboDetails.getNumero());
+	        estoqueCabo.setModulo(estoqueCaboDetails.getModulo());
+	        estoqueCabo.setRua(estoqueCaboDetails.getRua());
+	        estoqueCabo.setApto(estoqueCaboDetails.getApto());
+	        
 			final EstoqueCabo updateEstoqueCabo = estoqueCaboRepository.save(estoqueCabo);
 		  	return ResponseEntity.ok(updateEstoqueCabo);
 		   
