@@ -37,9 +37,6 @@ public class TabPedidoController {
 	private TabPedidoRepository tabPedidoRepository;
 
 	@Autowired
-	private PedidoRepository pedidoRepository;
-
-	@Autowired
 	private TabPedidoService tabPedidoService;
 
 	@PostMapping("/tabpedido") // @RequestParam(value = "numped") BigDecimal NUMPED
