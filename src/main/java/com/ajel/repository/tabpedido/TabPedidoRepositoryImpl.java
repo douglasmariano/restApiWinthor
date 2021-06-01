@@ -42,16 +42,15 @@ public class TabPedidoRepositoryImpl implements TabPedidoRepositoryQuery{
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (tabPedidosFilter.getNumped() != null){
-			predicates.add(builder.like(
-					builder.lower(root.get("NUMPED")), "%"+ tabPedidosFilter.getNumped() +"%"));
-			
+    		predicates.add(builder.like(
+    				builder.lower(root.get("NUMPED")), "%"+ tabPedidosFilter.getNumped() +"%"));			
 		}
 		
 		if (tabPedidosFilter.getDataPedidoDe() != null){
-					predicates.add(
-							builder.greaterThanOrEqualTo(root.get("DATAPEDIDO"), tabPedidosFilter.getDataPedidoDe()));
-				}
-		
+			predicates.add(
+					builder.greaterThanOrEqualTo(root.get("DATAPEDIDO"), tabPedidosFilter.getDataPedidoDe()));
+		}
+
 		if (tabPedidosFilter.getDataPedidoAte() != null){
 			predicates.add(
 					builder.lessThanOrEqualTo(root.get("DATAPEDIDO"), tabPedidosFilter.getDataPedidoAte()));

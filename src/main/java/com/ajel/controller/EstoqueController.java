@@ -1,5 +1,6 @@
 package com.ajel.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ajel.controller.payloads.ProdutoEstoquePayload;
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.Estoque;
 import com.ajel.model.EstoquePK;
 import com.ajel.repository.EstoqueRepository;
+import com.ajel.services.ProdutoEstoqueService;
 
 @CrossOrigin(origins = "http://192.168.200.55:4200")
 @RestController
@@ -30,6 +34,9 @@ public class EstoqueController {
 	
     @Autowired
 	private EstoqueRepository estoqueRepository;
+    
+    @Autowired
+    private ProdutoEstoqueService produtoEstoqueService;
 
 	@GetMapping("/estoques")
  	public List<Estoque> getAllEstoques() {
@@ -46,7 +53,7 @@ public class EstoqueController {
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + id));		    
 		return ResponseEntity.ok().body(estoque);
 	}
-		
+	 
 	
 	@PostMapping("/estoques")
 	public Estoque createTabPedido(@Valid @RequestBody Estoque estoque) {

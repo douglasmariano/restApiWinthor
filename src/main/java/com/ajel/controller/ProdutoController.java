@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.OrderBy;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.Produto;
 import com.ajel.repository.ProdutoRepository;
+import com.ajel.repository.filter.ProdutoFilter;
 
 @CrossOrigin(origins = "http://192.168.200.55:4200")
 @RestController
@@ -29,30 +30,29 @@ import com.ajel.repository.ProdutoRepository;
 public class ProdutoController {
 	
     @Autowired
-	private ProdutoRepository produtoRepository;
+	private ProdutoRepository produtoRepository;    
 
-	@GetMapping("/produtos")
-	public List<Produto> getAllEstoqueCabos() {
-		return produtoRepository.findAll();
-		
+    
+	@GetMapping("/produto")
+	public List<Produto> getProduto(ProdutoFilter produtoFilter) {		
+        return produtoRepository.pesquisar(produtoFilter);
 	}
 
-	@GetMapping("/produtos/{codprod}")
-	public ResponseEntity<Produto> getEstoqueById(@PathVariable(required=false ,value = "codprod") Long codprod)
+	@GetMapping("/produto/{codprod}")
+	public ResponseEntity<Produto> getProdutoById(@PathVariable Long codprod)
 			throws ResourceNotFoundException {
 		Produto produto = produtoRepository.findById(codprod)
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
 		return ResponseEntity.ok().body(produto);
 	}
 		
-	
-	@PostMapping("/produtos")
-	public Produto createTabPedido(@Valid @RequestBody Produto produto) {
+	@PostMapping("/produto")
+	public Produto createProduto(@Valid @RequestBody Produto produto) {
 		return produtoRepository.save(produto);
 	}
 
-	@PutMapping("/produtos/{codprod}")
-	   public ResponseEntity <Produto> updateEstoqueCabo(@PathVariable(value = "codprod") Long codprod,			  
+	@PutMapping("/produto/{codprod}")
+	   public ResponseEntity <Produto> updateProduto(@PathVariable(value = "codprod") Long codprod,			  
 			@Valid @RequestBody Produto estoqueCaboDetails) throws ResourceNotFoundException{
 	        Produto produto = produtoRepository.findById(codprod).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codprod));
 	        produto.setCodprod(estoqueCaboDetails.getCodprod());
@@ -63,8 +63,8 @@ public class ProdutoController {
 		   
 	   }
 	
-	 @DeleteMapping("/produtos/{codprod}")
-	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codprod") Long codprod)
+	 @DeleteMapping("/produto/{codprod}")
+	    public Map < String, Boolean > deleteProduto(@PathVariable(value = "codprod") Long codprod)
 	    throws ResourceNotFoundException {
 	        Produto produto = produtoRepository.findById(codprod)
 	            .orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: " + codprod));
