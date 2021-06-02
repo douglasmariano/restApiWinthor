@@ -6,7 +6,7 @@ public class ProdutoFilter {
 	
 	private Long codprod;
 	private String descricao;
-	private List<Long> codmarca;
+	private List<Long> marcas;
 
     public Long getCodprod() {
         return codprod;
@@ -24,12 +24,12 @@ public class ProdutoFilter {
         this.descricao = descricao;
     }
 
-    public List<Long> getCodmarca() {
-        return codmarca;
+    public List<Long> getMarcas() {
+        return marcas;
     }
 
-    public void setCodmarca(List<Long> codmarca) {
-        this.codmarca = codmarca;
+    public void setMarcas(List<Long> marcas) {
+        this.marcas = marcas;
     }
 	
 }
