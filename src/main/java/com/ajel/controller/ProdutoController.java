@@ -24,7 +24,8 @@ import com.ajel.model.Produto;
 import com.ajel.repository.ProdutoRepository;
 import com.ajel.repository.filter.ProdutoFilter;
 
-@CrossOrigin(origins = "http://192.168.200.55:4200")
+//@CrossOrigin(origins = "http://192.168.200.55:4200")
+@CrossOrigin(origins = "http://192.168.200.17:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class ProdutoController {
