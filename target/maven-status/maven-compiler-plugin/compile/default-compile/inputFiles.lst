@@ -6,6 +6,7 @@ C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restA
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\model\Marca.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\repository\ClienteRepository.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\exception\GlobalExceptionHandler.java
+C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\controller\CorsConfiguration.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\Application.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\model\Vendedor.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\controller\VendedorController.java
