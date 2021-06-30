@@ -14,7 +14,7 @@ public class CorsConfiguration
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://192.168.200.55:4200");
+                registry.addMapping("/**").allowedOrigins("http://192.168.200.17:4200");
             }
         };
     }
