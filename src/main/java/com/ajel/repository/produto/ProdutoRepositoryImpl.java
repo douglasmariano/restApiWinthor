@@ -53,6 +53,11 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery{
 		    predicates.add(root.get("codmarca").in(produtoFilter.getMarcas()));
         }
 		
+		if(!StringUtils.isEmpty(produtoFilter.getCodfab())) {
+            predicates.add(builder.like(
+                    builder.lower(root.get("codfab")), "%" + produtoFilter.getCodfab().toLowerCase() + "%"));
+        }
+		
         return predicates.toArray(new Predicate[predicates.size()]);		
 	}
 
