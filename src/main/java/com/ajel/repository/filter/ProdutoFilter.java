@@ -7,6 +7,17 @@ public class ProdutoFilter {
 	private Long codprod;
 	private String descricao;
 	private List<Long> marcas;
+	private String codfab;
+	
+	
+
+    public String getCodfab() {
+        return codfab;
+    }
+
+    public void setCodfab(String codfab) {
+        this.codfab = codfab;
+    }
 
     public Long getCodprod() {
         return codprod;
