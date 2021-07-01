@@ -38,7 +38,7 @@ public class EstoqueCaboController {
 	}
 
 	@GetMapping("/estoquecabos/{codprod}")
-	public ResponseEntity<EstoqueCabo> getEstoqueById(@RequestParam(required=false ,value = "codprod") Long codprod)
+	public ResponseEntity<EstoqueCabo> getEstoqueById(@PathVariable Long codprod)
 			throws ResourceNotFoundException {
 		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
