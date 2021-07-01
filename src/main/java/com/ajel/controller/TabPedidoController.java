@@ -29,7 +29,6 @@ import com.ajel.repository.TabPedidoRepository;
 import com.ajel.repository.filter.TabPedidosFilter;
 import com.ajel.services.TabPedidoService;
 
-
 @RestController
 @RequestMapping("/api/v1")
 public class TabPedidoController {
