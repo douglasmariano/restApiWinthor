@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.EstoqueCabo;
 import com.ajel.repository.EstoqueCaboRepository;
+import com.ajel.repository.filter.EstoqueCaboFilter;
 
-
+@CrossOrigin(origins = "http://192.168.200.55:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class EstoqueCaboController {
@@ -31,27 +31,32 @@ public class EstoqueCaboController {
     @Autowired
 	private EstoqueCaboRepository estoqueCaboRepository;
 
-	@GetMapping("/estoquecabos")
-	public List<EstoqueCabo> getAllEstoqueCabos() {
-		return estoqueCaboRepository.findAll();
+//	@GetMapping("/estoquecabos")
+    //public List<EstoqueCabo> getAllEstoqueCabos() {
+	//	return estoqueCaboRepository.findAll();
 		
-	}
+	//}
 
-	@GetMapping("/estoquecabos/{codprod}")
-	public ResponseEntity<EstoqueCabo> getEstoqueById(@PathVariable Long codprod)
+	@GetMapping("/estoquecabo")
+	public List<EstoqueCabo> getEstoqueCabo(EstoqueCaboFilter estoqueCaboFilter) {      
+	        return estoqueCaboRepository.pesquisar(estoqueCaboFilter);
+	    }
+
+	@GetMapping("/estoquecabo/{codendcabo}")
+	public ResponseEntity<EstoqueCabo> getEstoqueById(@PathVariable Long codendcabo)
 			throws ResourceNotFoundException {
-		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
-				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
+		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
+				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codendcabo));
 		return ResponseEntity.ok().body(estoqueCabo);
 	}
 		
 	
-	@PostMapping("/estoquecabos")
+	@PostMapping("/estoquecabo")
 	public EstoqueCabo createTabPedido(@Valid @RequestBody EstoqueCabo estoqueCabo) {
 		return estoqueCaboRepository.save(estoqueCabo);
 	}
 
-	@PutMapping("/estoquecabos/{codendcabo}")
+	@PutMapping("/estoquecabo/{codendcabo}")
 	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo,			  
 			@Valid @RequestBody EstoqueCabo estoqueCaboDetails) throws ResourceNotFoundException{
 	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codendcabo));
@@ -91,7 +96,7 @@ public class EstoqueCaboController {
 		   
 	   }
 	
-	 @DeleteMapping("/estoquecabos/{codendcabo}")
+	 @DeleteMapping("/estoquecabo/{codendcabo}")
 	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo)
 	    throws ResourceNotFoundException {
 	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)

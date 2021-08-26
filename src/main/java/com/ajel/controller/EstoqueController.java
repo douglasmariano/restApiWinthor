@@ -1,6 +1,5 @@
 package com.ajel.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ajel.controller.payloads.ProdutoEstoquePayload;
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.Estoque;
 import com.ajel.model.EstoquePK;
 import com.ajel.repository.EstoqueRepository;
-import com.ajel.services.ProdutoEstoqueService;
 
 
 @RestController
@@ -35,10 +30,7 @@ public class EstoqueController {
     @Autowired
 	private EstoqueRepository estoqueRepository;
     
-    @Autowired
-    private ProdutoEstoqueService produtoEstoqueService;
-
-	@GetMapping("/estoques")
+    @GetMapping("/estoques")
  	public List<Estoque> getAllEstoques() {
 	    List<Estoque> e = estoqueRepository.findAll();
 		return e;
