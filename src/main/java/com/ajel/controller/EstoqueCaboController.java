@@ -1,5 +1,7 @@
 package com.ajel.controller;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.EstoqueCabo;
+import com.ajel.model.TabPedido;
 import com.ajel.repository.EstoqueCaboRepository;
 import com.ajel.repository.filter.EstoqueCaboFilter;
 
@@ -49,6 +52,13 @@ public class EstoqueCaboController {
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codendcabo));
 		return ResponseEntity.ok().body(estoqueCabo);
 	}
+	@GetMapping("/estoquecaboCodprod/{codprod}")
+	    public ResponseEntity<EstoqueCabo> getEstoqueByCodprod(@PathVariable Long codprod)
+	            throws ResourceNotFoundException {
+	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
+	                .orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
+	        return ResponseEntity.ok().body(estoqueCabo);
+	    }
 		
 	
 	@PostMapping("/estoquecabo")
@@ -62,30 +72,16 @@ public class EstoqueCaboController {
 	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codendcabo));
 	        estoqueCabo.setCodprod(estoqueCaboDetails.getCodprod());
 	        estoqueCabo.setQt(estoqueCaboDetails.getQt());
-	        estoqueCabo.setQtreserv(estoqueCaboDetails.getQtreserv());
-	        estoqueCabo.setDtultmovsai(estoqueCaboDetails.getDtultmovsai());
-	        estoqueCabo.setDtultmovent(estoqueCaboDetails.getDtultmovent());
-	        estoqueCabo.setDtvalidade(estoqueCaboDetails.getDtvalidade());
+	        estoqueCabo.setDataexclusao(estoqueCaboDetails.getDataexclusao());
+	        estoqueCabo.setDatainclusao(estoqueCaboDetails.getDatainclusao());	       
 	        estoqueCabo.setTipoender(estoqueCaboDetails.getTipoender());
 	        estoqueCabo.setStatus(estoqueCaboDetails.getStatus());
-	        estoqueCabo.setNumbonus(estoqueCaboDetails.getNumbonus());
-	        estoqueCabo.setCodfuncrm(estoqueCaboDetails.getCodfuncrm());
-	        estoqueCabo.setDatabloqueio(estoqueCaboDetails.getDatabloqueio());
-	        estoqueCabo.setDatadesbloqueio(estoqueCaboDetails.getDatadesbloqueio());
-	        estoqueCabo.setCodfuncdesbloqueio(estoqueCaboDetails.getCodfuncdesbloqueio());
-	        estoqueCabo.setDatafabricacao(estoqueCaboDetails.getDatafabricacao());
-	        estoqueCabo.setNumlote(estoqueCaboDetails.getNumlote());
-	        estoqueCabo.setQtbloqueada(estoqueCaboDetails.getQtbloqueada());
-	        estoqueCabo.setNumlotefab(estoqueCaboDetails.getNumlotefab());
-	        estoqueCabo.setNumlotefornec(estoqueCaboDetails.getNumlotefornec());
+	        estoqueCabo.setCodfuncinc(estoqueCaboDetails.getCodfuncinc());
 	        estoqueCabo.setFabricante(estoqueCaboDetails.getFabricante());
 	        estoqueCabo.setObs1(estoqueCaboDetails.getObs1());
-	        estoqueCabo.setObs2(estoqueCaboDetails.getObs2());
 	        estoqueCabo.setEmbalagem(estoqueCaboDetails.getEmbalagem());
-	        estoqueCabo.setUmidade(estoqueCaboDetails.getUmidade());
-	        estoqueCabo.setNumtransent(estoqueCaboDetails.getNumtransent());
+	        estoqueCabo.setQtmaster(estoqueCaboDetails.getQtmaster());
 	        estoqueCabo.setIdentificacao(estoqueCaboDetails.getIdentificacao());
-	        estoqueCabo.setCodequipe(estoqueCaboDetails.getCodequipe());
 	        estoqueCabo.setNumero(estoqueCaboDetails.getNumero());
 	        estoqueCabo.setModulo(estoqueCaboDetails.getModulo());
 	        estoqueCabo.setRua(estoqueCaboDetails.getRua());
@@ -95,6 +91,18 @@ public class EstoqueCaboController {
 		  	return ResponseEntity.ok(updateEstoqueCabo);
 		   
 	   }
+	
+	@PutMapping("/estoquecabo/dataExlusao/{codendcabo}")
+    public ResponseEntity<EstoqueCabo> dataExclusao(@PathVariable(value = "codendcabo") Long codendcabo) throws ResourceNotFoundException {
+        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
+                .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + codendcabo));
+        
+        estoqueCabo.setDataexclusao(new Date());
+          
+
+        final EstoqueCabo updateEstoqueCabo = estoqueCaboRepository.save(estoqueCabo);
+        return ResponseEntity.ok(updateEstoqueCabo);
+        }
 	
 	 @DeleteMapping("/estoquecabo/{codendcabo}")
 	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo)
