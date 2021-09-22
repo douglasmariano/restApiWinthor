@@ -29,12 +29,15 @@ import com.ajel.repository.TabPedidoRepository;
 import com.ajel.repository.filter.TabPedidosFilter;
 import com.ajel.services.TabPedidoService;
 
-@CrossOrigin(origins = "http://192.168.200.17:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class TabPedidoController {
 	@Autowired
 	private TabPedidoRepository tabPedidoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	@Autowired
 	private TabPedidoService tabPedidoService;
