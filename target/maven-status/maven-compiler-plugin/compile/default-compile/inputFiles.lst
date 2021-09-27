@@ -44,6 +44,7 @@ C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restA
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\repository\produto\ProdutoRepositoryQuery.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\controller\ClienteController.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\services\ProdutoEstoqueService.java
+C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\services\AjelEntregaService.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\controller\TabPedidoController.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\controller\EstoqueController.java
 C:\Users\informatica\Documents\workspace-spring-tool-suite-4-4.5.0.RELEASE\restApiWinthor\src\main\java\com\ajel\repository\filter\TabPedidosFilter.java

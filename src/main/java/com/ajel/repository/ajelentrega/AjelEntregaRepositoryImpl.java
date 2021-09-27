@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import com.ajel.model.AjelEntrega;
 import com.ajel.repository.filter.AjelEntregaFilter;
+import com.sun.org.apache.xpath.internal.operations.And;
 
 public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
 
@@ -25,12 +26,13 @@ public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
             CriteriaBuilder builder = manager.getCriteriaBuilder();
             CriteriaQuery<AjelEntrega> criteria = builder.createQuery(AjelEntrega.class);       
             Root<AjelEntrega> root = criteria.from(AjelEntrega.class);
-            criteria.select(root);
-            //criteria.orderBy(builder.asc(root.get("rua")), builder.asc(root.get("modulo")), builder.asc(root.get("apto")));
+            criteria.select(root);                       
+            criteria.orderBy(builder.asc(root.get("dtinclusao"))); 
             
                     
             Predicate[] predicates = criarRestricoes(ajelEntregaFilter, builder, root);
-            criteria.where(predicates);
+             
+            criteria.where(predicates) ;
             
             TypedQuery<AjelEntrega> query = manager.createQuery(criteria);
             return query.getResultList();
@@ -40,12 +42,18 @@ public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
         private Predicate[] criarRestricoes(AjelEntregaFilter ajelEntregaFilter, CriteriaBuilder builder,
                 Root<AjelEntrega> root) {
             
-            List<Predicate> predicates = new ArrayList<>();     
+            List<Predicate> predicates = new ArrayList<>();
+            
+            predicates.add(builder.isNull(root.get("dtexclusao")));
+            
             if (ajelEntregaFilter.getNumnota() != null){
                 predicates.add(builder.equal(root.get("numnota"), ajelEntregaFilter.getNumnota()));            
+            } else if (ajelEntregaFilter.getCodentrega() != null){
+                predicates.add(builder.equal(root.get("codentrega"), ajelEntregaFilter.getCodentrega()));
+                
             }
-                       
-            return predicates.toArray(new Predicate[predicates.size()]);        
+             
+            return predicates.toArray(new Predicate[predicates.size()]) ;        
         }
        
 
