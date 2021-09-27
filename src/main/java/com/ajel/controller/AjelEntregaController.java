@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
@@ -56,6 +56,15 @@ public class AjelEntregaController {
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codentrega));
 		return ResponseEntity.ok().body(ajelEntrega);
 	}
+	
+	@PostMapping("/ajelentrega/numnota")
+    public ResponseEntity<List<AjelEntrega>> getEntregaByNumnota(@RequestBody AjelEntregaFilter filter)
+            throws ResourceNotFoundException {
+	    List<AjelEntrega> ajelEntrega = null;
+	    ajelEntrega = ajelEntregaRepository.pesquisar(filter);
+                //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
+        return ResponseEntity.ok().body(ajelEntrega);
+    }
 
 	
 	@PostMapping("/ajelentrega")
