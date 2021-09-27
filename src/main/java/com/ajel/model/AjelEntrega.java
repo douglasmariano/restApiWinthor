@@ -14,11 +14,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name ="ajel_entrega")
 public class AjelEntrega {
-    @Column(name = "codentrega")
+    
     @SequenceGenerator(name = "SEQ_codentrega", sequenceName = "SEQ_codentrega", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_codentrega")
     @Id
-    public BigDecimal codentrega;
+    @Column(name = "codentrega")
+    public Long codentrega;
     
     @Column(name = "obsdoentregador")
     public String obsdoentregador;
@@ -114,7 +115,7 @@ public class AjelEntrega {
 
 
 
-    public AjelEntrega(BigDecimal codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,String nomecidade, String endercob,
+    public AjelEntrega(Long codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,String nomecidade, String endercob,
             BigDecimal numnota, String posicao, BigDecimal codusur, String nomevendedor, Date dtfat, Date dtentrega, BigDecimal codfornecfrete,
             String fornecedor, BigDecimal codmotorista, String nomemotorista, BigDecimal codcli, String nomecliente, String obs,
             String obs1, String obsentrega1, String obsentrega2, String obsentrega3, BigDecimal codfuncconf, String nomeconf,
@@ -154,13 +155,13 @@ public class AjelEntrega {
 
 
 
-    public BigDecimal getCodentrega() {
+    public Long getCodentrega() {
         return codentrega;
     }
 
 
 
-    public void setCodentrega(BigDecimal codentrega) {
+    public void setCodentrega(Long codentrega) {
         this.codentrega = codentrega;
     }
 
