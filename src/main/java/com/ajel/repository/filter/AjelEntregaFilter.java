@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class AjelEntregaFilter {
     
-    private Long codentrega;
+    private BigDecimal codentrega;
     
     private BigDecimal numnota;
 
-    public Long getCodentrega() {
+    public BigDecimal getCodentrega() {
         return codentrega;
     }
 
-    public void setCodentrega(Long codentrega) {
+    public void setCodentrega(BigDecimal codentrega) {
         this.codentrega = codentrega;
     }
 
