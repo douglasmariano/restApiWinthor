@@ -32,8 +32,9 @@ public class LoginController {
             Map<String, String> response = new HashMap<>();
             response.put("token", token);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
+        } catch (Exception e) {            
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDetails(new Date(), e.getMessage(), null));
+            
         }
     }
 }
