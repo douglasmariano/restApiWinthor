@@ -26,7 +26,7 @@ import com.ajel.model.TabPedido;
 import com.ajel.repository.EstoqueCaboRepository;
 import com.ajel.repository.filter.EstoqueCaboFilter;
 
-@CrossOrigin(origins = "http://192.168.200.55:4200")
+@CrossOrigin(origins = "http://192.168.200.17:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class EstoqueCaboController {

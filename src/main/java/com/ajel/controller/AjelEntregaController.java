@@ -27,7 +27,7 @@ import com.ajel.repository.filter.AjelEntregaFilter;
 import com.ajel.services.AjelEntregaService;
 
 
-@CrossOrigin(origins = "http://192.168.200.55:4200")
+@CrossOrigin(origins = "http://192.168.200.17:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class AjelEntregaController {
@@ -65,6 +65,15 @@ public class AjelEntregaController {
                 //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
         return ResponseEntity.ok().body(ajelEntrega);
     }
+	
+	@PostMapping("/ajelentrega/dtentrega")
+    public ResponseEntity<List<AjelEntrega>> getEntregaByDtEntrega(@RequestBody AjelEntregaFilter filter)
+            throws ResourceNotFoundException {
+        List<AjelEntrega> ajelEntrega = null;
+        ajelEntrega = ajelEntregaRepository.pesquisar(filter);
+                //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
+        return ResponseEntity.ok().body(ajelEntrega);
+    }
 
 	
 	@PostMapping("/ajelentrega")
@@ -73,7 +82,7 @@ public class AjelEntregaController {
 	    return ajelEntregaRepository.save(ajelEntrega);
 	}
 	
-	@PostMapping("/ajelentrega/dadoswinthor") 
+	@PostMapping("/ajelentrega/pesquisarNotaWinthor") 
     public ResponseEntity<List<AjelEntrega>> getInformacaoPedidoById(@RequestBody AjelEntregaFilter filter)
             throws ResourceNotFoundException {
         List<AjelEntrega> pedidoWinthor = null;        
