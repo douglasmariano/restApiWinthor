@@ -1,7 +1,11 @@
 package com.ajel.repository.filter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class AjelEntregaFilter {
     
@@ -10,6 +14,9 @@ public class AjelEntregaFilter {
     private BigDecimal numnota;
     
     private List<Long> transportadora;
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dtentrega;
 
     public BigDecimal getCodentrega() {
         return codentrega;
@@ -34,6 +41,16 @@ public class AjelEntregaFilter {
     public void setTransportadora(List<Long> transportadora) {
         this.transportadora = transportadora;
     }
+
+    public Date getDtentrega() {
+        return dtentrega;
+    }
+
+    public void setDtEntrega(Date dtentrega) {
+        this.dtentrega = dtentrega;
+    }
+    
+    
     
     
     

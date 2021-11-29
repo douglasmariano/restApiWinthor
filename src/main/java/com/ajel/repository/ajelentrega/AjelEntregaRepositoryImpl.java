@@ -1,6 +1,9 @@
 package com.ajel.repository.ajelentrega;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,12 +16,13 @@ import javax.persistence.criteria.Root;
 
 import com.ajel.model.AjelEntrega;
 import com.ajel.repository.filter.AjelEntregaFilter;
-import com.sun.org.apache.xpath.internal.operations.And;
 
 public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
 
         @PersistenceContext
         private EntityManager manager;
+        
+       
         
         @Override
         public List<AjelEntrega> pesquisar(AjelEntregaFilter ajelEntregaFilter) {
@@ -42,15 +46,27 @@ public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
         private Predicate[] criarRestricoes(AjelEntregaFilter ajelEntregaFilter, CriteriaBuilder builder,
                 Root<AjelEntrega> root) {
             
+            LocalDate today = LocalDate.now( ZoneId.systemDefault() );
+            Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
             List<Predicate> predicates = new ArrayList<>();
             
             predicates.add(builder.isNull(root.get("dtexclusao")));
             
             if (ajelEntregaFilter.getNumnota() != null){
                 predicates.add(builder.equal(root.get("numnota"), ajelEntregaFilter.getNumnota()));            
-            } else if (ajelEntregaFilter.getCodentrega() != null){
-                predicates.add(builder.equal(root.get("codentrega"), ajelEntregaFilter.getCodentrega()));
-                
+            } 
+            
+            if (ajelEntregaFilter.getCodentrega() != null){
+                predicates.add(builder.equal(root.get("codentrega"), ajelEntregaFilter.getCodentrega()));                
+            }
+            
+            if (ajelEntregaFilter.getDtentrega() != null){
+               // predicates.add(builder.equal(root.get("dtentrega"), ajelEntregaFilter.getDtentrega()));
+                predicates.add(builder.equal(builder.function("TRUNC", Date.class, root.get("dtentrega")),ajelEntregaFilter.getDtentrega()));               
+            }else if(ajelEntregaFilter.getNumnota() == null) {
+                predicates.add(builder.equal(builder.function("TRUNC", Date.class, root.get("dtentrega")), date)); 
+                System.out.println(date);
             }
              
             return predicates.toArray(new Predicate[predicates.size()]) ;        
