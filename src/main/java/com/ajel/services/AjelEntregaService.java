@@ -24,57 +24,45 @@ public class AjelEntregaService {
 	
 	
 	public String getInfomacoesEntregaWinthor(){
-		return 	" SELECT   " +
-		        "   pc.NUMNOTA, " +
-		        "   c.ESTCOB, " +
-		        "   c.CODCIDADE, " +
-		        "   (SELECT NOMECIDADE FROM PCCIDADE  WHERE CODCIDADE = c.CODCIDADE) AS NOMECIDADE, " +
-		        "   c.ENDERCOB , " +
-		        "   pc.POSICAO , " +
-		        "   pc.CODUSUR, " +
-		        "   u.NOME AS nomevendedor , " +
-		        "   pc.DTFAT, " +
-		        "   pc.DTENTREGA, " +
-		        "   pc.CODFORNECFRETE, " +
-		        "   f.FORNECEDOR , " +
-		        "   pc.CODMOTORISTA, " +
-		        "       (SELECT " +
-		        "       nome " +
-		        "   FROM " +
-		        "       PCEMPR " +
-		        "   WHERE " +
-		        "       MATRICULA = pc.CODMOTORISTA) AS nomemotorista , " +
-		        "   pc.CODCLI , " +
-		        "   c.CLIENTE AS nomecliente, " +
-		        "   pc.OBS , " +
-		        "   pc.OBS1, " +		        
-		        "   pc.OBSENTREGA1, " +
-		        "   pc.OBSENTREGA2 , " +
-		        "   pc.OBSENTREGA3,   " +
-		        "       pc.CODFUNCCONF, " +
-		        "   (SELECT " +
-		        "       nome " +
-		        "   FROM " +
-		        "       PCEMPR " +
-		        "   WHERE " +
-		        "       MATRICULA = pc.CODFUNCCONF) AS nomeConf , " +
-		        "   pc.VLATEND , " +
-		        "   pc.NUMVOLUME " +		        
-		        " FROM " +
-		        "   pcpedc pc, " +
-		        "   PCUSUARI u, " +
-		        "   PCCLIENT c , " +
-		        "   PCNFSAID nf , " +
-		        "   PCFORNEC f   " +
-		        " WHERE " +
-		        "   pc.CODUSUR = u.CODUSUR " +
-		        "   AND pc.CODCLI = c.CODCLI " +
-		        "   AND nf.NUMNOTA = pc.NUMNOTA " +
-		        "   AND pc.CODFORNECFRETE = f.CODFORNEC(+) " +
-		        "   AND pc.POSICAO IN ('F') " ;
-		       // "   AND pc.DATA > SYSDATE - 30  " +
-		       // " ORDER BY " +
-		       // "   pc.DTENTREGA DESC " ;
+		return 	" SELECT    " +
+		        "    pc.NUMNOTA,  " +
+		        "    pc.codfilial,  " +
+		        "    c.ESTCOB,  " +
+		        "    c.CODCIDADE,  " +
+		        "    cid.nomecidade,    " +
+		        "    c.ENDERCOB ,  " +
+		        "    pc.POSICAO ,  " +
+		        "    pc.CODUSUR,  " +
+		        "    u.NOME AS nomevendedor ,  " +
+		        "    pc.DTFAT,  " +
+		        "    pc.DTENTREGA,  " +
+		        "    pc.CODFORNECFRETE,  " +
+		        "    f.FORNECEDOR ,  " +
+		        "    pc.CODMOTORISTA,  " +
+		        "    mot.nome AS nomemotorista ,  " +
+		        "    pc.CODCLI ,  " +
+		        "    c.CLIENTE AS nomecliente,  " +
+		        "    pc.OBS ,  " +
+		        "    pc.OBS1,  " +
+		        "    pc.OBSENTREGA1,  " +
+		        "    pc.OBSENTREGA2 ,  " +
+		        "    pc.OBSENTREGA3,    " +
+		        "    pc.CODFUNCCONF,  " +
+		        "    conf.nome AS nomeconferente ,  " +
+		        "    pc.VLATEND ,  " +
+		        "    pc.NUMVOLUME  " +
+		        "  FROM  " +
+		        "    pcpedc pc " +
+		        "  inner    join PCCLIENT c     on pc.CODCLI = c.CODCLI  " +
+		        "  inner    join PCUSUARI u     on pc.CODUSUR = u.CODUSUR " +
+		        "  inner    join PCNFSAID nf    on pc.CODFILIAL = nf.CODFILIAL  AND pc.NUMNOTA = nf.NUMNOTA  " +
+		        "                                                           AND nf.ESPECIE IN ('NF')  " +
+		        "                                                           AND pc.DTFAT IS NOT null " +
+		        "  left     join PCFORNEC f     on pc.CODFORNECFRETE = f.CODFORNEC " +
+		        "  inner    join PCCIDADE cid   on c.CODCIDADE = cid.CODCIDADE  " +
+		        "  left     join PCEMPR conf    on conf.matricula = pc.CODFUNCCONF " +
+		        "  left     join PCEMPR mot     on mot.matricula = pc.CODMOTORISTA " +
+		        "  WHERE pc.POSICAO IN ('F')  " ;
 	}
 	
 	public List<AjelEntrega> getDadosDoResultSet(List<Object[]> results) {
@@ -86,6 +74,7 @@ public class AjelEntregaService {
 	    		
 	    		
 	    		ajelEntrega.setNumnota(((BigDecimal) objects[i++]));
+	    		ajelEntrega.setCodfilial(((String) objects[i++]));
 	            ajelEntrega.setEstcob(((String) objects[i++])); 
 	            ajelEntrega.setCodcidade(((BigDecimal) objects[i++]));
 	            ajelEntrega.setNomecidade(((String) objects[i++]));
@@ -129,9 +118,16 @@ public class AjelEntregaService {
 
     public List<AjelEntrega> findByNumnota(AjelEntregaFilter filter) {
         
-        Query nativeQuery = entityManager.createNativeQuery(getInfomacoesEntregaWinthor() + " AND pc.NUMNOTA = :numnota ");
-        nativeQuery.setParameter("numnota", filter.getNumnota());
-                
+        Query nativeQuery = entityManager.createNativeQuery(getInfomacoesEntregaWinthor() + " AND pc.NUMNOTA = :numnota and pc.codfilial like :codfilial ");
+        nativeQuery.setParameter("numnota" , filter.getNumnota()); 
+        if(filter.getCodfilial() != "") {
+            nativeQuery.setParameter("codfilial" , filter.getCodfilial()); 
+        } else {
+            nativeQuery.setParameter("codfilial" , "%%"); 
+        }
+         
+       
+        
         List<Object[]> results = nativeQuery.getResultList();
         return getDadosDoResultSet(results);
     }

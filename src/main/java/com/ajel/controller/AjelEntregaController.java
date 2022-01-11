@@ -27,7 +27,7 @@ import com.ajel.repository.filter.AjelEntregaFilter;
 import com.ajel.services.AjelEntregaService;
 
 
-@CrossOrigin(origins = "http://192.168.200.17:4200")
+@CrossOrigin(origins = "http://192.168.200.55:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class AjelEntregaController {

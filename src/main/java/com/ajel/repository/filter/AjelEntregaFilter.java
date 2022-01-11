@@ -11,6 +11,8 @@ public class AjelEntregaFilter {
     
     private BigDecimal codentrega;
     
+    private String codfilial;    
+    
     private BigDecimal numnota;
     
     private List<Long> transportadora;
@@ -48,6 +50,14 @@ public class AjelEntregaFilter {
 
     public void setDtEntrega(Date dtentrega) {
         this.dtentrega = dtentrega;
+    }
+
+    public String getCodfilial() {
+        return codfilial;
+    }
+
+    public void setCodfilial(String codfilial) {
+        this.codfilial = codfilial;
     }
     
     

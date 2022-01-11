@@ -43,6 +43,9 @@ public class AjelEntrega {
     @Column(name = "numnota")
     public BigDecimal numnota;
     
+    @Column(name = "codfilial")
+    public String codfilial;
+    
     @Column(name = "posicao")
     public String posicao;
 
@@ -116,7 +119,7 @@ public class AjelEntrega {
 
 
     public AjelEntrega(Long codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,String nomecidade, String endercob,
-            BigDecimal numnota, String posicao, BigDecimal codusur, String nomevendedor, Date dtfat, Date dtentrega, BigDecimal codfornecfrete,
+            BigDecimal numnota, String codfilial, String posicao, BigDecimal codusur, String nomevendedor, Date dtfat, Date dtentrega, BigDecimal codfornecfrete,
             String fornecedor, BigDecimal codmotorista, String nomemotorista, BigDecimal codcli, String nomecliente, String obs,
             String obs1, String obsentrega1, String obsentrega2, String obsentrega3, BigDecimal codfuncconf, String nomeconf,
             BigDecimal vlatend, BigDecimal numvolume, Date dtinclusao, Date dtexclusao) {
@@ -129,6 +132,7 @@ public class AjelEntrega {
         this.nomecidade = nomecidade;
         this.endercob = endercob;
         this.numnota = numnota;
+        this.codfilial = codfilial;
         this.posicao = posicao;
         this.codusur = codusur;
         this.nomevendedor = nomevendedor;
@@ -217,6 +221,18 @@ public class AjelEntrega {
 
     public String getEndercob() {
         return endercob;
+    }
+
+
+
+    public String getCodfilial() {
+        return codfilial;
+    }
+
+
+
+    public void setCodfilial(String codfilial) {
+        this.codfilial = codfilial;
     }
 
 
