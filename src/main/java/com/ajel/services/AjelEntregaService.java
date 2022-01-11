@@ -127,7 +127,6 @@ public class AjelEntregaService {
         }
          
        
-        
         List<Object[]> results = nativeQuery.getResultList();
         return getDadosDoResultSet(results);
     }
