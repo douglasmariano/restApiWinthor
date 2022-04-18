@@ -49,7 +49,7 @@ public class AjelEntregaController {
 	        return ajelEntregaRepository.pesquisar(ajelEntregaFilter);
 	    }
 
-	@GetMapping("/ajelentrega/{codentrega}")
+	@GetMapping("/ajelentrega/codentrega/{codentrega}")
 	public ResponseEntity<AjelEntrega> getEntregaById(@PathVariable Long codentrega)
 			throws ResourceNotFoundException {
 		AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega)
@@ -91,11 +91,24 @@ public class AjelEntregaController {
         return ResponseEntity.ok().body(pedidoWinthor);
     }
 
-	@PutMapping("/ajelentrega/{codentrega}")
+	@PutMapping("/ajelentrega/alterarSeparacao/{codentrega}")
 	   public ResponseEntity <AjelEntrega> updateAjelEntrega(@PathVariable(value = "codentrega") Long codentrega,			  
 			@Valid @RequestBody AjelEntrega ajelEntregaDetails) throws ResourceNotFoundException{
 	        AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega).orElseThrow(() -> new ResourceNotFoundException("Erro na Entrega: "+ codentrega));
-	       
+	        //ajelEntrega.setCodcidade(ajelEntregaDetails.getCodcidade());
+	        ajelEntrega.setObsdoentregador(ajelEntregaDetails.getObsdoentregador());
+	        ajelEntrega.setLocal(ajelEntregaDetails.getLocal());
+	        ajelEntrega.setCodfornecfrete(ajelEntregaDetails.getCodfornecfrete());
+	        ajelEntrega.setCodfuncconf(ajelEntregaDetails.getCodfuncconf());
+	        ajelEntrega.setCodmotorista(ajelEntregaDetails.getCodmotorista());
+	        //ajelEntrega.setDtentrega(ajelEntregaDetails.getDtentrega());
+	        //ajelEntrega.setEndercob(ajelEntregaDetails.getEndercob());
+	        //ajelEntrega.setNomecidade(ajelEntregaDetails.getNomecidade());
+	        ajelEntrega.setFornecedor(ajelEntregaDetails.getFornecedor());
+	        ajelEntrega.setNomemotorista(ajelEntregaDetails.getNomemotorista());
+	        ajelEntrega.setNomeconf(ajelEntregaDetails.getNomeconf());
+	        ajelEntrega.setLocal(ajelEntregaDetails.getLocal());
+	        
 			final AjelEntrega updateAjelEntrega = ajelEntregaRepository.save(ajelEntrega);
 		  	return ResponseEntity.ok(updateAjelEntrega);
 		   

@@ -71,8 +71,8 @@ public class AjelEntregaService {
 		        "   AND pc.CODCLI = c.CODCLI " +
 		        "   AND nf.NUMNOTA = pc.NUMNOTA " +
 		        "   AND pc.CODFORNECFRETE = f.CODFORNEC(+) " +
-		        "   AND pc.POSICAO IN ('F') " ;
-		       // "   AND pc.DATA > SYSDATE - 30  " +
+		        "   AND pc.POSICAO IN ('F') " +
+		        "   AND pc.DATA > SYSDATE - 30  " ;
 		       // " ORDER BY " +
 		       // "   pc.DTENTREGA DESC " ;
 	}
