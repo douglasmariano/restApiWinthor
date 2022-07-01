@@ -61,20 +61,16 @@ public class AjelEntregaService {
 		        "   pc.VLATEND , " +
 		        "   pc.NUMVOLUME " +		        
 		        " FROM " +
-		        "   pcpedc pc, " +
-		        "   PCUSUARI u, " +
-		        "   PCCLIENT c , " +
-		        "   PCNFSAID nf , " +
-		        "   PCFORNEC f   " +
-		        " WHERE " +
-		        "   pc.CODUSUR = u.CODUSUR " +
-		        "   AND pc.CODCLI = c.CODCLI " +
-		        "   AND nf.NUMNOTA = pc.NUMNOTA " +
-		        "   AND pc.CODFORNECFRETE = f.CODFORNEC(+) " +
-		        "   AND pc.POSICAO IN ('F') " +
-		        "   AND pc.DATA > SYSDATE - 30  " ;
-		       // " ORDER BY " +
-		       // "   pc.DTENTREGA DESC " ;
+		        " pcpedc pc " +
+		        " inner JOIN PCUSUARI u ON pc.CODUSUR = u.CODUSUR  " +
+		        " inner JOIN PCCLIENT c ON pc.CODCLI = c.CODCLI " +
+		        " inner jOIN PCNFSAID nf ON pc.NUMNOTA = nf.NUMNOTA and pc.CODFILIAL = nf.CODFILIAL " + 
+		        " left JOIN PCFORNEC f ON pc.CODFORNECFRETE = f.CODFORNEC " +
+		   " WHERE   " +		       
+		       " pc.POSICAO IN ('F') " +
+		       " AND pc.DTENTREGA > SYSDATE - 152 " +
+		       " AND nf.ESPECIE LIKE ('NF')	";	    
+		        
 	}
 	
 	public List<AjelEntrega> getDadosDoResultSet(List<Object[]> results) {
@@ -129,7 +125,7 @@ public class AjelEntregaService {
 
     public List<AjelEntrega> findByNumnota(AjelEntregaFilter filter) {
         
-        Query nativeQuery = entityManager.createNativeQuery(getInfomacoesEntregaWinthor() + " AND pc.NUMNOTA = :numnota ");
+        Query nativeQuery = entityManager.createNativeQuery(getInfomacoesEntregaWinthor() + " AND pc.NUMNOTA = :numnota ORDER BY pc.DTENTREGA DESC");
         nativeQuery.setParameter("numnota", filter.getNumnota());
                 
         List<Object[]> results = nativeQuery.getResultList();

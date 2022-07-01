@@ -110,6 +110,12 @@ public class Estoque {
     @Column(name = "motivobloqestoque" ) 
     private String motivobloqestoque;
     
+    @Column(name = "codauxiliar" ) 
+    private String codauxiliar;
+    
+    @Column(name = "codauxiliar2" ) 
+    private String codauxiliar2;
+    
     public Estoque() {
     
     }
@@ -118,7 +124,7 @@ public class Estoque {
             Long qtvendmes1, Long qtvendmes2, Long qtvendmes3, Long vlvendmes, Long qtvenddia, Long vlvenddia, Long qtpedida,
             Long qtestant, Long qtreserv, Long qtultent, Long qtestger, Long qtbloqueada, Long qtpendente, Long qtgirodia,
             Long modulo, Long rua, Long apto, Long estmax, Date dtultfat, Date dtemissaoultent, Date dtultent, Date dtultsaida,
-            Date dtultinvent, String rotinalanc, String fimestoque, String motivobloqestoque) {
+            Date dtultinvent, String rotinalanc, String fimestoque, String motivobloqestoque, String codauxiliar, String codauxiliar2) {
         super();
         this.estoquePK = estoquePK;
         this.vlultpcompra = vlultpcompra;
@@ -153,6 +159,8 @@ public class Estoque {
         this.rotinalanc = rotinalanc;
         this.fimestoque = fimestoque;
         this.motivobloqestoque = motivobloqestoque;
+        this.codauxiliar = codauxiliar;
+        this.codauxiliar2 = codauxiliar2;
     }
 
     public EstoquePK getEstoquePK() {
@@ -417,6 +425,22 @@ public class Estoque {
 
     public void setMotivobloqestoque(String motivobloqestoque) {
         this.motivobloqestoque = motivobloqestoque;
+    }
+
+    public String getCodauxiliar() {
+        return codauxiliar;
+    }
+
+    public void setCodauxiliar(String codauxiliar) {
+        this.codauxiliar = codauxiliar;
+    }
+
+    public String getCodauxiliar2() {
+        return codauxiliar2;
+    }
+
+    public void setCodauxiliar2(String codauxiliar2) {
+        this.codauxiliar2 = codauxiliar2;
     }
 
     

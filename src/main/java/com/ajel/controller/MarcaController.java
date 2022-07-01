@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.model.Marca;
 import com.ajel.repository.MarcaRepository;
-import com.ajel.repository.filter.ProdutoFilter;
+import com.ajel.repository.filter.NotaFiscalSaidaFilter;
 
 
 @RestController
@@ -21,7 +21,7 @@ public class MarcaController {
     private MarcaRepository repository;    
 
     @GetMapping("/marca")
-    public List<Marca> getProduto(ProdutoFilter produtoFilter) {      
+    public List<Marca> getProduto(NotaFiscalSaidaFilter notaFiscalSaidaFilter) {      
         return repository.findAll();
     }
 }
