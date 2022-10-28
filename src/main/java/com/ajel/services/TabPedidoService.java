@@ -65,7 +65,7 @@ public class TabPedidoService {
 				   "             when REL.STATUS = 'C' then 'Cancelado' " +  
 				   "             when REL.STATUS = 'R' then 'Retira' " +  
 				   "             when REL.STATUS = 'Z' then 'Finalizado' " +  
-		   	       "       end POSICAO, " + 
+		   	       "       end STATUS, " + 
 		   	       "       case when REL.STATUS in ('A','E') then 1 " + 
 		   	       "             when REL.STATUS in ('R','B') then 2 " + 
 		   	       "             when REL.STATUS = 'F' then 0 " + 
@@ -75,7 +75,8 @@ public class TabPedidoService {
 		   	       "             when REL.STATUS = 'H' then 0 " + 
 		   	       "             when REL.STATUS = 'V' then 0 " + 
 		   	       "       end ORDEM, " + 
-		   	       "       REL.PAINEL " + 
+		   	       "       REL.PAINEL, " + 
+		   	       "       REL.POSICAO " + 
 		   	       "   from (select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
@@ -106,7 +107,16 @@ public class TabPedidoService {
 		   	       "                     Else (P.DATAFIMBALCAO - P.DATAINICIOBALCAO) " + 
 		   	       "               end EMCONFERENCIA, " + 
 		   	       "	              (sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) TEMPODECOR, " + 
-		   	       "               P.PAINEL " + 
+		   	       "               P.PAINEL, " +
+    		   	    "                      CASE " +
+                    "         WHEN P.retira = 'S'  THEN 'RETIRA' "+
+                    "         WHEN P.retira = 'G'  THEN 'ENTREGA' " +
+                    "         WHEN P.retira = 'N' AND P.STATUS = 'N' THEN 'NADA' " +
+                    "         WHEN P.posicao = 'F' and P.retira = 'S' THEN 'RETIRA' " +
+                    "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
+                    "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
+                    "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
+                    "    ELSE 'ERROR' END as posicao"+
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " +
@@ -114,9 +124,9 @@ public class TabPedidoService {
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
 		   	       "           And P.NUMPED    = F.NUMPED " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30 " +
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 155 " +
 		   	       "           and P.CODFILIAL in ('1','2','3','4')																					"+ 
-		   	       "           And NVL(P.RETIRA,'N') <> 'G' " + 
+		   	      // "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
 		   	       "           and P.PAINEL     = 'S' 																								"+ 
 		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T')  											"+ 
@@ -151,7 +161,16 @@ public class TabPedidoService {
 		   	       "                     Else (P.DATAFIMBALCAO - P.DATAINICIOBALCAO) " + 
 		   	       "               end EMCONFERENCIA, " + 
 		   	       "               (sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) TEMPODECOR, " + 
-		   	       "               P.PAINEL " + 
+		   	       "               P.PAINEL, " + 
+		   	       "                      CASE " +
+		   	       "         WHEN P.retira = 'S'  THEN 'RETIRA' "+
+		   	       "         WHEN P.retira = 'G'  THEN 'ENTREGA' " +
+		   	       "         WHEN P.retira = 'N' AND P.status = 'N' THEN 'NADA' " +
+		   	       "         WHEN P.posicao = 'F' and P.retira = 'S' THEN 'RETIRA' " +
+		   	       "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
+		   	       "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
+		   	       "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
+		   	       "    ELSE 'ERROR' END as posicao"+
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " + 
@@ -159,13 +178,13 @@ public class TabPedidoService {
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " +	
 		   	       "           And P.NUMPED    = F.NUMPED " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 30 " +
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 15 " +
 		   	       "           and P.CODFILIAL in ('1','2','3','4')    " +
 		   	       "           and P.POSICAO   <> 'C' 	 "+
-		   	       "           And NVL(P.RETIRA,'N') <> 'G' " +
+		   	       "           And NVL(P.RETIRA,'N') in ('S','G') " +
 		   	       "           and P.PAINEL     = 'N' " +
-		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T') ) REL " +
-		   	       " Where REL.DATACHEGADACLI is null " + 
+		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T','P') ) REL " +
+		   	       " Where 1 = 1 " + 
 		   	       andWhere +
 		   	       " order by datapedido desc,ORDEM ,REL.TEMPODECOR DESC ";
 	}
@@ -357,9 +376,10 @@ public class TabPedidoService {
 	    		pedido.setEMSEPARACAO((String) objects[i++]);
 	    		pedido.setEMCONFERENCIA((String) objects[i++]);
 	    		pedido.setTEMPODECOR((String) objects[i++]);
-	    		pedido.setPOSICAO((String) objects[i++]);
+	    		pedido.setSTATUS((String) objects[i++]);
 	    		pedido.setORDEM((BigDecimal) objects[i++]);
 	    		pedido.setPAINEL((String) objects[i++]);
+	    		pedido.setPOSICAO((String) objects[i++]);
 	    		
 	    		
 	    		if(pedidofilter.getNumped() == null) {
@@ -384,11 +404,10 @@ public class TabPedidoService {
 	}
 	
 
-	public List<PedidoPayload> findById(BigDecimal nUMPED){
+	public List<PedidoPayload> findById(BigDecimal NUMPED){
 	    List<Object[]> results = entityManager.createNativeQuery(getClienteChegou(" and REL.NUMPED like :numped "))
-    		.setParameter("NUMPED", "%"+nUMPED+"%")
-	    		.getResultList();
-	    
+    		.setParameter("numped", "%"+NUMPED+"%")
+	    		.getResultList();	    
 	    return getDadosDoResultSet(results);
 	}
 		

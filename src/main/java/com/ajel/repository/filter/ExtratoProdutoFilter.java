@@ -22,7 +22,6 @@ public class ExtratoProdutoFilter {
     public void setCodfilial(BigDecimal codfilial) {
         this.codfilial = codfilial;
     }
-    
-    
+      
     
 }

@@ -40,6 +40,10 @@ public class Produto {
 
     @Column(name = "codauxiliar" ) 
     private Long codauxiliar;
+    
+    @Column(name = "codauxiliar2" ) 
+    private Long codauxiliar2;
+
 
     @Column(name = "modulo" ) 
     private Long modulo;
@@ -112,7 +116,7 @@ public class Produto {
     }
 
     public Produto(Long codprod, Long pesoliq, Long pesobruto, Long codepto, Long codsec, Long qtunit, Long codfornec,
-            Long volume, Long codauxiliar, Long modulo, Long numero, Long rua, Long apto, Long codprodprinc, Long codmarca,
+            Long volume, Long codauxiliar,  Long codauxiliar2, Long modulo, Long numero, Long rua, Long apto, Long codprodprinc, Long codmarca,
             Long codrotinaultalter, Date dtultatupcompra, Date dtcadastro, Date dtexclusao, Date dtultaltcom, Date dtultalter,
             String nbm, String codfab, String rotinalanc, String catergoria, String descricao, String embalagem, String unidade,
             String obs, String obs2, String dadostecnicos) {
@@ -126,6 +130,7 @@ public class Produto {
         this.codfornec = codfornec;
         this.volume = volume;
         this.codauxiliar = codauxiliar;
+        this.codauxiliar2 = codauxiliar2;
         this.modulo = modulo;
         this.numero = numero;
         this.rua = rua;
@@ -396,6 +401,14 @@ public class Produto {
 
     public void setDadostecnicos(String dadostecnicos) {
         this.dadostecnicos = dadostecnicos;
+    }
+
+    public Long getCodauxiliar2() {
+        return codauxiliar2;
+    }
+
+    public void setCodauxiliar2(Long codauxiliar2) {
+        this.codauxiliar2 = codauxiliar2;
     }
     
     

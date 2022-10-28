@@ -4,6 +4,8 @@ public class LoginPayload {
 
     private String usuario;
     private String senha;
+    private String matricula;
+    
 
     @Override
     public String toString() {
@@ -12,6 +14,17 @@ public class LoginPayload {
                 ", senha='" + senha + '\'' +
                 '}';
     }
+
+    
+    public String getMatricula() {
+        return matricula;
+    }
+
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
 
     public String getUsuario() {
         return usuario;

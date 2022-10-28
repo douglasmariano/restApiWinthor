@@ -22,10 +22,11 @@ public class PedidoPayload {
 	private String EMSEPARACAO;
 	private String EMCONFERENCIA;
 	private String TEMPODECOR;
-	private String POSICAO;
+	private String STATUS;
 	private BigDecimal ORDEM;
 	private String PAINEL;
 	private String OBS;
+	private String POSICAO;
 	
 	public BigDecimal getNUMPED() {
 		return NUMPED;
@@ -154,6 +155,12 @@ public class PedidoPayload {
 	public void setOBS(String oBS) {
 		OBS = oBS;
 	}
+    public String getSTATUS() {
+        return STATUS;
+    }
+    public void setSTATUS(String sTATUS) {
+        STATUS = sTATUS;
+    }
 	
 	
 }
