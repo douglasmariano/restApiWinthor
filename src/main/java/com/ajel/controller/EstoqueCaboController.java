@@ -1,6 +1,5 @@
 package com.ajel.controller;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.EstoqueCabo;
-import com.ajel.model.TabPedido;
 import com.ajel.repository.EstoqueCaboRepository;
 import com.ajel.repository.filter.EstoqueCaboFilter;
 
@@ -34,31 +32,27 @@ public class EstoqueCaboController {
     @Autowired
 	private EstoqueCaboRepository estoqueCaboRepository;
 
-//	@GetMapping("/estoquecabos")
-    //public List<EstoqueCabo> getAllEstoqueCabos() {
-	//	return estoqueCaboRepository.findAll();
-		
-	//}
-
 	@GetMapping("/estoquecabo")
 	public List<EstoqueCabo> getEstoqueCabo(EstoqueCaboFilter estoqueCaboFilter) {      
 	        return estoqueCaboRepository.pesquisar(estoqueCaboFilter);
 	    }
 
-	@GetMapping("/estoquecabo/{codendcabo}")
-	public ResponseEntity<EstoqueCabo> getEstoqueById(@PathVariable Long codendcabo)
+	@GetMapping("/estoquecabo/{codcabo}")
+	public ResponseEntity<EstoqueCabo> getEstoqueById(@PathVariable Long codcabo)
 			throws ResourceNotFoundException {
-		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
-				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codendcabo));
+		EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo)
+				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codcabo));
 		return ResponseEntity.ok().body(estoqueCabo);
 	}
-	@GetMapping("/estoquecaboCodprod/{codprod}")
-	    public ResponseEntity<EstoqueCabo> getEstoqueByCodprod(@PathVariable Long codprod)
-	            throws ResourceNotFoundException {
-	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codprod)
-	                .orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codprod));
+	
+	@PostMapping("/estoquecabo/codprod")	
+    public ResponseEntity<List<EstoqueCabo>> getEstoqueCaboCodprod(@RequestBody EstoqueCaboFilter estoqueCaboFilter)      
+	    throws ResourceNotFoundException {
+	        List<EstoqueCabo> estoqueCabo = null;
+	        estoqueCabo = estoqueCaboRepository.pesquisar(estoqueCaboFilter);
+	                //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
 	        return ResponseEntity.ok().body(estoqueCabo);
-	    }
+        }
 		
 	
 	@PostMapping("/estoquecabo")
@@ -66,22 +60,18 @@ public class EstoqueCaboController {
 		return estoqueCaboRepository.save(estoqueCabo);
 	}
 
-	@PutMapping("/estoquecabo/{codendcabo}")
-	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo,			  
+	@PutMapping("/estoquecabo/{codcabo}")
+	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codcabo") Long codcabo,			  
 			@Valid @RequestBody EstoqueCabo estoqueCaboDetails) throws ResourceNotFoundException{
-	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codendcabo));
-	        estoqueCabo.setCodprod(estoqueCaboDetails.getCodprod());
+	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codcabo));
 	        estoqueCabo.setQt(estoqueCaboDetails.getQt());
-	        estoqueCabo.setDataexclusao(estoqueCaboDetails.getDataexclusao());
-	        estoqueCabo.setDatainclusao(estoqueCaboDetails.getDatainclusao());	       
-	        estoqueCabo.setTipoender(estoqueCaboDetails.getTipoender());
+	        estoqueCabo.setQtgerencial(estoqueCaboDetails.getQtgerencial());
+	        estoqueCabo.setCodprod_pcest(estoqueCaboDetails.getCodprod_pcest());
+	        estoqueCabo.setCodfilial_pcest(estoqueCaboDetails.getCodfilial_pcest());
+	        estoqueCabo.setCodprod_pcprodut(estoqueCaboDetails.getCodprod_pcprodut());
+	        estoqueCabo.setDtexclusao(estoqueCaboDetails.getDtexclusao());
+	        estoqueCabo.setDtinclusao(estoqueCaboDetails.getDtinclusao());	       
 	        estoqueCabo.setStatus(estoqueCaboDetails.getStatus());
-	        estoqueCabo.setCodfuncinc(estoqueCaboDetails.getCodfuncinc());
-	        estoqueCabo.setFabricante(estoqueCaboDetails.getFabricante());
-	        estoqueCabo.setObs1(estoqueCaboDetails.getObs1());
-	        estoqueCabo.setEmbalagem(estoqueCaboDetails.getEmbalagem());
-	        estoqueCabo.setQtmaster(estoqueCaboDetails.getQtmaster());
-	        estoqueCabo.setIdentificacao(estoqueCaboDetails.getIdentificacao());
 	        estoqueCabo.setNumero(estoqueCaboDetails.getNumero());
 	        estoqueCabo.setModulo(estoqueCaboDetails.getModulo());
 	        estoqueCabo.setRua(estoqueCaboDetails.getRua());
@@ -92,23 +82,23 @@ public class EstoqueCaboController {
 		   
 	   }
 	
-	@PutMapping("/estoquecabo/dataExlusao/{codendcabo}")
-    public ResponseEntity<EstoqueCabo> dataExclusao(@PathVariable(value = "codendcabo") Long codendcabo) throws ResourceNotFoundException {
-        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
-                .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + codendcabo));
+	@PutMapping("/estoquecabo/dataExlusao/{codcabo}")
+    public ResponseEntity<EstoqueCabo> dataExclusao(@PathVariable(value = "codcabo") Long codcabo) throws ResourceNotFoundException {
+        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo)
+                .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + codcabo));
         
-        estoqueCabo.setDataexclusao(new Date());
+        estoqueCabo.setDtexclusao(new Date());
           
 
         final EstoqueCabo updateEstoqueCabo = estoqueCaboRepository.save(estoqueCabo);
         return ResponseEntity.ok(updateEstoqueCabo);
         }
 	
-	 @DeleteMapping("/estoquecabo/{codendcabo}")
-	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codendcabo") Long codendcabo)
+	 @DeleteMapping("/estoquecabo/{codcabo}")
+	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codcabo") Long codcabo)
 	    throws ResourceNotFoundException {
-	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codendcabo)
-	            .orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: " + codendcabo));
+	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo)
+	            .orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: " + codcabo));
 
 	        estoqueCaboRepository.delete(estoqueCabo);
 	        Map < String, Boolean > response = new HashMap < > ();

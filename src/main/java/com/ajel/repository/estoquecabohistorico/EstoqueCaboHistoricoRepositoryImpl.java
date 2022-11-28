@@ -1,4 +1,4 @@
-package com.ajel.repository.estoquecabo;
+package com.ajel.repository.estoquecabohistorico;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,34 +11,34 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.ajel.model.EstoqueCabo;
-import com.ajel.repository.filter.EstoqueCaboFilter;
+import com.ajel.model.EstoqueCaboHistorico;
+import com.ajel.repository.filter.EstoqueCaboHistoricoFilter;
 
-public class EstoqueCaboRepositoryImpl implements EstoqueCaboRepositoryQuery{
+
+public class EstoqueCaboHistoricoRepositoryImpl implements EstoqueCaboHistoricoRepositoryQuery{
 
         @PersistenceContext
         private EntityManager manager;
         
         @Override
-        public List<EstoqueCabo> pesquisar(EstoqueCaboFilter estoqueCaboFilter) {
+        public List<EstoqueCaboHistorico> pesquisarHistorico(EstoqueCaboHistoricoFilter estoqueCaboFilter) {
             
             CriteriaBuilder builder = manager.getCriteriaBuilder();
-            CriteriaQuery<EstoqueCabo> criteria = builder.createQuery(EstoqueCabo.class);       
-            Root<EstoqueCabo> root = criteria.from(EstoqueCabo.class);
+            CriteriaQuery<EstoqueCaboHistorico> criteria = builder.createQuery(EstoqueCaboHistorico.class);       
+            Root<EstoqueCaboHistorico> root = criteria.from(EstoqueCaboHistorico.class);
             criteria.select(root);
-            criteria.orderBy(builder.asc(root.get("rua")), builder.asc(root.get("modulo")), builder.asc(root.get("apto")));
             
                     
             Predicate[] predicates = criarRestricoes(estoqueCaboFilter, builder, root);
             criteria.where(predicates);
             
-            TypedQuery<EstoqueCabo> query = manager.createQuery(criteria);
+            TypedQuery<EstoqueCaboHistorico> query = manager.createQuery(criteria);
             return query.getResultList();
         }   
 
 
-        private Predicate[] criarRestricoes(EstoqueCaboFilter estoqueCaboFilter, CriteriaBuilder builder,
-                Root<EstoqueCabo> root) {
+        private Predicate[] criarRestricoes(EstoqueCaboHistoricoFilter estoqueCaboFilter, CriteriaBuilder builder,
+                Root<EstoqueCaboHistorico> root) {
             
             List<Predicate> predicates = new ArrayList<>();     
             if (estoqueCaboFilter.getCodprod_pcprodut() != null){
@@ -47,7 +47,7 @@ public class EstoqueCaboRepositoryImpl implements EstoqueCaboRepositoryQuery{
                        
             return predicates.toArray(new Predicate[predicates.size()]);        
         }
-       
+     
 
     }
 

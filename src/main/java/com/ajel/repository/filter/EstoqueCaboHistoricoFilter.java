@@ -1,6 +1,6 @@
 package com.ajel.repository.filter;
 
-public class EstoqueCaboFilter {
+public class EstoqueCaboHistoricoFilter {
     
     private Long codcabo;
     

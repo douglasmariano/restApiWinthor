@@ -76,7 +76,9 @@ public class TabPedidoService {
 		   	       "             when REL.STATUS = 'V' then 0 " + 
 		   	       "       end ORDEM, " + 
 		   	       "       REL.PAINEL, " + 
-		   	       "       REL.POSICAO " + 
+		   	       "       REL.POSICAO, " + 
+		   	       "   	    REL.COBRANCA, " +
+		   	       "   	    REL.TIPOPRODUTO " +
 		   	       "   from (select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
@@ -116,7 +118,15 @@ public class TabPedidoService {
                     "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
                     "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
                     "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
-                    "    ELSE 'ERROR' END as posicao"+
+                    "    ELSE 'ERROR' END as posicao,"+
+                    "            F.CODCOB AS cobranca, " +
+                    "            (SELECT CASE WHEN socabo = '10' OR socabo = '01' THEN 'MATERIAL E CABO' " +
+                    "                WHEN socabo = '1' THEN 'CABO' "+
+                    "                WHEN socabo = '0' THEN 'MATERIAL' END AS socabo "+
+                    "                FROM "+
+                    "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
+                    "                    WHERE numped = f.numped"+
+                    "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+              
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " +
@@ -124,13 +134,13 @@ public class TabPedidoService {
 		   	       "         where P.CODCCLI    = C.CODCLI " + 
 		   	       "           And P.CODUSUR    = V.CODUSUR " + 
 		   	       "           And P.NUMPED    = F.NUMPED " + 
-		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 155 " +
+		   	       "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 15 " +
 		   	       "           and P.CODFILIAL in ('1','2','3','4')																					"+ 
 		   	      // "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
 		   	       "           and P.PAINEL     = 'S' 																								"+ 
 		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T')  											"+ 
-		   	       "         Union All " + 
+		   	       "         Union All " +  
 		   	       "         select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
@@ -170,7 +180,15 @@ public class TabPedidoService {
 		   	       "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
 		   	       "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
 		   	       "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
-		   	       "    ELSE 'ERROR' END as posicao"+
+		   	    "    ELSE 'ERROR' END as posicao,"+
+                "            F.CODCOB AS cobranca, " +
+                "            (SELECT CASE WHEN socabo = '10' OR socabo = '01' THEN 'MATERIAL E CABO' " +
+                "                WHEN socabo = '1' THEN 'CABO' "+
+                "                WHEN socabo = '0' THEN 'MATERIAL' END AS socabo "+
+                "                FROM "+
+                "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
+                "                    WHERE numped = f.numped"+
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+     
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " + 
@@ -224,7 +242,7 @@ public class TabPedidoService {
 		        "            when REL.STATUS = 'X' then 'Dirija-se ao Caixa' " +                                                                                                    
 		        "            when REL.STATUS = 'T' then 'Vendedor Alterando Pedido' " +                                                                                             
 		        "            when REL.STATUS = 'P' then 'Pacote'" +                                                                                                                 
-		        "       end POSICAO," +                                                                                                                                              
+		        "       end STATUS," +                                                                                                                                              
 		        "       case when REL.STATUS in ('L','E') then 1  " +                                                                                                               
 		        "            when REL.STATUS in ('R','B') then 2  " +                                                                                                               
 		        "            when REL.STATUS = 'F' then 0 " +                                                                                                                         
@@ -234,7 +252,10 @@ public class TabPedidoService {
 		        "            when REL.STATUS = 'H' then 0 " +                                                                                                                         
 		        "            when REL.STATUS = 'V' then 0 " +                                                                                                                         
 		        "       end ORDEM," +                                                                                                                                                 
-		        "       REL.PAINEL " +                                                                                                                                                  
+		        "       REL.PAINEL, " +
+		        "       REL.POSICAO, " + 
+		        "         REL.COBRANCA, " +
+                "        REL.TIPOPRODUTO " +
 		        "  from (select P.NUMPED," +                                                                                                                                          
 		        "               P.CODUSUR," +                                                                                                                                         
 		        "               P.STATUS," +                                                                                                                                          
@@ -274,7 +295,24 @@ public class TabPedidoService {
 		        "                    Else (P.DATAFIMBALCAO - P.DATAINICIOBALCAO) " +                                                                                                    
 		        "               end EMCONFERENCIA," +                                                                                                                                 
 		        "               (sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) TEMPODECOR," +                                                                                         
-		        "               P.PAINEL  " +                                                                                                                                           
+		        "               P.PAINEL,  " + 
+		        "                      CASE " +
+                "         WHEN P.retira = 'S'  THEN 'RETIRA' "+
+                "         WHEN P.retira = 'G'  THEN 'ENTREGA' " +
+                "         WHEN P.retira = 'N' AND P.status = 'N' THEN 'NADA' " +
+                "         WHEN P.posicao = 'F' and P.retira = 'S' THEN 'RETIRA' " +
+                "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
+                "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
+                "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
+                "    ELSE 'ERROR' END as posicao,"+
+                "            F.CODCOB AS cobranca, " +
+                "            (SELECT CASE WHEN socabo = '10' OR socabo = '01' THEN 'MATERIAL E CABO' " +
+                "                WHEN socabo = '1' THEN 'CABO' "+
+                "                WHEN socabo = '0' THEN 'MATERIAL' END AS socabo "+
+                "                FROM "+
+                "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
+                "                    WHERE numped = f.numped"+
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+    
 		        "          from TAB_PEDIDOC P " +                                                                                                                                       
 		        "              ,PCCLIENT    C " +                                                                                                                                       
 		        "              ,PCUSUARI    V " +                                                                                                                                       
@@ -330,7 +368,24 @@ public class TabPedidoService {
 		        "                    Else (P.DATAFIMBALCAO - P.DATAINICIOBALCAO) " +                                                                                                    
 		        "               end EMCONFERENCIA," +                                                                                                                                 
 		        "               (sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) TEMPODECOR," +                                                                                         
-		        "               P.PAINEL " +                                                                                                                                            
+		        "               P.PAINEL, " +
+		        "                      CASE " +
+                "         WHEN P.retira = 'S'  THEN 'RETIRA' "+
+                "         WHEN P.retira = 'G'  THEN 'ENTREGA' " +
+                "         WHEN P.retira = 'N' AND P.status = 'N' THEN 'NADA' " +
+                "         WHEN P.posicao = 'F' and P.retira = 'S' THEN 'RETIRA' " +
+                "         WHEN P.posicao = 'F' and P.retira = 'G' THEN 'ENTREGA' " +
+                "         WHEN (P.status = 'P' OR P.status = 'N' OR P.status = 'B' OR P.status = 'E' OR  P.status = 'F') and (P.posicao = 'F' OR P.posicao = 'M' OR P.posicao = 'B') AND P.retira = 'N' THEN 'BALCAO'" +
+                "         WHEN P.posicao = 'C' THEN 'CANCELADO' " +
+                "    ELSE 'ERROR' END as posicao,"+
+                "            F.CODCOB AS cobranca, " +
+                "            (SELECT CASE WHEN socabo = '10' OR socabo = '01' THEN 'MATERIAL E CABO' " +
+                "                WHEN socabo = '1' THEN 'CABO' "+
+                "                WHEN socabo = '0' THEN 'MATERIAL' END AS socabo "+
+                "                FROM "+
+                "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
+                "                    WHERE numped = f.numped"+
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+    
 		        "          from TAB_PEDIDOC P " +                                                                                                                                       
 		        "              ,PCCLIENT    C " +                                                                                                                                       
 		        "              ,PCUSUARI    V " +                                                                                                                                       
@@ -380,6 +435,8 @@ public class TabPedidoService {
 	    		pedido.setORDEM((BigDecimal) objects[i++]);
 	    		pedido.setPAINEL((String) objects[i++]);
 	    		pedido.setPOSICAO((String) objects[i++]);
+	    		pedido.setCOBRANCA((String) objects[i++]);
+	    		pedido.setTIPOPRODUTO((String) objects[i++]);
 	    		
 	    		
 	    		if(pedidofilter.getNumped() == null) {

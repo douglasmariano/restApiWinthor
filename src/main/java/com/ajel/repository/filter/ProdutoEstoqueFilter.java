@@ -1,16 +1,14 @@
 package com.ajel.repository.filter;
 
-import java.math.BigDecimal;
-
 public class ProdutoEstoqueFilter {
 
-    private BigDecimal codprod;
+    private Long codprod;
 
-    public BigDecimal getCodprod() {
+    public Long getCodprod() {
         return codprod;
     }
 
-    public void setCodprod(BigDecimal codprod) {
+    public void setCodprod(Long codprod) {
         this.codprod = codprod;
     }
     

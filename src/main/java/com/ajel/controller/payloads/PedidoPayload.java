@@ -27,6 +27,8 @@ public class PedidoPayload {
 	private String PAINEL;
 	private String OBS;
 	private String POSICAO;
+	private String COBRANCA;
+	private String TIPOPRODUTO;
 	
 	public BigDecimal getNUMPED() {
 		return NUMPED;
@@ -160,6 +162,18 @@ public class PedidoPayload {
     }
     public void setSTATUS(String sTATUS) {
         STATUS = sTATUS;
+    }
+    public String getCOBRANCA() {
+        return COBRANCA;
+    }
+    public void setCOBRANCA(String cOBRANCA) {
+        COBRANCA = cOBRANCA;
+    }
+    public String getTIPOPRODUTO() {
+        return TIPOPRODUTO;
+    }
+    public void setTIPOPRODUTO(String tIPOPRODUTO) {
+        TIPOPRODUTO = tIPOPRODUTO;
     }
 	
 	
