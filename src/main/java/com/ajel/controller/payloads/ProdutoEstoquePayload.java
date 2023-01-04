@@ -20,6 +20,9 @@ public class ProdutoEstoquePayload {
    private BigDecimal apto;
    private BigDecimal numero;
    private BigDecimal qtestger ;
+   private BigDecimal qtindeniz ;
+   private BigDecimal qtdisponivel ;
+   private BigDecimal qtbloqueada ;
    private String codfilial ;
    private Date dtultent ;
    private Date dtultfat;
@@ -133,7 +136,25 @@ public class ProdutoEstoquePayload {
     public void setDtultfat(Date dtultfat) {
         this.dtultfat = dtultfat;
     }
-    
+    public BigDecimal getQtindeniz() {
+        return qtindeniz;
+    }
+    public void setQtindeniz(BigDecimal qtindeniz) {
+        this.qtindeniz = qtindeniz;
+    }
+    public BigDecimal getQtdisponivel() {
+        return qtdisponivel;
+    }
+    public void setQtdisponivel(BigDecimal qtdisponivel) {
+        this.qtdisponivel = qtdisponivel;
+    }
+    public BigDecimal getQtbloqueada() {
+        return qtbloqueada;
+    }
+    public void setQtbloqueada(BigDecimal qtbloqueada) {
+        this.qtbloqueada = qtbloqueada;
+    }
+ 
 
 
 }

@@ -40,6 +40,9 @@ public class ProdutoEstoqueService {
 		        "    a.APTO," + 
 		        "    a.NUMERO," + 
 		        "    c.QTESTGER ," + 
+		        "    (PKG_ESTOQUE.ESTOQUE_DISPONIVEL(a.CODPROD, c.CODFILIAL, 'V', NULL, 'S')) QTDISPONIVEL," +
+		        "    c.Qtbloqueada,"+
+		        "    c.qtindeniz , "+
 		        "    c.CODFILIAL ," + 
 		        "    c.DTULTENT ," + 
 		        "    c.DTULTFAT " + 
@@ -76,6 +79,9 @@ public class ProdutoEstoqueService {
 	    		produtoEstoque.setApto(((BigDecimal) objects[i++]));
 	    		produtoEstoque.setNumero(((BigDecimal) objects[i++]));
 	    		produtoEstoque.setQtestger(((BigDecimal) objects[i++])); 
+	    		produtoEstoque.setQtdisponivel(((BigDecimal) objects[i++]));
+	    		produtoEstoque.setQtbloqueada(((BigDecimal) objects[i++]));
+	    		produtoEstoque.setQtindeniz(((BigDecimal) objects[i++]));
 	    		produtoEstoque.setCodfilial(((String) objects[i++])); 
 	    		produtoEstoque.setDtultent(getLocalDateTime(objects[i++])); 
 	    		produtoEstoque.setDtultfat(getLocalDateTime(objects[i++]));    		

@@ -1,10 +1,8 @@
 package com.ajel.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
-import com.ajel.model.AjelEntrega;
 import com.ajel.model.Bonus;
-import com.ajel.model.BonusItens;
-import com.ajel.model.BonusItensPk;
 import com.ajel.repository.BonusRepository;
 import com.ajel.repository.filter.BonusFilter;
 
