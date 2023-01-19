@@ -1,22 +1,24 @@
 package com.ajel.services;
 
-import com.ajel.controller.payloads.LoginPayload;
-import com.ajel.controller.payloads.UsuarioPayload;
-import com.ajel.jwt.JwtTokenProvider;
-import com.ajel.jwt.Role;
-import com.ajel.jwt.UserPrincipal;
+import java.math.BigDecimal;
+import java.util.Arrays;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.math.BigDecimal;
-import java.util.Arrays;
+import com.ajel.controller.payloads.LoginPayload;
+import com.ajel.controller.payloads.UsuarioPayload;
+import com.ajel.jwt.JwtTokenProvider;
+import com.ajel.jwt.Role;
+import com.ajel.jwt.UserPrincipal;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,12 +30,12 @@ public class UserService implements UserDetailsService {
     private JwtTokenProvider jwtTokenProvider;
 
     private String getUsuarioQueryBySenha() {
-        return "select DISTINCT matricula, nome, nome_guerra, email " +
+        return "select DISTINCT matricula, nome, nome_guerra,  email, codsetor " +
                 "from pcempr where NOME_GUERRA = :usuario AND decrypt(senhabd, NOME_GUERRA) = :senha";
     }
 
     private String getUsuarioQueryById() {
-        return "select DISTINCT matricula, nome, nome_guerra, email " +
+        return "select DISTINCT matricula, nome, nome_guerra,  email,codsetor " +
                 "from pcempr where matricula = :matricula ";
     }
 
@@ -55,7 +57,7 @@ public class UserService implements UserDetailsService {
         Object[] usuarioPC = getMatriculaUsuario(loginPayload);
         if (usuarioPC != null) {
             BigDecimal matricula = (BigDecimal) usuarioPC[0];
-            UsuarioPayload usuario = new UsuarioPayload(matricula.longValue(), (String) usuarioPC[1], (String) usuarioPC[2], (String) usuarioPC[3], true);
+            UsuarioPayload usuario = new UsuarioPayload(matricula.longValue(), (String) usuarioPC[1], (String) usuarioPC[2], (String) usuarioPC[3],(BigDecimal) usuarioPC[4], true);
             return jwtTokenProvider.generateToken(usuario);
         }
         throw new IllegalArgumentException("Usuário ou senha incorretos");
@@ -76,7 +78,7 @@ public class UserService implements UserDetailsService {
             if (usuarioPC != null) {
                 BigDecimal matricula = (BigDecimal) usuarioPC[0];
                 ;
-                UserPrincipal usuario = new UserPrincipal(matricula.longValue(), (String) usuarioPC[1], (String) usuarioPC[2], (String) usuarioPC[3], null, Arrays.asList(Role.values()));
+                UserPrincipal usuario = new UserPrincipal(matricula.longValue(), (String) usuarioPC[1], (String) usuarioPC[2], (String) usuarioPC[3], (BigDecimal) usuarioPC[4], null, Arrays.asList(Role.values()));
                 return usuario;
             }
         } catch (NoResultException e) {

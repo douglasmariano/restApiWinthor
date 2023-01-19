@@ -1,10 +1,13 @@
 package com.ajel.controller.payloads;
 
+import java.math.BigDecimal;
+
 public class LoginPayload {
 
     private String usuario;
     private String senha;
     private String matricula;
+    private BigDecimal codsetor;
     
 
     @Override
@@ -41,4 +44,15 @@ public class LoginPayload {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+
+    public BigDecimal getCodsetor() {
+        return codsetor;
+    }
+
+
+    public void setCodsetor(BigDecimal codsetor) {
+        this.codsetor = codsetor;
+    }
+    
 }

@@ -3,13 +3,7 @@ package com.ajel.jwt;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    ADMIN,
-    ESTOQUE,
-    ADMINISTRATIVO,
-    EXPEDICAO,
-    RECEPCAO;
-   
-    
+    USER;
 
     @Override
     public String getAuthority() {
