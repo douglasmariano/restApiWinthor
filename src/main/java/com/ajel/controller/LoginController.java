@@ -26,7 +26,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity getAllTabPedidos(@RequestBody LoginPayload usuario) {
+    public ResponseEntity login(@RequestBody LoginPayload usuario) {
         try {
             String token = userService.getToken(usuario);
             Map<String, String> response = new HashMap<>();
