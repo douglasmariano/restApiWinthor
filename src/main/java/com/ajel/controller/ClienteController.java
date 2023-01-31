@@ -15,17 +15,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.Cliente;
 import com.ajel.repository.ClienteRepository;
+import com.ajel.repository.filter.ClienteFilter;
+import com.ajel.services.ClienteService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+    private ClienteService clienteService;
 
 	@GetMapping("/clientes")
 	public List<Cliente> getAllTabPedidos() {
@@ -40,10 +46,27 @@ public class ClienteController {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@GetMapping("/clientes/telefone")
+    public ResponseEntity<List<Cliente>> getCLienteByTelefones(@RequestParam(value="telefone", required=true)  String telefone)
+            throws ResourceNotFoundException {
+	    List<Cliente> clientes = null;        
+        clientes = clienteService.findByTelefone(telefone);  
+        return ResponseEntity.ok().body(clientes);
+    }
+	
 	@PostMapping("/clientes")
 	public Cliente createTabPedido(@Valid @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
+	
+	@PostMapping("/clientes/telefone") // @RequestParam(value = "numped") BigDecimal NUMPED
+    public ResponseEntity<List<Cliente>> getCLienteByTelefone(@RequestBody ClienteFilter filter)
+            throws ResourceNotFoundException {
+        List<Cliente> clientes = null;        
+        clientes = clienteService.findByFiltro(filter);       
+
+        return ResponseEntity.ok().body(clientes);
+    }
 
 	@PutMapping("/clientes/{codigoCliente}")
 	   public ResponseEntity <Cliente> updateTabPedido(@PathVariable(value = "codigoCliente") Long codigoCliente,			  

@@ -60,10 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
          web.ignoring()  .antMatchers("/api/v1/auth/**")
-                         .antMatchers(HttpMethod.GET, "/api/v1/produto/**")
+                         .antMatchers(HttpMethod.GET,  "/api/v1/produto/**")
+                         .antMatchers(HttpMethod.GET,  "/api/v1/clientes/telefone")
                          .antMatchers(HttpMethod.POST, "/api/v1/produtoestoque")
-                         .antMatchers(HttpMethod.POST, "/api/v1/extratoproduto")
-                         .antMatchers("/produto")
+                         .antMatchers(HttpMethod.POST, "/api/v1/extratoproduto") 
+                         .antMatchers(HttpMethod.POST, "/api/v1/clientes/telefone")
+                         .antMatchers("/produto")                         
                          .antMatchers(HttpMethod.GET, "/api/v1/marca" );
     } 
     

@@ -139,7 +139,7 @@ public class TabPedidoService {
 		   	      // "           And NVL(P.RETIRA,'N') <> 'G' " + 
 		   	       "           and P.POSICAO   <> 'C' " + 
 		   	       "           and P.PAINEL     = 'S' 																								"+ 
-		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T')  											"+ 
+		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T','F')  											"+ 
 		   	       "         Union All " +  
 		   	       "         select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
@@ -201,7 +201,7 @@ public class TabPedidoService {
 		   	       "           and P.POSICAO   <> 'C' 	 "+
 		   	       "           And NVL(P.RETIRA,'N') in ('S','G') " +
 		   	       "           and P.PAINEL     = 'N' " +
-		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T','P') ) REL " +
+		   	       "           and P.STATUS    In ('A','R','B','E','V','H','T','P','F') ) REL " +
 		   	       " Where 1 = 1 " + 
 		   	       andWhere +
 		   	       " order by datapedido desc,ORDEM ,REL.TEMPODECOR DESC ";
