@@ -52,7 +52,7 @@ public class Cliente {
     @Column(name = "dtcadastro")
     private Date dtcadastro;
 
-    @Column(name = "dtultalt")
+    @Column(name = "DTULTALTER")
     private Date dtultalt;
 
     public Cliente() {
