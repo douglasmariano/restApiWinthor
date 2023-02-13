@@ -9,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -28,9 +26,11 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginPayload usuario) {
         try {
+            List<String> roles = Arrays.asList("ROLE_ADMIN", "ROLE_FINANCEIRO");
             String token = userService.getToken(usuario);
-            Map<String, String> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("token", token);
+            response.put("roles", roles);
             return ResponseEntity.ok(response);
         } catch (Exception e) {            
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDetails(new Date(), e.getMessage(), null));
