@@ -77,8 +77,22 @@ public class TabPedidoService {
 		   	       "       end ORDEM, " + 
 		   	       "       REL.PAINEL, " + 
 		   	       "       REL.POSICAO, " + 
-		   	       "   	    REL.COBRANCA, " +
-		   	       "   	    REL.TIPOPRODUTO " +
+		   	       "      CASE " +
+		   	       " WHEN REL.COBRANCA = 'D' THEN 'Dinheiro' " +
+		   	       " WHEN REL.COBRANCA = 'BK' THEN 'Boleto' " +
+		   	       " WHEN REL.COBRANCA = 'CH' THEN 'Cheque' " +
+		   	       " WHEN REL.COBRANCA = 'DEP' THEN 'Deposito' " +
+		   	       " WHEN REL.COBRANCA = 'DI' THEN 'Dup. Interna' " +
+		   	       " WHEN REL.COBRANCA = 'CAR' THEN 'Cartão' " +
+		   	       " ELSE REL.COBRANCA " +
+		   	       " END COBRANCA, " +
+		   	       "   	    REL.TIPOPRODUTO, " +
+    		   	    "      CASE " +
+                    " WHEN REL.POSICAOPEDIDO = 'F' THEN 'Faturado' " +
+                    " WHEN REL.POSICAOPEDIDO in ('L','M') THEN 'Liberado' " +
+                    " WHEN REL.POSICAOPEDIDO in ('B','P') THEN 'Bloqueado' " +               
+                    " ELSE REL.POSICAOPEDIDO " +
+                    " END POSICAOPEDIDO " +		   	      
 		   	       "   from (select P.NUMPED NUMPED, " + 
 		   	       "               P.CODUSUR, " + 
 		   	       "               P.STATUS, " + 
@@ -126,7 +140,8 @@ public class TabPedidoService {
                     "                FROM "+
                     "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
                     "                    WHERE numped = f.numped"+
-                    "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+              
+                    "                     GROUP BY numped, socabo) AS TIPOPRODUTO,     "+  
+                    "              F.posicao as POSICAOPEDIDO         " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " +
@@ -188,7 +203,8 @@ public class TabPedidoService {
                 "                FROM "+
                 "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
                 "                    WHERE numped = f.numped"+
-                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+     
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO ,    "+
+                "              F.posicao as POSICAOPEDIDO         " + 
 		   	       "           from TAB_PEDIDOC P " + 
 		   	       "               ,PCCLIENT    C " + 
 		   	       "               ,PCUSUARI    V " + 
@@ -437,6 +453,7 @@ public class TabPedidoService {
 	    		pedido.setPOSICAO((String) objects[i++]);
 	    		pedido.setCOBRANCA((String) objects[i++]);
 	    		pedido.setTIPOPRODUTO((String) objects[i++]);
+	    		pedido.setPOSICAOPEDIDO((String) objects[i++]);
 	    		
 	    		
 	    		if(pedidofilter.getNumped() == null) {

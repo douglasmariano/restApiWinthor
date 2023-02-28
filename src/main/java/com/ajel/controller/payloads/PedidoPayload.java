@@ -29,6 +29,7 @@ public class PedidoPayload {
 	private String POSICAO;
 	private String COBRANCA;
 	private String TIPOPRODUTO;
+	private String POSICAOPEDIDO;
 	
 	public BigDecimal getNUMPED() {
 		return NUMPED;
@@ -175,6 +176,13 @@ public class PedidoPayload {
     public void setTIPOPRODUTO(String tIPOPRODUTO) {
         TIPOPRODUTO = tIPOPRODUTO;
     }
+    public String getPOSICAOPEDIDO() {
+        return POSICAOPEDIDO;
+    }
+    public void setPOSICAOPEDIDO(String pOSICAOPEDIDO) {
+        POSICAOPEDIDO = pOSICAOPEDIDO;
+    }
 	
+    
 	
 }

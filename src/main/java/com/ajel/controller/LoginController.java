@@ -25,8 +25,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginPayload usuario) {
-        try {
-            List<String> roles = Arrays.asList("ROLE_ADMIN", "ROLE_FINANCEIRO");
+        try {              
+            List<String> roles = userService.listRolesByUsuario(usuario.getUsuario());            
             String token = userService.getToken(usuario);
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
