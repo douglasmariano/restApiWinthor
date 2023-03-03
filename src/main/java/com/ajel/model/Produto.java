@@ -44,7 +44,6 @@ public class Produto {
     @Column(name = "codauxiliar2" ) 
     private Long codauxiliar2;
 
-
     @Column(name = "modulo" ) 
     private Long modulo;
 

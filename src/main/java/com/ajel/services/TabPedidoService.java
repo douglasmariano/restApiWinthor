@@ -271,7 +271,8 @@ public class TabPedidoService {
 		        "       REL.PAINEL, " +
 		        "       REL.POSICAO, " + 
 		        "         REL.COBRANCA, " +
-                "        REL.TIPOPRODUTO " +
+                "        REL.TIPOPRODUTO, " +
+                "       REL.POSICAOPEDIDO "+
 		        "  from (select P.NUMPED," +                                                                                                                                          
 		        "               P.CODUSUR," +                                                                                                                                         
 		        "               P.STATUS," +                                                                                                                                          
@@ -328,7 +329,8 @@ public class TabPedidoService {
                 "                FROM "+
                 "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
                 "                    WHERE numped = f.numped"+
-                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+    
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO,     "+    
+                "              F.posicao as POSICAOPEDIDO         " + 
 		        "          from TAB_PEDIDOC P " +                                                                                                                                       
 		        "              ,PCCLIENT    C " +                                                                                                                                       
 		        "              ,PCUSUARI    V " +                                                                                                                                       
@@ -401,7 +403,8 @@ public class TabPedidoService {
                 "                FROM "+
                 "                    (SELECT * FROM VW_pedido_so_cabo WHERE numped = NUMPED)"+
                 "                    WHERE numped = f.numped"+
-                "                     GROUP BY numped, socabo) AS TIPOPRODUTO     "+    
+                "                     GROUP BY numped, socabo) AS TIPOPRODUTO,     "+
+                "              F.posicao as POSICAOPEDIDO         " + 
 		        "          from TAB_PEDIDOC P " +                                                                                                                                       
 		        "              ,PCCLIENT    C " +                                                                                                                                       
 		        "              ,PCUSUARI    V " +                                                                                                                                       
