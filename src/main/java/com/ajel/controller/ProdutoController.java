@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ import com.ajel.model.Produto;
 import com.ajel.repository.ProdutoRepository;
 import com.ajel.repository.filter.ProdutoFilter;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class ProdutoController {
@@ -59,7 +60,8 @@ public class ProdutoController {
 			final Produto updateEstoqueCabo = produtoRepository.save(produto);
 		  	return ResponseEntity.ok(updateEstoqueCabo);
 		   
-	   }
+	   }	
+	
 	
 	 @DeleteMapping("/produto/{codprod}")
 	    public Map < String, Boolean > deleteProduto(@PathVariable(value = "codprod") Long codprod)

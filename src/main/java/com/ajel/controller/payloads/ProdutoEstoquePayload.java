@@ -26,6 +26,8 @@ public class ProdutoEstoquePayload {
    private String codfilial ;
    private Date dtultent ;
    private Date dtultfat;
+   private BigDecimal codauxiliar;
+   private BigDecimal codauxiliar2;
 
    
     public BigDecimal getCodprod() {
@@ -153,6 +155,18 @@ public class ProdutoEstoquePayload {
     }
     public void setQtbloqueada(BigDecimal qtbloqueada) {
         this.qtbloqueada = qtbloqueada;
+    }
+    public BigDecimal getCodauxiliar() {
+        return codauxiliar;
+    }
+    public void setCodauxiliar(BigDecimal codauxiliar) {
+        this.codauxiliar = codauxiliar;
+    }
+    public BigDecimal getCodauxiliar2() {
+        return codauxiliar2;
+    }
+    public void setCodauxiliar2(BigDecimal codauxiliar2) {
+        this.codauxiliar2 = codauxiliar2;
     }
  
 
