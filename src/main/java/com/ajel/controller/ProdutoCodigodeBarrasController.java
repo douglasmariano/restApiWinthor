@@ -56,9 +56,15 @@ public class ProdutoCodigodeBarrasController {
     public ResponseEntity<Produto> updatecodigoDeBarraProduto(@PathVariable(value = "codprod") Long codprod,           
          @Valid @RequestBody ProdutoCodigoDeBarrasPayload estoqueCaboDetails) throws ResourceNotFoundException{
 	     Produto produto = produtoRepository.findById(codprod).orElseThrow(() -> new ResourceNotFoundException("Produto nao encontrado no codigo :: "+ codprod));
-         produto.setCodprod(estoqueCaboDetails.getCodprod());
-         produto.setCodauxiliar(estoqueCaboDetails.getCodauxiliar());
+         produto.setCodprod(estoqueCaboDetails.getCodprod());       
          
+         if (estoqueCaboDetails.getQtunitcx()== null) {
+             produto.setCodauxiliar(estoqueCaboDetails.getCodauxiliar());
+             produto.setCodauxiliar2(estoqueCaboDetails.getCodauxiliar2());
+         }
+         else {
+             produto.setQtunitcx(estoqueCaboDetails.getQtunitcx());
+         }
          final Produto updateEstoqueCabo = produtoRepository.save(produto);
          return ResponseEntity.ok(updateEstoqueCabo);
         

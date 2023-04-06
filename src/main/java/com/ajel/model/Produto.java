@@ -31,6 +31,9 @@ public class Produto {
 
     @Column(name = "qtunit" ) 
     private Long qtunit;
+    
+    @Column(name = "qtunitcx" ) 
+    private Long qtunitcx;
 
     @Column(name = "codfornec" ) 
     private Long codfornec;
@@ -119,7 +122,7 @@ public class Produto {
 
    
 
-    public Produto(Long codprod, Long pesoliq, Long pesobruto, Long codepto, Long codsec, Long qtunit, Long codfornec,
+    public Produto(Long codprod, Long pesoliq, Long pesobruto, Long codepto, Long codsec, Long qtunit, Long qtunitcx, Long codfornec,
             Long volume, Long codauxiliar, Long codauxiliar2, Long modulo, Long numero, Long rua, Long apto, Long codprodprinc,
             Long codmarca, Long codrotinaultalter, Date dtultatupcompra, Date dtcadastro, Date dtexclusao, Date dtultaltcom,
             Date dtultalter, String nbm, String codfab, String rotinalanc, String catergoria, String descricao,
@@ -131,6 +134,7 @@ public class Produto {
         this.codepto = codepto;
         this.codsec = codsec;
         this.qtunit = qtunit;
+        this.qtunitcx = qtunitcx;
         this.codfornec = codfornec;
         this.volume = volume;
         this.codauxiliar = codauxiliar;
@@ -208,6 +212,14 @@ public class Produto {
 
     public void setQtunit(Long qtunit) {
         this.qtunit = qtunit;
+    }
+    
+    public Long getQtunitcx() {
+        return qtunitcx;
+    }
+
+    public void setQtunitcx(Long qtunitcx) {
+        this.qtunitcx = qtunitcx;
     }
 
     public Long getCodfornec() {
@@ -425,5 +437,6 @@ public class Produto {
     public void setGtincodauxiliar(Long gtincodauxiliar) {
         this.gtincodauxiliar = gtincodauxiliar;
     }
+    
         
 }

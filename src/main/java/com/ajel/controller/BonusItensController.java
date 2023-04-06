@@ -77,9 +77,9 @@ public class BonusItensController {
         BonusItens bonusitens = bonusItensRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("bonusitens não encontrado com esse Numped :: " + numbonus));
         			bonusitens.setQtentun(bonusitensDetails.getQtentun());
-       // 			bonusitens.setQtentcx(bonusitensDetails.getQtentcx());
+        			bonusitens.setQtentcx(bonusitensDetails.getQtentcx());
         			bonusitens.setQtavariaun(bonusitensDetails.getQtavariaun());
-       // 			bonusitens.setQtavariacx(bonusitensDetails.getQtavariacx());
+        			bonusitens.setQtavariacx(bonusitensDetails.getQtavariacx());
         			bonusitens.setQtentrada(bonusitensDetails.getQtentrada());
         			bonusitens.setQtavaria(bonusitensDetails.getQtavaria());
         			bonusitens.setCodmotivo(bonusitensDetails.getCodmotivo());

@@ -58,6 +58,12 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery{
                     builder.lower(root.get("codfab")), "%" + produtoFilter.getCodfab().toLowerCase() + "%"));
         }
 		
+		if(!StringUtils.isEmpty(produtoFilter.getCodauxiliar())) {
+		    Predicate predicateCodauxiliar = builder.equal((root.get("codauxiliar")),  produtoFilter.getCodauxiliar());
+		    Predicate predicateCodauxiliar2 = builder.equal((root.get("codauxiliar2")),  produtoFilter.getCodauxiliar());
+		    predicates.add(builder.or(predicateCodauxiliar,predicateCodauxiliar2));                               
+        }
+		
         return predicates.toArray(new Predicate[predicates.size()]);		
 	}
 
