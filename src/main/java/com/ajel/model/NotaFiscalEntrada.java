@@ -5,8 +5,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,12 +15,8 @@ import javax.persistence.Table;
 @Table(name = "pcnfent")
 public class NotaFiscalEntrada {
     
-    @Id
-    @Column(name = "numtransent")
-    private Long numtransent;
-    
-    @Column(name = "codcont")
-    private String codcont;
+    @EmbeddedId
+    private NotaFiscalEntradaPK notaFiscalEntradaPK;
     
     @Column(name = "especie")
     private String especie;
@@ -62,50 +58,12 @@ public class NotaFiscalEntrada {
     public NotaFiscalEntrada() {
         
     }
-    
-    
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((codcont == null) ? 0 : codcont.hashCode());
-        result = prime * result + ((numtransent == null) ? 0 : numtransent.hashCode());
-        return result;
-    }
-
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        NotaFiscalEntrada other = (NotaFiscalEntrada) obj;
-        if (codcont == null) {
-            if (other.codcont != null)
-                return false;
-        } else if (!codcont.equals(other.codcont))
-            return false;
-        if (numtransent == null) {
-            if (other.numtransent != null)
-                return false;
-        } else if (!numtransent.equals(other.numtransent))
-            return false;
-        return true;
-    }
-
-
-
-    public NotaFiscalEntrada(Long numtransent, String codcont, String especie, String serie, Long numnota, BigDecimal vltotal,
-            Transportadora codfornec, Long codfilial, Date dtent, Long numbonus, Long coddevol, Long codfunclanc, String obs,
-            Date dtcancel) {
+   
+    public NotaFiscalEntrada(NotaFiscalEntradaPK notaFiscalEntradaPK, String especie, String serie, Long numnota,
+            BigDecimal vltotal, Transportadora codfornec, Long codfilial, Date dtent, Long numbonus, Long coddevol,
+            Long codfunclanc, String obs, Date dtcancel) {
         super();
-        this.numtransent = numtransent;
-        this.codcont = codcont;
+        this.notaFiscalEntradaPK = notaFiscalEntradaPK;
         this.especie = especie;
         this.serie = serie;
         this.numnota = numnota;
@@ -120,21 +78,19 @@ public class NotaFiscalEntrada {
         this.dtcancel = dtcancel;
     }
 
-    public Long getNumtransent() {
-        return numtransent;
+
+
+    public NotaFiscalEntradaPK getNotaFiscalEntradaPK() {
+        return notaFiscalEntradaPK;
     }
 
-    public void setNumtransent(Long numtransent) {
-        this.numtransent = numtransent;
+
+
+    public void setNotaFiscalEntradaPK(NotaFiscalEntradaPK notaFiscalEntradaPK) {
+        this.notaFiscalEntradaPK = notaFiscalEntradaPK;
     }
 
-    public String getCodcont() {
-        return codcont;
-    }
 
-    public void setCodcont(String codcont) {
-        this.codcont = codcont;
-    }
 
     public String getEspecie() {
         return especie;

@@ -28,7 +28,6 @@ public class BonusRepositoryImpl implements BonusRepositoryQuery{
 		Root<Bonus> root = criteria.from(Bonus.class);
 		criteria.select(root);
 		criteria.orderBy(builder.asc(root.get("codfilial")), builder.asc(root.get("numbonus")));
-		
 				
 		Predicate[] predicates = criarRestricoes(bonusFilter, builder, root);
 		criteria.where(predicates);
@@ -49,25 +48,11 @@ public class BonusRepositoryImpl implements BonusRepositoryQuery{
             predicates.add(
                     builder.greaterThanOrEqualTo(root.get("databonus"), bonusFilter.getDatabonus()));
         }
-
         if (bonusFilter.getDtfechamento() != null){
             predicates.add(
                     builder.greaterThanOrEqualTo(root.get("dtfechamento"), bonusFilter.getDtfechamento()));
         }
-//		if(!StringUtils.isEmpty(bonusFilter.getDescricao())) {
-//            predicates.add(builder.like(
-//                    builder.lower(root.get("descricao")), "%" + produtoFilter.getDescricao().toLowerCase() + "%"));
-//        }
-//		
-//		if(!produtoFilter.getMarcas().isEmpty()) {
-//		    predicates.add(root.get("codmarca").in(produtoFilter.getMarcas()));
-//        }
-//		
-//		if(!StringUtils.isEmpty(produtoFilter.getCodfab())) {
-//            predicates.add(builder.like(
-//                    builder.lower(root.get("codfab")), "%" + produtoFilter.getCodfab().toLowerCase() + "%"));
-//        }
-//		
+        predicates.add(builder.isNull(root.get("dtfechamento")));
         return predicates.toArray(new Predicate[predicates.size()]);		
 	}
 
