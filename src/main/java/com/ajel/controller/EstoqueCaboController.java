@@ -1,5 +1,6 @@
 package com.ajel.controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.model.EstoqueCabo;
 import com.ajel.repository.EstoqueCaboRepository;
 import com.ajel.repository.filter.EstoqueCaboFilter;
+import com.ajel.services.UserService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -31,7 +35,20 @@ public class EstoqueCaboController {
 	
     @Autowired
 	private EstoqueCaboRepository estoqueCaboRepository;
-
+    
+    @Autowired
+    private UserService userService;
+    
+    @RequestMapping(value = "/name", method = RequestMethod.GET)
+    public String getName(Authentication authentication, Principal principal) {
+        System.out.println(authentication.getDetails());
+        System.out.println("-----------------");
+        System.out.println(principal.getName());
+        System.out.println("-----------------");
+        System.out.println(authentication.getPrincipal());
+        return "";
+    }
+    
 	@GetMapping("/estoquecabo")
 	public List<EstoqueCabo> getEstoqueCabo(EstoqueCaboFilter estoqueCaboFilter) {      
 	        return estoqueCaboRepository.pesquisar(estoqueCaboFilter);
@@ -56,14 +73,16 @@ public class EstoqueCaboController {
 		
 	
 	@PostMapping("/estoquecabo")
-	public EstoqueCabo createTabPedido(@Valid @RequestBody EstoqueCabo estoqueCabo) {
+	public EstoqueCabo createTabPedido(@Valid @RequestBody EstoqueCabo estoqueCabo, Authentication authentication, Principal principal) {
+	    Long userIdByMatricula = userService.getUserIdByMatricula(principal.getName());
+	    estoqueCabo.setMatricula(userIdByMatricula);
 		return estoqueCaboRepository.save(estoqueCabo);
 	}
 
 	@PutMapping("/estoquecabo/{codcabo}")
-	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codcabo") Long codcabo,			  
-			@Valid @RequestBody EstoqueCabo estoqueCaboDetails) throws ResourceNotFoundException{
-	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo).orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: "+ codcabo));
+	   public ResponseEntity <EstoqueCabo> updateEstoqueCabo(@PathVariable(value = "codcabo" ) Long codcabo,			  
+			@Valid @RequestBody EstoqueCabo estoqueCaboDetails, Authentication authentication, Principal principal ) throws ResourceNotFoundException{
+	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo).orElseThrow(() -> new ResourceNotFoundException("Cabo não encontrado com esse Numped :: "+ codcabo));
 	        estoqueCabo.setQt(estoqueCaboDetails.getQt());
 	        estoqueCabo.setQtgerencial(estoqueCaboDetails.getQtgerencial());
 	        estoqueCabo.setCodprod_pcest(estoqueCaboDetails.getCodprod_pcest());
@@ -76,6 +95,8 @@ public class EstoqueCaboController {
 	        estoqueCabo.setModulo(estoqueCaboDetails.getModulo());
 	        estoqueCabo.setRua(estoqueCaboDetails.getRua());
 	        estoqueCabo.setApto(estoqueCaboDetails.getApto());
+	        estoqueCabo.setCodfornec(estoqueCaboDetails.getCodfornec());
+	        estoqueCabo.setCodmarca(estoqueCaboDetails.getCodmarca());
 	        
 			final EstoqueCabo updateEstoqueCabo = estoqueCaboRepository.save(estoqueCabo);
 		  	return ResponseEntity.ok(updateEstoqueCabo);
@@ -98,7 +119,7 @@ public class EstoqueCaboController {
 	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codcabo") Long codcabo)
 	    throws ResourceNotFoundException {
 	        EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo)
-	            .orElseThrow(() -> new ResourceNotFoundException("vendedor não encontrado com esse Numped :: " + codcabo));
+	            .orElseThrow(() -> new ResourceNotFoundException("Cabo não encontrado com esse Numped :: " + codcabo));
 
 	        estoqueCaboRepository.delete(estoqueCabo);
 	        Map < String, Boolean > response = new HashMap < > ();

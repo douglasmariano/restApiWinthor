@@ -17,7 +17,7 @@ import com.ajel.controller.payloads.PedidoPayload;
 import com.ajel.repository.filter.TabPedidosFilter;
 
 @Service
-public class TabPedidoService {
+public class ProdutoCodigodeBarrasService {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -224,20 +224,20 @@ public class TabPedidoService {
 	}
 	
 	public String getPainelCliente(){
-	    return " select REL.NUMPED, " + 
-                "       REL.nome, " + 
-                "       REL.CLIENTE, " + 
-                "       REL.DATAPEDIDO, " + 
-                "       REL.DATADIGITACAO, " +
-                "       REL.DATAEMISSAOMAPA,  " + 
-                "       REL.DATAINICIOSEP, " + 
-                "       REL.DATAFIMSEP, " + 
-                "       REL.DATACHEGADACLI, " + 
-                "       REL.CODFUNCSEP, " + 
-                "       REL.DATAFIMBALCAO, " + 
-                "       REL.CODFUNCBALCAO, " +                  
-                "       sysdate DATAATUAL, " + 
-                "       REL.OBS, "   +
+		return 	"select REL.NUMPED," +                                                                                                                                                  
+		        "       REL.NOME," +                                                                                                                                                     
+		        "       REL.CLIENTE," +                                                                                                                                                 
+		        "       REL.DTPEDIDO," +
+		        "       REL.DATADIGITACAO, " +
+		        "       REL.DTEMISSAOMAPA," +                                                                                                                                           
+		        "       REL.DTINICIALSEP," +                                                                                                                                            
+		        "       REL.DTFINALSEP," +                                                                                                                                              
+		        "       REL.DATACHEGADACLI," +                                                                                                                                          
+		        "       REL.CODFUNCSEP," +                                                                                                                                              
+		        "       REL.DTFINALCHECKOUT," +                                                                                                                                         
+		        "       REL.CODFUNCCONF," +                                                                                                                                           
+		        "       sysdate DATAATUAL," +
+		        "       REL.OBS, "   +
 		        "       lpad(Trunc(mod(REL.AGUARDSEP*24, 60)),2,0) || ':' || " +                                                                                                      
 		        "       lpad(Trunc(mod(REL.AGUARDSEP*24*60, 60)),2,0) || ':' || " +                                                                                                   
 		        "       lpad(Trunc(mod(REL.AGUARDSEP*24*60*60, 60)),2,0) AGUARDSEP," +                                                                                                
@@ -290,15 +290,15 @@ public class TabPedidoService {
 		        "                                                                      WHERE NUMPED = P.NUMPED),0, C.CLIENTE,VV.CLIENTE) " +
 		        "                                                          ,C.CLIENTE),1,30),30,' ') " +
 		        "               End) CLIENTE," +                                                                                                                                      
-		        "               to_date(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO), 'DD/MM/YYYY hh24:mi') DATAPEDIDO," +                                                                      
-		        "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAEMISSAOMAPA," +
+		        "               to_date(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO), 'DD/MM/YYYY hh24:mi') DTPEDIDO," +                                                                      
+		        "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DTEMISSAOMAPA," +
 		        "               P.DATAPEDIDO as DATADIGITACAO, " +
 		        "               P.DATACHEGADACLI," +                                                                                                                                  
-		        "               P.DATAINICIOSEP DATAINICIOSEP," +                                                                                                                      
+		        "               P.DATAINICIOSEP DTINICIALSEP," +                                                                                                                      
 		        "               P.CODFUNCSEP," +                                                                                                                                      
-		        "               P.DATAFIMSEP DATAFIMSEP," +                                                                                                                           
-		        "               P.DATAFIMBALCAO DATAFIMBALCAO," +                                                                                                                   
-		        "               P.CODFUNCBALCAO CODFUNCBALCAO," +               
+		        "               P.DATAFIMSEP DTFINALSEP," +                                                                                                                           
+		        "               P.DATAFIMBALCAO DTFINALCHECKOUT," +                                                                                                                   
+		        "               P.CODFUNCBALCAO CODFUNCCONF," + 
 		        "               F.OBS," +
 		        "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                
 		        "                    else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                                     
@@ -340,7 +340,7 @@ public class TabPedidoService {
 		        "           And P.CODUSUR    = V.CODUSUR " +
 		        "           And P.NUMPED     = VV.NUMPED(+) " +
 		        "           And P.NUMPED    = F.NUMPED " +
-		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 150 " +
+		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 1 " +
 		        "           and P.CODFILIAL in ('1','2','3','4') " +
 		        "           And NVL(P.RETIRA,'N') <> 'G' " +
 		        "           and P.POSICAO   <> 'C' " +
@@ -364,15 +364,15 @@ public class TabPedidoService {
 		        "                                                                      WHERE NUMPED = P.NUMPED),0, C.CLIENTE,VV.CLIENTE) " +
 		        "                                                          ,C.CLIENTE),1,30),30,' ')" + 
 		        "               End) CLIENTE," +                                                                                                                                      
-		        "               to_date(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO), 'DD/MM/YYYY hh24:mi') DATAPEDIDO," +                                                                      
-		        "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DATAEMISSAOMAPA," +  
+		        "               to_date(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO), 'DD/MM/YYYY hh24:mi') DTPEDIDO," +                                                                      
+		        "               Nvl(P.DATACHEGADACLI,P.DATAPEDIDO) DTEMISSAOMAPA," +  
 		        "               P.DATAPEDIDO as DATADIGITACAO, " +
 		        "               P.DATACHEGADACLI," +                                                                                                                                  
-		        "               P.DATAINICIOSEP DATAINICIOSEP," +                                                                                                                      
+		        "               P.DATAINICIOSEP DTINICIALSEP," +                                                                                                                      
 		        "               P.CODFUNCSEP," +                                                                                                                                      
-		        "               P.DATAFIMSEP DATAFIMSEP," +                                                                                                                           
-		        "               P.DATAFIMBALCAO DATAFIMBALCAO," +                                                                                                                   
-		        "               P.CODFUNCBALCAO CODFUNCBALCAO," + 
+		        "               P.DATAFIMSEP DTFINALSEP," +                                                                                                                           
+		        "               P.DATAFIMBALCAO DTFINALCHECKOUT," +                                                                                                                   
+		        "               P.CODFUNCBALCAO CODFUNCCONF," + 
 		        "               F.OBS," +
 		        "               CASE when P.DATAINICIOSEP Is Null Then (Sysdate - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) " +                                                               
 		        "                    else (P.DATAINICIOSEP - Nvl(P.DATACHEGADACLI,P.DATAPEDIDO))" +                                                                                     
@@ -414,7 +414,7 @@ public class TabPedidoService {
 		        "           And P.CODUSUR    = V.CODUSUR " +
 		        "           And P.NUMPED     = VV.NUMPED(+) " +
 		        "           And P.NUMPED    = F.NUMPED " +
-		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 150" + 
+		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 1" + 
 		        "           and P.CODFILIAL in ('1','2','3','4')" + 
 		        "           and P.POSICAO   <> 'C' " +
 		        "           And NVL(P.RETIRA,'N') <> 'G'  " +

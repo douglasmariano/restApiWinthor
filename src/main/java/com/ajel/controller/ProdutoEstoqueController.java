@@ -15,11 +15,11 @@ import com.ajel.exception.ResourceNotFoundException;
 import com.ajel.repository.filter.ProdutoEstoqueFilter;
 import com.ajel.services.ProdutoEstoqueService;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class ProdutoEstoqueController {
-	
+
     @Autowired
     private ProdutoEstoqueService produtoEstoqueService;
 
@@ -28,11 +28,6 @@ public class ProdutoEstoqueController {
             throws ResourceNotFoundException {
         List<ProdutoEstoquePayload> produtoEstoque = null;
         produtoEstoque = produtoEstoqueService.findByCodprod(filter);
-        
         return ResponseEntity.ok().body(produtoEstoque);
     }
-		
-	
-
-
 }

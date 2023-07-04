@@ -8,6 +8,8 @@ public class ProdutoFilter {
 	private String descricao;
 	private List<Long> marcas;
 	private String codfab;
+	private Long codauxiliar;
+	private Long codauxiliar2;
 	
 	
 
@@ -42,5 +44,23 @@ public class ProdutoFilter {
     public void setMarcas(List<Long> marcas) {
         this.marcas = marcas;
     }
+
+    public Long getCodauxiliar() {
+        return codauxiliar;
+    }
+
+    public void setCodauxiliar(Long codauxiliar) {
+        this.codauxiliar = codauxiliar;
+    }
+
+    public Long getCodauxiliar2() {
+        return codauxiliar2;
+    }
+
+    public void setCodauxiliar2(Long codauxiliar2) {
+        this.codauxiliar2 = codauxiliar2;
+    }
+    
+    
 	
 }

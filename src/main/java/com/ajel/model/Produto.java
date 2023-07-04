@@ -31,6 +31,9 @@ public class Produto {
 
     @Column(name = "qtunit" ) 
     private Long qtunit;
+    
+    @Column(name = "qtunitcx" ) 
+    private Long qtunitcx;
 
     @Column(name = "codfornec" ) 
     private Long codfornec;
@@ -43,7 +46,6 @@ public class Produto {
     
     @Column(name = "codauxiliar2" ) 
     private Long codauxiliar2;
-
 
     @Column(name = "modulo" ) 
     private Long modulo;
@@ -111,15 +113,20 @@ public class Produto {
     @Column(name = "dadostecnicos" ) 
     private String dadostecnicos;
     
+    @Column(name = "gtincodauxiliar")
+    private Long gtincodauxiliar;
+    
     public Produto() {
 
     }
 
-    public Produto(Long codprod, Long pesoliq, Long pesobruto, Long codepto, Long codsec, Long qtunit, Long codfornec,
-            Long volume, Long codauxiliar,  Long codauxiliar2, Long modulo, Long numero, Long rua, Long apto, Long codprodprinc, Long codmarca,
-            Long codrotinaultalter, Date dtultatupcompra, Date dtcadastro, Date dtexclusao, Date dtultaltcom, Date dtultalter,
-            String nbm, String codfab, String rotinalanc, String catergoria, String descricao, String embalagem, String unidade,
-            String obs, String obs2, String dadostecnicos) {
+   
+
+    public Produto(Long codprod, Long pesoliq, Long pesobruto, Long codepto, Long codsec, Long qtunit, Long qtunitcx, Long codfornec,
+            Long volume, Long codauxiliar, Long codauxiliar2, Long modulo, Long numero, Long rua, Long apto, Long codprodprinc,
+            Long codmarca, Long codrotinaultalter, Date dtultatupcompra, Date dtcadastro, Date dtexclusao, Date dtultaltcom,
+            Date dtultalter, String nbm, String codfab, String rotinalanc, String catergoria, String descricao,
+            String embalagem, String unidade, String obs, String obs2, String dadostecnicos, Long gtincodauxiliar) {
         super();
         this.codprod = codprod;
         this.pesoliq = pesoliq;
@@ -127,6 +134,7 @@ public class Produto {
         this.codepto = codepto;
         this.codsec = codsec;
         this.qtunit = qtunit;
+        this.qtunitcx = qtunitcx;
         this.codfornec = codfornec;
         this.volume = volume;
         this.codauxiliar = codauxiliar;
@@ -153,7 +161,10 @@ public class Produto {
         this.obs = obs;
         this.obs2 = obs2;
         this.dadostecnicos = dadostecnicos;
+        this.gtincodauxiliar = gtincodauxiliar;
     }
+
+
 
     public Long getCodprod() {
         return codprod;
@@ -201,6 +212,14 @@ public class Produto {
 
     public void setQtunit(Long qtunit) {
         this.qtunit = qtunit;
+    }
+    
+    public Long getQtunitcx() {
+        return qtunitcx;
+    }
+
+    public void setQtunitcx(Long qtunitcx) {
+        this.qtunitcx = qtunitcx;
     }
 
     public Long getCodfornec() {
@@ -410,6 +429,14 @@ public class Produto {
     public void setCodauxiliar2(Long codauxiliar2) {
         this.codauxiliar2 = codauxiliar2;
     }
+
+    public Long getGtincodauxiliar() {
+        return gtincodauxiliar;
+    }
+
+    public void setGtincodauxiliar(Long gtincodauxiliar) {
+        this.gtincodauxiliar = gtincodauxiliar;
+    }
     
-    
+        
 }

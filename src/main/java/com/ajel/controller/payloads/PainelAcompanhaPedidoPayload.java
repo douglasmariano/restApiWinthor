@@ -5,18 +5,36 @@ import java.util.Date;
 
 public class PainelAcompanhaPedidoPayload {
    
+    private String CODFILIAL;
     private BigDecimal NUMPED;
-    private String CLIENTE; 
-    private BigDecimal CODPROD;
-    private String DESCRICAO;
-    private BigDecimal QT;
-    private BigDecimal QTESTGER; 
-    private Date DATAPEDIDO; 
-    private String TIPOSEPARACAO; 
-    private String STATUS;   
-    private Date DATACHEGADACLI;
+    private String CLIENTE;
+    private String STATUSEXT;
+    private String STATUS;
+    private BigDecimal ORDEM;
+    private Date DTPEDIDO;
     private String POSICAO;
-    
+    private BigDecimal CODFUNCSEP;
+    private String FUNCSEP;
+    private Date DATAINICIOSEP;
+    private Date DATAFIMSEP;
+    private BigDecimal CODFUNCBALCAO;
+    private String FUNCBALC;
+    private Date DATAINICIOBALCAO;
+    private Date DATAFIMBALCAO;
+    private BigDecimal TEMPOTOTAL;
+    private BigDecimal TEMPOSEP;
+    private BigDecimal TEMPOBALC;
+    private String ORIGINAL;
+    private String RETIRA;
+    private BigDecimal CODVENDEDOR;
+    private String VENDEDOR;
+    private String DESCBUTTON;
+    public String getCODFILIAL() {
+        return CODFILIAL;
+    }
+    public void setCODFILIAL(String cODFILIAL) {
+        CODFILIAL = cODFILIAL;
+    }
     public BigDecimal getNUMPED() {
         return NUMPED;
     }
@@ -29,17 +47,11 @@ public class PainelAcompanhaPedidoPayload {
     public void setCLIENTE(String cLIENTE) {
         CLIENTE = cLIENTE;
     }
-    public BigDecimal getCODPROD() {
-        return CODPROD;
+    public String getSTATUSEXT() {
+        return STATUSEXT;
     }
-    public void setCODPROD(BigDecimal cODPROD) {
-        CODPROD = cODPROD;
-    }
-    public String getTIPOSEPARACAO() {
-        return TIPOSEPARACAO;
-    }
-    public void setTIPOSEPARACAO(String tIPOSEPARACAO) {
-        TIPOSEPARACAO = tIPOSEPARACAO;
+    public void setSTATUSEXT(String sTATUSEXT) {
+        STATUSEXT = sTATUSEXT;
     }
     public String getSTATUS() {
         return STATUS;
@@ -47,41 +59,126 @@ public class PainelAcompanhaPedidoPayload {
     public void setSTATUS(String sTATUS) {
         STATUS = sTATUS;
     }
-    public Date getDATACHEGADACLI() {
-        return DATACHEGADACLI;
+    public BigDecimal getORDEM() {
+        return ORDEM;
     }
-    public void setDATACHEGADACLI(Date dATACHEGADACLI) {
-        DATACHEGADACLI = dATACHEGADACLI;
+    public void setORDEM(BigDecimal oRDEM) {
+        ORDEM = oRDEM;
     }
-    public String getDESCRICAO() {
-        return DESCRICAO;
+    public Date getDTPEDIDO() {
+        return DTPEDIDO;
     }
-    public void setDESCRICAO(String dESCRICAO) {
-        DESCRICAO = dESCRICAO;
-    }
-    public BigDecimal getQT() {
-        return QT;
-    }
-    public void setQT(BigDecimal qT) {
-        QT = qT;
-    }
-    public BigDecimal getQTESTGER() {
-        return QTESTGER;
-    }
-    public void setQTESTGER(BigDecimal qTESTGER) {
-        QTESTGER = qTESTGER;
-    }
-    public Date getDATAPEDIDO() {
-        return DATAPEDIDO;
-    }
-    public void setDATAPEDIDO(Date dATAPEDIDO) {
-        DATAPEDIDO = dATAPEDIDO;
+    public void setDTPEDIDO(Date dTPEDIDO) {
+        DTPEDIDO = dTPEDIDO;
     }
     public String getPOSICAO() {
         return POSICAO;
     }
     public void setPOSICAO(String pOSICAO) {
         POSICAO = pOSICAO;
-    } 
+    }
+    public BigDecimal getCODFUNCSEP() {
+        return CODFUNCSEP;
+    }
+    public void setCODFUNCSEP(BigDecimal cODFUNCSEP) {
+        CODFUNCSEP = cODFUNCSEP;
+    }
+    
+    public String getFUNCSEP() {
+        return FUNCSEP;
+    }
+    public void setFUNCSEP(String fUNCSEP) {
+        FUNCSEP = fUNCSEP;
+    }
+    
+    public String getFUNCBALC() {
+        return FUNCBALC;
+    }
+    public void setFUNCBALC(String fUNCBALC) {
+        FUNCBALC = fUNCBALC;
+    }
+    public Date getDATAINICIOSEP() {
+        return DATAINICIOSEP;
+    }
+    public void setDATAINICIOSEP(Date dATAINICIOSEP) {
+        DATAINICIOSEP = dATAINICIOSEP;
+    }
+    public Date getDATAFIMSEP() {
+        return DATAFIMSEP;
+    }
+    public void setDATAFIMSEP(Date dATAFIMSEP) {
+        DATAFIMSEP = dATAFIMSEP;
+    }
+    public BigDecimal getCODFUNCBALCAO() {
+        return CODFUNCBALCAO;
+    }
+    public void setCODFUNCBALCAO(BigDecimal cODFUNCBALCAO) {
+        CODFUNCBALCAO = cODFUNCBALCAO;
+    }
+    
+    public Date getDATAINICIOBALCAO() {
+        return DATAINICIOBALCAO;
+    }
+    public void setDATAINICIOBALCAO(Date dATAINICIOBALCAO) {
+        DATAINICIOBALCAO = dATAINICIOBALCAO;
+    }
+    public Date getDATAFIMBALCAO() {
+        return DATAFIMBALCAO;
+    }
+    public void setDATAFIMBALCAO(Date dATAFIMBALCAO) {
+        DATAFIMBALCAO = dATAFIMBALCAO;
+    }
+   
+    public BigDecimal getTEMPOTOTAL() {
+        return TEMPOTOTAL;
+    }
+    public void setTEMPOTOTAL(BigDecimal tEMPOTOTAL) {
+        TEMPOTOTAL = tEMPOTOTAL;
+    }
+    public BigDecimal getTEMPOSEP() {
+        return TEMPOSEP;
+    }
+    public void setTEMPOSEP(BigDecimal tEMPOSEP) {
+        TEMPOSEP = tEMPOSEP;
+    }
+    public BigDecimal getTEMPOBALC() {
+        return TEMPOBALC;
+    }
+    public void setTEMPOBALC(BigDecimal tEMPOBALC) {
+        TEMPOBALC = tEMPOBALC;
+    }
+    public String getORIGINAL() {
+        return ORIGINAL;
+    }
+    public void setORIGINAL(String oRIGINAL) {
+        ORIGINAL = oRIGINAL;
+    }
+    public String getRETIRA() {
+        return RETIRA;
+    }
+    public void setRETIRA(String rETIRA) {
+        RETIRA = rETIRA;
+    }
+    public BigDecimal getCODVENDEDOR() {
+        return CODVENDEDOR;
+    }
+    public void setCODVENDEDOR(BigDecimal cODVENDEDOR) {
+        CODVENDEDOR = cODVENDEDOR;
+    }
+    public String getVENDEDOR() {
+        return VENDEDOR;
+    }
+    public void setVENDEDOR(String vENDEDOR) {
+        VENDEDOR = vENDEDOR;
+    }
+    public String getDESCBUTTON() {
+        return DESCBUTTON;
+    }
+    public void setDESCBUTTON(String dESCBUTTON) {
+        DESCBUTTON = dESCBUTTON;
+    }
+    
+    
+
 
 }
