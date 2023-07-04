@@ -14,6 +14,9 @@ import javax.persistence.MapsId;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 
 @Entity
@@ -48,8 +51,9 @@ public class EstoqueCabo {
     private Estoque estoquePK;
     
     @MapsId(value="codmarca")
-    @ManyToOne
+    @ManyToOne(optional=true )
     @JoinColumn(name="codmarca",referencedColumnName = "codmarca")
+    @Fetch(FetchMode.JOIN) 
     private Marca marca;
     
     @MapsId(value="pcempr")

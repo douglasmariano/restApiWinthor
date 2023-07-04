@@ -43,6 +43,10 @@ public class UserService implements UserDetailsService {
                 "from pcempr where matricula = :matricula ";
     }
     
+    private String getUsuarioQueryByNomeGuerra() {
+        return "select matricula from pcempr where  nome_guerra =  :nome_guerra ";
+    }
+    
     private String getRolesQueryByUsuario() {
         return "SELECT AREAATUACAO_COMPRA,AREAATUACAO_VENDAS,AREAATUACAO_FINANCEIRO,AREAATUACAO_LOGISTICA,AREAATUACAO_EXPEDICAO,"
                 + "AREAATUACAO_RH,AREAATUACAO_FISCAL,AREAATUACAO_CONTABIL,AREAATUACAO_OUTROS ,TIPOCARGO FROM PCEMPR where NOME_GUERRA = :usuario ";
@@ -95,6 +99,15 @@ public class UserService implements UserDetailsService {
             return null;
         }
         return null;
+    }
+    
+    public Long getUserIdByMatricula(String nomeGuerra ) {
+        Query nativeQuery = entityManager.createNativeQuery(getUsuarioQueryByNomeGuerra());
+        nativeQuery.setParameter("nome_guerra", nomeGuerra);
+        
+        BigDecimal matricula = (BigDecimal)nativeQuery.getSingleResult();
+        
+        return  matricula == null ? null : matricula.longValue();
     }
     
     public List<String> listRolesByUsuario(String Usuario){
