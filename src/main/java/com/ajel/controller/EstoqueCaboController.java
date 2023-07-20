@@ -103,7 +103,7 @@ public class EstoqueCaboController {
 		   
 	   }
 	
-	@PutMapping("/estoquecabo/dataExlusao/{codcabo}")
+	@PutMapping("/estoquecabo/dataExclusao/{codcabo}")
     public ResponseEntity<EstoqueCabo> dataExclusao(@PathVariable(value = "codcabo") Long codcabo) throws ResourceNotFoundException {
         EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + codcabo));
