@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.exception.ResourceNotFoundException;
-import com.ajel.model.AjelEntrega;
+import com.ajel.model.Entrega;
 import com.ajel.repository.AjelEntregaRepository;
 import com.ajel.repository.filter.AjelEntregaFilter;
 import com.ajel.services.AjelEntregaService;
@@ -45,94 +44,94 @@ public class AjelEntregaController {
 	//}
 
 	@GetMapping("/ajelentrega")
-	public List<AjelEntrega> getAjelEntregas(AjelEntregaFilter ajelEntregaFilter) {      
+	public List<Entrega> getAjelEntregas(AjelEntregaFilter ajelEntregaFilter) {      
 	        return ajelEntregaRepository.pesquisar(ajelEntregaFilter);
 	    }
 
 	@GetMapping("/ajelentrega/codentrega/{codentrega}")
-	public ResponseEntity<AjelEntrega> getEntregaById(@PathVariable Long codentrega)
+	public ResponseEntity<Entrega> getEntregaById(@PathVariable Long codentrega)
 			throws ResourceNotFoundException {
-		AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega)
+		Entrega entrega = ajelEntregaRepository.findById(codentrega)
 				.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + codentrega));
-		return ResponseEntity.ok().body(ajelEntrega);
+		return ResponseEntity.ok().body(entrega);
 	}
 	
 	@PostMapping("/ajelentrega/numnota")
-    public ResponseEntity<List<AjelEntrega>> getEntregaByNumnota(@RequestBody AjelEntregaFilter filter)
+    public ResponseEntity<List<Entrega>> getEntregaByNumnota(@RequestBody AjelEntregaFilter filter)
             throws ResourceNotFoundException {
-	    List<AjelEntrega> ajelEntrega = null;
-	    ajelEntrega = ajelEntregaRepository.pesquisar(filter);
+	    List<Entrega> entrega = null;
+	    entrega = ajelEntregaRepository.pesquisar(filter);
                 //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
-        return ResponseEntity.ok().body(ajelEntrega);
+        return ResponseEntity.ok().body(entrega);
     }
 	
 	@PostMapping("/ajelentrega/dtentrega")
-    public ResponseEntity<List<AjelEntrega>> getEntregaByDtEntrega(@RequestBody AjelEntregaFilter filter)
+    public ResponseEntity<List<Entrega>> getEntregaByDtEntrega(@RequestBody AjelEntregaFilter filter)
             throws ResourceNotFoundException {
-        List<AjelEntrega> ajelEntrega = null;
-        ajelEntrega = ajelEntregaRepository.pesquisar(filter);
+        List<Entrega> entrega = null;
+        entrega = ajelEntregaRepository.pesquisar(filter);
                 //.orElseThrow(() -> new ResourceNotFoundException("Produto not found for this id :: " + numnota));
-        return ResponseEntity.ok().body(ajelEntrega);
+        return ResponseEntity.ok().body(entrega);
     }
 
 	
 	@PostMapping("/ajelentrega")
-	public AjelEntrega createAjelEntrega(@Valid @RequestBody AjelEntrega ajelEntrega) {
-	    ajelEntrega.setDtinclusao(new Date());
-	    return ajelEntregaRepository.save(ajelEntrega);
+	public Entrega createAjelEntrega(@Valid @RequestBody Entrega entrega) {
+	    entrega.setDtinclusao(new Date());
+	    return ajelEntregaRepository.save(entrega);
 	}
 	
 	@PostMapping("/ajelentrega/pesquisarNotaWinthor") 
-    public ResponseEntity<List<AjelEntrega>> getInformacaoPedidoById(@RequestBody AjelEntregaFilter filter)
+    public ResponseEntity<List<Entrega>> getInformacaoPedidoById(@RequestBody AjelEntregaFilter filter)
             throws ResourceNotFoundException {
-        List<AjelEntrega> pedidoWinthor = null;        
+        List<Entrega> pedidoWinthor = null;        
         pedidoWinthor = ajelEntregaService.findByNumnota(filter); 
         
         return ResponseEntity.ok().body(pedidoWinthor);
     }
 
 	@PutMapping("/ajelentrega/alterarSeparacao/{codentrega}")
-	   public ResponseEntity <AjelEntrega> updateAjelEntrega(@PathVariable(value = "codentrega") Long codentrega,			  
-			@Valid @RequestBody AjelEntrega ajelEntregaDetails) throws ResourceNotFoundException{
-	        AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega).orElseThrow(() -> new ResourceNotFoundException("Erro na Entrega: "+ codentrega));
+	   public ResponseEntity <Entrega> updateAjelEntrega(@PathVariable(value = "codentrega") Long codentrega,			  
+			@Valid @RequestBody Entrega ajelEntregaDetails) throws ResourceNotFoundException{
+	        Entrega entrega = ajelEntregaRepository.findById(codentrega).orElseThrow(() -> new ResourceNotFoundException("Erro na Entrega: "+ codentrega));
 	        //ajelEntrega.setCodcidade(ajelEntregaDetails.getCodcidade());
-	        ajelEntrega.setObsdoentregador(ajelEntregaDetails.getObsdoentregador());
-	        ajelEntrega.setLocal(ajelEntregaDetails.getLocal());
-	        ajelEntrega.setCodfornecfrete(ajelEntregaDetails.getCodfornecfrete());
-	        ajelEntrega.setCodfuncconf(ajelEntregaDetails.getCodfuncconf());
-	        ajelEntrega.setCodmotorista(ajelEntregaDetails.getCodmotorista());
+	        entrega.setObsdoentregador(ajelEntregaDetails.getObsdoentregador());
+	        entrega.setLocal(ajelEntregaDetails.getLocal());
+	        entrega.setCodfornecfrete(ajelEntregaDetails.getCodfornecfrete());
+	        entrega.setCodfuncconf(ajelEntregaDetails.getCodfuncconf());
+	        entrega.setCodmotorista(ajelEntregaDetails.getCodmotorista());
 	        //ajelEntrega.setDtentrega(ajelEntregaDetails.getDtentrega());
 	        //ajelEntrega.setEndercob(ajelEntregaDetails.getEndercob());
 	        //ajelEntrega.setNomecidade(ajelEntregaDetails.getNomecidade());
-	        ajelEntrega.setFornecedor(ajelEntregaDetails.getFornecedor());
-	        ajelEntrega.setNomemotorista(ajelEntregaDetails.getNomemotorista());
-	        ajelEntrega.setNomeconf(ajelEntregaDetails.getNomeconf());
-	        ajelEntrega.setLocal(ajelEntregaDetails.getLocal());
+	        entrega.setFornecedor(ajelEntregaDetails.getFornecedor());
+	        entrega.setNomemotorista(ajelEntregaDetails.getNomemotorista());
+	        entrega.setNomeconf(ajelEntregaDetails.getNomeconf());
+	        entrega.setLocal(ajelEntregaDetails.getLocal());
 	        
-			final AjelEntrega updateAjelEntrega = ajelEntregaRepository.save(ajelEntrega);
+			final Entrega updateAjelEntrega = ajelEntregaRepository.save(entrega);
 		  	return ResponseEntity.ok(updateAjelEntrega);
 		   
 	   }
 	
 	@PutMapping("/ajelentrega/dataExlusao/{codentrega}")
-    public ResponseEntity<AjelEntrega> dataExclusao(@PathVariable(value = "codentrega") Long codentrega) throws ResourceNotFoundException {
-        AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega)
+    public ResponseEntity<Entrega> dataExclusao(@PathVariable(value = "codentrega") Long codentrega) throws ResourceNotFoundException {
+        Entrega entrega = ajelEntregaRepository.findById(codentrega)
                 .orElseThrow(() -> new ResourceNotFoundException("Erro na entrega :: " + codentrega));
         
-        ajelEntrega.setDtexclusao(new Date());
+        entrega.setDtexclusao(new Date());
           
 
-        final AjelEntrega updateAjelEntrega = ajelEntregaRepository.save(ajelEntrega);
+        final Entrega updateAjelEntrega = ajelEntregaRepository.save(entrega);
         return ResponseEntity.ok(updateAjelEntrega);
         }
 	
 	 @DeleteMapping("/ajelentrega/{codentrega}")
 	    public Map < String, Boolean > deleteEstoqueCabo(@PathVariable(value = "codentrega") Long codentrega)
 	    throws ResourceNotFoundException {
-	        AjelEntrega ajelEntrega = ajelEntregaRepository.findById(codentrega)
+	        Entrega entrega = ajelEntregaRepository.findById(codentrega)
 	            .orElseThrow(() -> new ResourceNotFoundException("Erro na entrega: " + codentrega));
 
-	        ajelEntregaRepository.delete(ajelEntrega);
+	        ajelEntregaRepository.delete(entrega);
 	        Map < String, Boolean > response = new HashMap < > ();
 	        response.put("deleted", Boolean.TRUE);
 	        return response;

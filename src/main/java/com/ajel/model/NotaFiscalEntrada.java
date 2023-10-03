@@ -3,7 +3,6 @@ package com.ajel.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ public class NotaFiscalEntrada {
     @Column(name = "vltotal")
     private BigDecimal vltotal;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codfornec")
     private Transportadora codfornec;
     

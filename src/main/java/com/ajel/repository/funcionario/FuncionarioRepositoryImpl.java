@@ -41,9 +41,12 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepositoryQuery {
         List<Predicate> predicates = new ArrayList<>();
         if (funcionarioFilter.getCodsetor() != null) {
             predicates.add(builder.equal(root.get("codsetor"), funcionarioFilter.getCodsetor()));
-            predicates.add(builder.equal(root.get("situacao"), "A"));
         }
-
+        
+        if (funcionarioFilter.getAreaatuacao_expedicao() != null) {
+            predicates.add(builder.equal(root.get("areaatuacao_expedicao"), funcionarioFilter.getAreaatuacao_expedicao()));
+        }
+        predicates.add(builder.equal(root.get("situacao"), "A"));
         return predicates.toArray(new Predicate[predicates.size()]);
     }
 

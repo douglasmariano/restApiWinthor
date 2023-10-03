@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="ajel_entrega")
-public class AjelEntrega {
+public class Entrega {
     
     @SequenceGenerator(name = "SEQ_codentrega", sequenceName = "SEQ_codentrega", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_codentrega")
@@ -109,17 +109,15 @@ public class AjelEntrega {
     @Column(name = "dtexclusao")
     public Date dtexclusao;
 
-
-    public AjelEntrega() {
+    public Entrega() {
     }
 
-
-
-    public AjelEntrega(Long codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,String nomecidade, String endercob,
-            BigDecimal numnota, String posicao, BigDecimal codusur, String nomevendedor, Date dtfat, Date dtentrega, BigDecimal codfornecfrete,
-            String fornecedor, BigDecimal codmotorista, String nomemotorista, BigDecimal codcli, String nomecliente, String obs,
-            String obs1, String obsentrega1, String obsentrega2, String obsentrega3, BigDecimal codfuncconf, String nomeconf,
-            BigDecimal vlatend, BigDecimal numvolume, Date dtinclusao, Date dtexclusao) {
+    public Entrega(Long codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,
+            String nomecidade, String endercob, BigDecimal numnota, String posicao, BigDecimal codusur, String nomevendedor,
+            Date dtfat, Date dtentrega, BigDecimal codfornecfrete, String fornecedor, BigDecimal codmotorista,
+            String nomemotorista, BigDecimal codcli, String nomecliente, String obs, String obs1, String obsentrega1,
+            String obsentrega2, String obsentrega3, BigDecimal codfuncconf, String nomeconf, BigDecimal vlatend,
+            BigDecimal numvolume, Date dtinclusao, Date dtexclusao) {
         super();
         this.codentrega = codentrega;
         this.obsdoentregador = obsdoentregador;
@@ -150,7 +148,7 @@ public class AjelEntrega {
         this.vlatend = vlatend;
         this.numvolume = numvolume;
         this.dtinclusao = dtinclusao;
-        this.dtexclusao = dtexclusao;
+        this.dtexclusao = dtexclusao;       
     }
 
 
@@ -215,18 +213,6 @@ public class AjelEntrega {
 
 
 
-    public String getEndercob() {
-        return endercob;
-    }
-
-
-
-    public void setEndercob(String endercob) {
-        this.endercob = endercob;
-    }
-
-    
-
     public String getNomecidade() {
         return nomecidade;
     }
@@ -235,6 +221,18 @@ public class AjelEntrega {
 
     public void setNomecidade(String nomecidade) {
         this.nomecidade = nomecidade;
+    }
+
+
+
+    public String getEndercob() {
+        return endercob;
+    }
+
+
+
+    public void setEndercob(String endercob) {
+        this.endercob = endercob;
     }
 
 

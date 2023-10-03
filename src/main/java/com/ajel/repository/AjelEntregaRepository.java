@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ajel.model.AjelEntrega;
+import com.ajel.model.Entrega;
 import com.ajel.repository.ajelentrega.AjelEntregaRepositoryQuery;
 import com.ajel.repository.filter.AjelEntregaFilter;
 
-public interface AjelEntregaRepository extends JpaRepository<AjelEntrega, Long>, AjelEntregaRepositoryQuery{
+public interface AjelEntregaRepository extends JpaRepository<Entrega, Long>, AjelEntregaRepositoryQuery{
 
-    List<AjelEntrega> pesquisar(AjelEntregaFilter ajelEntregaFilter);   
-    List<AjelEntrega> findByNumnota(Long numnota);       
+    List<Entrega> pesquisar(AjelEntregaFilter ajelEntregaFilter);   
+    List<Entrega> findByNumnota(Long numnota);       
 
 }

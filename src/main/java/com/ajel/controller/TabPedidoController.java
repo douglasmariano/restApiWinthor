@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ajel.controller.payloads.PedidoPayload;
@@ -67,8 +68,8 @@ public class TabPedidoController {
 
     }
 
-    @GetMapping("/tabpedidos/{numped}")
-    public ResponseEntity<Optional<TabPedido>> getTabPedidos(@PathVariable BigDecimal numped) {
+    @GetMapping("/tabpedidos/busca")
+    public ResponseEntity<Optional<TabPedido>> getTabPedidos( @RequestParam(value = "numped") BigDecimal numped) {
         Optional<TabPedido> resultado = tabPedidoRepository.findById(numped);
         return ResponseEntity.ok().body(resultado);
     }
@@ -84,6 +85,12 @@ public class TabPedidoController {
         List<PedidoPayload> resultado = tabPedidoService.findAllPainel();
         return ResponseEntity.ok().body(resultado);
 
+    }
+    
+    @PostMapping("/tabpedidos/numped")
+    public ResponseEntity<Optional<TabPedido>> getTabPedidosNumped(@RequestBody BigDecimal numped) {
+        Optional<TabPedido> resultado = tabPedidoRepository.findById(numped);
+        return ResponseEntity.ok().body(resultado);
     }
 
     @PostMapping("/tabpedidos")
@@ -144,16 +151,19 @@ public class TabPedidoController {
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + numped));
         Pedido pedido = pedidoRepository.findById(numped)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com esse Numped :: " + numped));
-        tabPedido.setCodfuncsep(tabPedidoDetails.getCodfuncsep());
+        
         if(tabPedidoDetails.getDatainiciosep() != null) {
             tabPedido.setDatainiciosep(new Date());
+            tabPedido.setEstoque(tabPedidoDetails.getEstoque());
+            tabPedido.setCodfuncsep(tabPedidoDetails.getCodfuncsep());
         };
         
         if (tabPedidoDetails.getDatafimsep() != null) {
             tabPedido.setDatafimsep(new Date()); 
-            pedido.setDtfinalsep(new Date());
+            pedido.setDtfinalsep(new Date());          
+            tabPedido.setCodfuncsep(tabPedidoDetails.getCodfuncsep());
         };
-         
+        tabPedido.setStatus("E");
         final TabPedido updateTabPedido = tabPedidoRepository.save(tabPedido);
         return ResponseEntity.ok(updateTabPedido);
     }
@@ -180,8 +190,6 @@ public class TabPedidoController {
         final TabPedido updateTabPedido = tabPedidoRepository.save(tabPedido);
         return ResponseEntity.ok(updateTabPedido);
     }
-    
-    
     
 
     @DeleteMapping("/tabpedidos/{NUMPED}")

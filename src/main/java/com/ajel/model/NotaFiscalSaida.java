@@ -3,7 +3,6 @@ package com.ajel.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,11 +30,11 @@ public class NotaFiscalSaida {
     @Column(name = "vltotal")
     private BigDecimal vltotal;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codcli")
     private Cliente codcli;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codusur")
     private Vendedor codusur;
     
@@ -154,8 +153,6 @@ public class NotaFiscalSaida {
     public void setVltotal(BigDecimal vltotal) {
         this.vltotal = vltotal;
     }
-
-
 
     public Cliente getCodcli() {
         return codcli;

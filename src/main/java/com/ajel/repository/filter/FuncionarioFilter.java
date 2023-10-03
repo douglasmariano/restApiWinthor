@@ -6,6 +6,8 @@ public class FuncionarioFilter {
     private String nome;
     
     private Long codsetor;
+    
+    private String areaatuacao_expedicao;
 
     public Long getMatricula() {
         return matricula;
@@ -30,6 +32,15 @@ public class FuncionarioFilter {
     public void setCodsetor(Long codsetor) {
         this.codsetor = codsetor;
     }
+
+    public String getAreaatuacao_expedicao() {
+        return areaatuacao_expedicao;
+    }
+
+    public void setAreaatuacao_expedicao(String areaatuacao_expedicao) {
+        this.areaatuacao_expedicao = areaatuacao_expedicao;
+    }
+    
 
    
     

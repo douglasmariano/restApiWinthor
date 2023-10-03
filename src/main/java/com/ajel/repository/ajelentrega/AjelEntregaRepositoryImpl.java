@@ -14,7 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.ajel.model.AjelEntrega;
+import com.ajel.model.Entrega;
 import com.ajel.repository.filter.AjelEntregaFilter;
 
 public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
@@ -25,11 +25,11 @@ public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
        
         
         @Override
-        public List<AjelEntrega> pesquisar(AjelEntregaFilter ajelEntregaFilter) {
+        public List<Entrega> pesquisar(AjelEntregaFilter ajelEntregaFilter) {
             
             CriteriaBuilder builder = manager.getCriteriaBuilder();
-            CriteriaQuery<AjelEntrega> criteria = builder.createQuery(AjelEntrega.class);       
-            Root<AjelEntrega> root = criteria.from(AjelEntrega.class);
+            CriteriaQuery<Entrega> criteria = builder.createQuery(Entrega.class);       
+            Root<Entrega> root = criteria.from(Entrega.class);
             criteria.select(root);                       
             criteria.orderBy(builder.asc(root.get("dtinclusao"))); 
             
@@ -38,13 +38,13 @@ public class AjelEntregaRepositoryImpl implements AjelEntregaRepositoryQuery{
              
             criteria.where(predicates) ;
             
-            TypedQuery<AjelEntrega> query = manager.createQuery(criteria);
+            TypedQuery<Entrega> query = manager.createQuery(criteria);
             return query.getResultList();
         }   
 
 
         private Predicate[] criarRestricoes(AjelEntregaFilter ajelEntregaFilter, CriteriaBuilder builder,
-                Root<AjelEntrega> root) {
+                Root<Entrega> root) {
             
             LocalDate today = LocalDate.now( ZoneId.systemDefault() );
             Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());

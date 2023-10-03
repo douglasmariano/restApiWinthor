@@ -44,7 +44,13 @@ public class NotaFiscalSaidaRepositoryImpl implements NotaFiscalSaidaRepositoryQ
 			Root<NotaFiscalSaida> root) {
 		
 		List<Predicate> predicates = new ArrayList<>();	
-		predicates.add(builder.equal(root.get("codfilial"), notaFiscalSaidaFilter.getCodfilial()));
+		if(!StringUtils.isEmpty(notaFiscalSaidaFilter.getCodfilial())) {
+		    predicates.add(builder.equal(root.get("codfilial"), notaFiscalSaidaFilter.getCodfilial()));
+		}
+		if(!StringUtils.isEmpty(notaFiscalSaidaFilter.getCodcli())) {
+            predicates.add(builder.equal(root.get("codcli"), notaFiscalSaidaFilter.getCodcli()));
+        }
+		
 		if(!StringUtils.isEmpty(notaFiscalSaidaFilter.getNumnotaInicial())) {
             predicates.add((builder.between(root.get("numnota"), notaFiscalSaidaFilter.getNumnotaInicial(), notaFiscalSaidaFilter.getNumnotaFinal())));
         }

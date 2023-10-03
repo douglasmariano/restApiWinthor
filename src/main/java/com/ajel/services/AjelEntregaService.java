@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import com.ajel.model.AjelEntrega;
+import com.ajel.model.Entrega;
 import com.ajel.repository.filter.AjelEntregaFilter;
 
 @Service
@@ -68,54 +68,54 @@ public class AjelEntregaService {
 		        " left JOIN PCFORNEC f ON pc.CODFORNECFRETE = f.CODFORNEC " +
 		   " WHERE   " +		       
 		       " pc.POSICAO IN ('F') " +
-		       " AND pc.DTENTREGA > SYSDATE - 152 " +
+		       " AND pc.DTENTREGA > SYSDATE - 182 " +
 		       " AND nf.ESPECIE LIKE ('NF')	";	    
 		        
 	}
 	
-	public List<AjelEntrega> getDadosDoResultSet(List<Object[]> results) {
-		List<AjelEntrega> pedidoResult = new ArrayList<>();	    
+	public List<Entrega> getDadosDoResultSet(List<Object[]> results) {
+		List<Entrega> pedidoResult = new ArrayList<>();	    
 	    if (results != null) {
 	    	for (Object[] objects : results) {
-	    	    AjelEntrega ajelEntrega = new AjelEntrega();
+	    	    Entrega entrega = new Entrega();
 	    		int i = 0;
 	    		
 	    		
-	    		ajelEntrega.setNumnota(((BigDecimal) objects[i++]));
-	            ajelEntrega.setEstcob(((String) objects[i++])); 
-	            ajelEntrega.setCodcidade(((BigDecimal) objects[i++]));
-	            ajelEntrega.setNomecidade(((String) objects[i++]));
-	            ajelEntrega.setEndercob(((String) objects[i++])); 
-	    		ajelEntrega.setPosicao(((String) objects[i++])); 
-	            ajelEntrega.setCodusur(((BigDecimal) objects[i++])); 
-	            ajelEntrega.setNomevendedor(((String) objects[i++]));
-	            ajelEntrega.setDtfat(getLocalDateTime(objects[i++]));
-	            ajelEntrega.setDtentrega(getLocalDateTime(objects[i++]));
-	            ajelEntrega.setCodfornecfrete(((BigDecimal) objects[i++])); 
-	            ajelEntrega.setFornecedor(((String) objects[i++])); 
-	            ajelEntrega.setCodmotorista(((BigDecimal) objects[i++])); 
-	            ajelEntrega.setNomemotorista(((String) objects[i++])); 
-	            ajelEntrega.setCodcli(((BigDecimal) objects[i++])); 
-	            ajelEntrega.setNomecliente(((String) objects[i++])); 
-	            ajelEntrega.setObs(((String) objects[i++])); 
-	            ajelEntrega.setObs1(((String) objects[i++])); 
-	            ajelEntrega.setObsentrega1(((String) objects[i++])); 
-                ajelEntrega.setObsentrega2(((String) objects[i++])); 
-                ajelEntrega.setObsentrega3(((String) objects[i++]));
-                ajelEntrega.setCodfuncconf(((BigDecimal) objects[i++]));
-                ajelEntrega.setNomeconf(((String) objects[i++])); 
-                ajelEntrega.setVlatend(((BigDecimal) objects[i++])); 
-                ajelEntrega.setNumvolume(((BigDecimal) objects[i++]));         
+	    		entrega.setNumnota(((BigDecimal) objects[i++]));
+	            entrega.setEstcob(((String) objects[i++])); 
+	            entrega.setCodcidade(((BigDecimal) objects[i++]));
+	            entrega.setNomecidade(((String) objects[i++]));
+	            entrega.setEndercob(((String) objects[i++])); 
+	    		entrega.setPosicao(((String) objects[i++])); 
+	            entrega.setCodusur(((BigDecimal) objects[i++])); 
+	            entrega.setNomevendedor(((String) objects[i++]));
+	            entrega.setDtfat(getLocalDateTime(objects[i++]));
+	            entrega.setDtentrega(getLocalDateTime(objects[i++]));
+	            entrega.setCodfornecfrete(((BigDecimal) objects[i++])); 
+	            entrega.setFornecedor(((String) objects[i++])); 
+	            entrega.setCodmotorista(((BigDecimal) objects[i++])); 
+	            entrega.setNomemotorista(((String) objects[i++])); 
+	            entrega.setCodcli(((BigDecimal) objects[i++])); 
+	            entrega.setNomecliente(((String) objects[i++])); 
+	            entrega.setObs(((String) objects[i++])); 
+	            entrega.setObs1(((String) objects[i++])); 
+	            entrega.setObsentrega1(((String) objects[i++])); 
+                entrega.setObsentrega2(((String) objects[i++])); 
+                entrega.setObsentrega3(((String) objects[i++]));
+                entrega.setCodfuncconf(((BigDecimal) objects[i++]));
+                entrega.setNomeconf(((String) objects[i++])); 
+                entrega.setVlatend(((BigDecimal) objects[i++])); 
+                entrega.setNumvolume(((BigDecimal) objects[i++]));         
 	           
 	    		
-	    			pedidoResult.add(ajelEntrega);
+	    			pedidoResult.add(entrega);
 	    		}
 	    }
 
 	    return pedidoResult;
 	}
 
-	public List<AjelEntrega> findAll() {
+	public List<Entrega> findAll() {
 	    List<Object[]> results = entityManager.createNativeQuery(getInfomacoesEntregaWinthor())
 	    		.getResultList();	    
 	    return getDadosDoResultSet(results);
@@ -123,7 +123,7 @@ public class AjelEntregaService {
 	
 
 
-    public List<AjelEntrega> findByNumnota(AjelEntregaFilter filter) {
+    public List<Entrega> findByNumnota(AjelEntregaFilter filter) {
         
         Query nativeQuery = entityManager.createNativeQuery(getInfomacoesEntregaWinthor() + " AND pc.NUMNOTA = :numnota ORDER BY pc.DTENTREGA DESC");
         nativeQuery.setParameter("numnota", filter.getNumnota());

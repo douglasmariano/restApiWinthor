@@ -1,6 +1,5 @@
 package com.ajel.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,16 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ajel.controller.payloads.LoginPayload;
-import com.ajel.controller.payloads.UsuarioPayload;
 import com.ajel.exception.ResourceNotFoundException;
-import com.ajel.model.AjelEntrega;
-import com.ajel.model.EstoqueCabo;
 import com.ajel.model.NotaFiscalSaida;
 import com.ajel.repository.NotaFiscalSaidaRepository;
-import com.ajel.repository.filter.AjelEntregaFilter;
 import com.ajel.repository.filter.NotaFiscalSaidaFilter;
-import com.ajel.services.UserService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -60,7 +53,7 @@ public class NotaFiscalSaidaController {
 		return ResponseEntity.ok().body(notaFiscalSaida);
 	}
 	
-	@PutMapping("/notafiscalsaida/dataCanhoto/{numtransvenda}/{obsnfcarreg}")
+	@PutMapping("/notafiscalsaida/dataCanhoto/{numtransvenda}")
     public ResponseEntity<NotaFiscalSaida> dataCanhoto(@PathVariable Long numtransvenda,
             @Valid @RequestBody NotaFiscalSaida notaFiscalSaidaDetails) throws ResourceNotFoundException {
         NotaFiscalSaida notaFiscalSaida = notaFiscalSaidaRepository.findById(numtransvenda)

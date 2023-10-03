@@ -18,10 +18,24 @@ public class MotivoBloqueio {
     private String motivo;
     
     private String tipo;
+    
+    public MotivoBloqueio() {
+        
+    }
+    
+    public MotivoBloqueio(Long coddevol, String motivo, String tipo) {
+        super();
+        this.coddevol = coddevol;
+        this.motivo = motivo;
+        this.tipo = tipo;
+    }
 
+    
+    
     public Long getCoddevol() {
         return coddevol;
     }
+
 
     public void setCoddevol(Long coddevol) {
         this.coddevol = coddevol;

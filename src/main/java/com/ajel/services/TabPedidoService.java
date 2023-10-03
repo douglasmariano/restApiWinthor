@@ -340,7 +340,7 @@ public class TabPedidoService {
 		        "           And P.CODUSUR    = V.CODUSUR " +
 		        "           And P.NUMPED     = VV.NUMPED(+) " +
 		        "           And P.NUMPED    = F.NUMPED " +
-		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 150 " +
+		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2 " +
 		        "           and P.CODFILIAL in ('1','2','3','4') " +
 		        "           And NVL(P.RETIRA,'N') <> 'G' " +
 		        "           and P.POSICAO   <> 'C' " +
@@ -414,7 +414,7 @@ public class TabPedidoService {
 		        "           And P.CODUSUR    = V.CODUSUR " +
 		        "           And P.NUMPED     = VV.NUMPED(+) " +
 		        "           And P.NUMPED    = F.NUMPED " +
-		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 150" + 
+		        "           and Trunc(Nvl(P.DATACHEGADACLI,P.DATAPEDIDO)) >= TRUNC(sysdate) - 2" + 
 		        "           and P.CODFILIAL in ('1','2','3','4')" + 
 		        "           and P.POSICAO   <> 'C' " +
 		        "           And NVL(P.RETIRA,'N') <> 'G'  " +
