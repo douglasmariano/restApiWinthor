@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,9 +21,8 @@ public class Transporte {
     @Column(name = "codtransporte")
     public Long  codtransporte;
 
-    @ManyToOne
-    @JoinColumn(name = "codmotorista", referencedColumnName="matricula")
-    public Funcionario  codmotorista;
+    @Column(name = "codmotorista")
+    public BigDecimal  codmotorista;
 
     @Column(name = "codveiculo")
     public BigDecimal codveiculo;
@@ -44,9 +41,8 @@ public class Transporte {
     @Column(name = "tipocarga")
     public String tipocarga;
 
-    @ManyToOne
-    @JoinColumn(name = "codfuncajud", referencedColumnName="matricula")
-    public Funcionario codfuncajud;
+    @Column(name = "codfuncajud")
+    public BigDecimal codfuncajud;
 
     @Column(name = "obsdestino")
     public String obsdestino;
@@ -64,8 +60,8 @@ public class Transporte {
         
     }
 
-    public Transporte(Long codtransporte, Funcionario codmotorista, BigDecimal codveiculo, String destino,
-            Date dtexclusao, Date dtinclusao, String tipocarga, Funcionario codfuncajud, String obsdestino, BigDecimal qtvolumes,
+    public Transporte(Long codtransporte, BigDecimal codmotorista, BigDecimal codveiculo, String destino, Date dtexclusao,
+            Date dtinclusao, String tipocarga, BigDecimal codfuncajud, String obsdestino, BigDecimal qtvolumes,
             BigDecimal codfuncultalter, Date dtultalter) {
         super();
         this.codtransporte = codtransporte;
@@ -90,11 +86,11 @@ public class Transporte {
         this.codtransporte = codtransporte;
     }
 
-    public Funcionario getCodmotorista() {
+    public BigDecimal getCodmotorista() {
         return codmotorista;
     }
 
-    public void setCodmotorista(Funcionario codmotorista) {
+    public void setCodmotorista(BigDecimal codmotorista) {
         this.codmotorista = codmotorista;
     }
 
@@ -138,11 +134,11 @@ public class Transporte {
         this.tipocarga = tipocarga;
     }
 
-    public Funcionario getCodfuncajud() {
+    public BigDecimal getCodfuncajud() {
         return codfuncajud;
     }
 
-    public void setCodfuncajud(Funcionario codfuncajud) {
+    public void setCodfuncajud(BigDecimal codfuncajud) {
         this.codfuncajud = codfuncajud;
     }
 
@@ -158,7 +154,7 @@ public class Transporte {
         return qtvolumes;
     }
 
-    public void setQvolumes(BigDecimal qtvolumes) {
+    public void setQtvolumes(BigDecimal qtvolumes) {
         this.qtvolumes = qtvolumes;
     }
 
@@ -177,7 +173,5 @@ public class Transporte {
     public void setDtultalter(Date dtultalter) {
         this.dtultalter = dtultalter;
     }
-
-    
 
 }

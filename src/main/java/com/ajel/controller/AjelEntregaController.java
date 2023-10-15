@@ -113,6 +113,17 @@ public class AjelEntregaController {
 		   
 	   }
 	
+	@PutMapping("/ajelentrega/alterarVolume/{codentrega}")
+    public ResponseEntity <Entrega> updateVolumeEntrega(@PathVariable(value = "codentrega") Long codentrega,             
+         @Valid @RequestBody Entrega ajelEntregaDetails) throws ResourceNotFoundException{
+         Entrega entrega = ajelEntregaRepository.findById(codentrega).orElseThrow(() -> new ResourceNotFoundException("Erro na Entrega: "+ codentrega));
+         entrega.setNumvolume(ajelEntregaDetails.getNumvolume());
+         
+         final Entrega updateVolumeEntrega = ajelEntregaRepository.save(entrega);
+         return ResponseEntity.ok(updateVolumeEntrega);
+        
+    }
+	
 	@PutMapping("/ajelentrega/dataExlusao/{codentrega}")
     public ResponseEntity<Entrega> dataExclusao(@PathVariable(value = "codentrega") Long codentrega) throws ResourceNotFoundException {
         Entrega entrega = ajelEntregaRepository.findById(codentrega)
