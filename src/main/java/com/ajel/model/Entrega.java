@@ -23,6 +23,9 @@ public class Entrega {
     
     @Column(name = "obsdoentregador")
     public String obsdoentregador;
+    
+    @Column(name = "codfilial")
+    public String codfilial;
 
     @Column(name = "local")
     public String local;
@@ -112,7 +115,7 @@ public class Entrega {
     public Entrega() {
     }
 
-    public Entrega(Long codentrega, String obsdoentregador, String local, String estcob, BigDecimal codcidade,
+    public Entrega(Long codentrega, String obsdoentregador, String codfilial, String local, String estcob, BigDecimal codcidade,
             String nomecidade, String endercob, BigDecimal numnota, String posicao, BigDecimal codusur, String nomevendedor,
             Date dtfat, Date dtentrega, BigDecimal codfornecfrete, String fornecedor, BigDecimal codmotorista,
             String nomemotorista, BigDecimal codcli, String nomecliente, String obs, String obs1, String obsentrega1,
@@ -121,6 +124,7 @@ public class Entrega {
         super();
         this.codentrega = codentrega;
         this.obsdoentregador = obsdoentregador;
+        this.codfilial = codfilial;
         this.local = local;
         this.estcob = estcob;
         this.codcidade = codcidade;
@@ -158,6 +162,13 @@ public class Entrega {
     }
 
 
+    public String getCodfilial() {
+        return codfilial;
+    }
+
+    public void setCodfilial(String codfilial) {
+        this.codfilial = codfilial;
+    }
 
     public void setCodentrega(Long codentrega) {
         this.codentrega = codentrega;
