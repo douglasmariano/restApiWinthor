@@ -43,11 +43,15 @@ public class AjelEntregaTransporteImpl implements AjelEntregaTransporteQuery{
 	private Predicate[] criarRestricoes(AjelEntregaTransporteFilter filter, CriteriaBuilder builder,
 			Root<EntregaTransporte> root) {
 		
-		List<Predicate> predicates = new ArrayList<>();		
-		if(!StringUtils.isEmpty(filter.getCodentrega())) {
-            predicates.add(builder.like(
-                    builder.lower(root.get("codentrega")), "%%"));
-        }
+		List<Predicate> predicates = new ArrayList<>();
+		  if (filter.getCodentrega() != null){
+              predicates.add(builder.equal(root.get("codentrega"), filter.getCodentrega()));                
+          }
+          // usa pra consultar string
+          //if(!StringUtils.isEmpty(filter.getCodentrega())) {  
+          //     predicates.add(builder.like(
+          //             builder.lower(root.get("codentrega")), "%%"));
+          // }
 		
         return predicates.toArray(new Predicate[predicates.size()]);		
 	}

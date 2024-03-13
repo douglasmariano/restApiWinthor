@@ -26,6 +26,7 @@ public class AjelEntregaService {
 	public String getInfomacoesEntregaWinthor(){
 		return 	" SELECT   " +
 		        "   pc.NUMNOTA, " +
+		        "   pc.CODFILIAL, " +
 		        "   c.ESTCOB, " +
 		        "   c.CODCIDADE, " +
 		        "   (SELECT NOMECIDADE FROM PCCIDADE  WHERE CODCIDADE = c.CODCIDADE) AS NOMECIDADE, " +
@@ -68,7 +69,7 @@ public class AjelEntregaService {
 		        " left JOIN PCFORNEC f ON pc.CODFORNECFRETE = f.CODFORNEC " +
 		   " WHERE   " +		       
 		       " pc.POSICAO IN ('F') " +
-		       " AND pc.DTENTREGA > SYSDATE - 182 " +
+		       " AND pc.DTENTREGA > SYSDATE - 250 " +
 		       " AND nf.ESPECIE LIKE ('NF')	";	    
 		        
 	}
@@ -82,6 +83,7 @@ public class AjelEntregaService {
 	    		
 	    		
 	    		entrega.setNumnota(((BigDecimal) objects[i++]));
+	    		entrega.setCodfilial(((String) objects[i++]));
 	            entrega.setEstcob(((String) objects[i++])); 
 	            entrega.setCodcidade(((BigDecimal) objects[i++]));
 	            entrega.setNomecidade(((String) objects[i++]));

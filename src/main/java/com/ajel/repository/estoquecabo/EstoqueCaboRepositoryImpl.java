@@ -41,6 +41,7 @@ public class EstoqueCaboRepositoryImpl implements EstoqueCaboRepositoryQuery{
                 Root<EstoqueCabo> root) {
             
             List<Predicate> predicates = new ArrayList<>();     
+            predicates.add(builder.isNull(root.get("dtexclusao")));                          
             if (estoqueCaboFilter.getCodprod_pcprodut() != null){
                 predicates.add(builder.equal(root.get("codprod_pcprodut"), estoqueCaboFilter.getCodprod_pcprodut()));            
             }

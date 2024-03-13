@@ -76,6 +76,7 @@ public class EstoqueCaboController {
 	public EstoqueCabo createTabPedido(@Valid @RequestBody EstoqueCabo estoqueCabo, Authentication authentication, Principal principal) {
 	    Long userIdByMatricula = userService.getUserIdByMatricula(principal.getName());
 	    estoqueCabo.setMatricula(userIdByMatricula);
+	    estoqueCabo.setDtinclusao(new Date());
 		return estoqueCaboRepository.save(estoqueCabo);
 	}
 
@@ -102,6 +103,21 @@ public class EstoqueCaboController {
 		  	return ResponseEntity.ok(updateEstoqueCabo);
 		   
 	   }
+	
+	   @PutMapping("/estoquecabo/baixaQuantidade/{codcabo}")
+       public ResponseEntity <EstoqueCabo> baixaEstoqueCabo(@PathVariable(value = "codcabo" ) Long codcabo,              
+            @Valid @RequestBody EstoqueCabo estoqueCaboDetails, Authentication authentication, Principal principal ) throws ResourceNotFoundException{
+            EstoqueCabo estoqueCabo = estoqueCaboRepository.findById(codcabo).orElseThrow(() -> new ResourceNotFoundException("Cabo não encontrado com esse Codcabo :: "+ codcabo));
+            estoqueCabo.setQt(estoqueCaboDetails.getQt());
+              if (estoqueCabo.getStatus().equals("FECHADO")) {
+                  estoqueCabo.setStatus("ABERTO");
+              }
+          
+            
+            final EstoqueCabo updateEstoqueCabo = estoqueCaboRepository.save(estoqueCabo);
+            return ResponseEntity.ok(updateEstoqueCabo);
+           
+       }
 	
 	@PutMapping("/estoquecabo/dataExclusao/{codcabo}")
     public ResponseEntity<EstoqueCabo> dataExclusao(@PathVariable(value = "codcabo") Long codcabo) throws ResourceNotFoundException {
